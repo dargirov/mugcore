@@ -1,0 +1,34 @@
+﻿@model MugStore.Web.ViewModels.Blog.IndexViewModel
+@{
+    ViewBag.Title = "Mug3.eu Блог";
+}
+
+@Html.Partial("_MenuPartial")
+
+<section id="blog-posts-page" class="site-section">
+    <h2>Блог</h2>
+    <div>
+        <ol>
+            @foreach (var post in Model.Posts)
+            {
+                <li>
+                    <article>
+                        <header>
+                            <h3><a asp-route="BlogPost" asp-route-acronym="@post.Acronym">@post.Title</a></h3>
+                            <strong>@Html.Raw(post.ShortDescription)</strong>
+                        </header>
+                        <footer>
+                            <ul class="post-tags">
+                                @foreach (var tag in post.Tags)
+                                {
+                                    <li>@tag.PostTag.Name</li>
+                                }
+                            </ul>
+                        </footer>
+                    </article>
+                </li>
+            }
+        </ol>
+    </div>
+</section>
+

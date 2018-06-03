@@ -1,0 +1,84 @@
+﻿@{ 
+    var controllerName = (string)ViewContext.RouteData.Values["controller"];
+    var actionName = (string)ViewContext.RouteData.Values["action"];
+}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="~/admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/admin/css/tether.min.css">
+    <link rel="stylesheet" href="~/admin/css/main.css" asp-append-version="true">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-light bg-faded">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li class="nav-item@(controllerName == "Home" && actionName != "Bulletin" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Home", new { area = "Admin" })">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown@(controllerName == "Product" ? " active" : "")">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin" })">List</a>
+                        <a class="dropdown-item" href="@Url.Action("Create", "Product", new { area = "Admin" })">Add</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Stats</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown@(controllerName == "Blog" ? " active" : "")">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="@Url.Action("Index", "Blog", new { area = "Admin" })">List posts</a>
+                        <a class="dropdown-item" href="@Url.Action("Create", "Blog", new { area = "Admin" })">Add post</a>
+                    </div>
+                </li>
+                <li class="nav-item@(controllerName == "Tag" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Tag", new { area = "Admin" })">Tags</a>
+                </li>
+                <li class="nav-item@(controllerName == "Category" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Category", new { area = "Admin" })">Categories</a>
+                </li>
+                <li class="nav-item@(controllerName == "City" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "City", new { area = "Admin" })">Cities</a>
+                </li>
+                <li class="nav-item dropdown@(controllerName == "Order" ? " active" : "")">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orders</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="@Url.Action("Index", "Order", new { area = "Admin" })">List</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="@Url.Action("UploadedImages", "Order", new { area = "Admin" })">Uploaded Images</a>
+                    </div>
+                </li>
+                <li class="nav-item@(controllerName == "Home" && actionName == "Bulletin" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Bulletin", "Home", new { area = "Admin" })">Bulletin</a>
+                </li>
+                <li class="nav-item  pull-xs-right">
+                    <a class="nav-link" href="@Url.Action("Logout", "Home", new { area = "Admin" })">Logout</a>
+                </li>
+                <li class="nav-item  pull-xs-right">
+                    <a class="nav-link" href="@Url.Action("Index", "Home", new { area = string.Empty })" target="_blank">Main Site</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <script src="~/js/libs/jquery-2.2.3.min.js"></script>
+    <script src="~/admin/js/main.js" asp-append-version="true"></script>
+    <script src="~/admin/js/tether.min.js"></script>
+    <script src="~/admin/js/bootstrap.min.js"></script>
+    <script src="~/admin/js/Chart.bundle.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+﻿@model MugStore.Web.ViewModels.Product.IndexViewModel
+@{
+    ViewBag.Title = Model.PageTitle;
+}
+
+@Html.Partial("_CanvasPartial")
+@Html.Partial("_MenuPartial")
+
+@{
+    var previewImagesList = new List<string>();
+    foreach (var image in Model.Images)
+    {
+        if (image.Preview3d)
+        {
+            previewImagesList.Add(image.Name);
+        }
+    }
+}
+
+<section id="product-details" class="site-section" itemscope itemtype="http://schema.org/Product" data-preview-images="@string.Join(",", previewImagesList)">
+    <div>
+        <div id="product-details-upper-container">
+            <div id="image-gallery">
+                <a class="gallery-img" asp-route="ProductImage" asp-route-name="@(Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name)"><img src="@Url.RouteUrl("ProductImage", new { name = Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name })"></a>
+                <ul>
+                    @{
+                        var count = 0;
+                        foreach (var image in Model.Images)
+                        {
+                            if (image.Preview3d || image.Thumb)
+                            {
+                                continue;
+                            }
+
+                            if (count++ == 0)
+                            {
+                                continue;
+                            }
+
+                            <li><a class="gallery-img" href="@Url.RouteUrl("ProductImage", new { name = image.Name })"><img itemprop="image" src="@Url.RouteUrl("ProductImage", new { name = image.Name })" alt="@(Model.PageTitle?.Replace("\"", ""))"></a></li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div id="product-details-info">
+                <h1 itemprop="name">@Model.Title</h1>
+                <h2 itemprop="description">@Model.Description</h2>
+                <strong>Код на продукт: @Model.Code</strong>
+                <meta itemprop="productID" content="@Model.Code" />
+                <ul>
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <li><a asp-route="Tag" asp-route-acronym="@tag.Acronym">@tag.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="product-details-full-info">
+            <ul>
+                <li>
+                    <div class="product-details-full-info-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
+                    <div><strong>Информация</strong>Предлагаме ви керамичнa чаша със специално покритие предназначено за печат. Чашата се продава опакована в найлон и собствена кутия.</div>
+                </li>
+                <li>
+                    <div class="product-details-full-info-icon">
+                        <i class="fa fa-beer" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <strong>Размери на продукт</strong>
+                        <ol>
+                            <li>Височина: 10см. диаметър: 8.5см.</li>
+                            <li>Състав: Керамика</li>
+                            <li>Обем: 330мл.</li>
+                        </ol>
+                    </div>
+                </li>
+                <li>
+                    <div class="product-details-full-info-icon"><i class="fa fa-comments" aria-hidden="true"></i></div>
+                    <div>
+                        <strong>За консултация</strong>
+                        Може да се свържете с нас чрез:
+                        <ol>
+                            <li>тел. @Model.Phone в работно време</li>
+                            <li>email: @Model.Email</li>
+                            <li><a href="@Url.Action("contacts", "home")">формата за контакти</a> или заповядайте в нашия офис в гр. Асеновград</li>
+                        </ol>
+                    </div>
+                </li>
+                <li>
+                    <div class="product-details-full-info-icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                    <div>
+                        <strong>Доставка</strong>
+                        Доставката
+                        @if (ViewBag.DeliveryPrice > 0)
+                        {
+                            @:е на стойност @string.Format("{0:0.00}", ViewBag.DeliveryPrice) лв.
+                        }
+                        else
+                        {
+                            @:е за ваша сметка
+                        }
+                        и може да се извърши до адрес или офис на избрана от вас куриерска фирма.
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <div id="product-details-order">
+            <h2 id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                Цена:
+                <span itemprop="price" content="@(ViewBag.SingleMugPrice + ViewBag.DeliveryPrice)">
+                    @string.Format("{0:0.00}", ViewBag.SingleMugPrice + ViewBag.DeliveryPrice)
+                </span>
+                <span itemprop="priceCurrency" content="BGN">лв.</span>
+                <link itemprop="availability" href="http://schema.org/InStock" />
+            </h2>
+            <h3 id="product-price-info">
+                @if (ViewBag.DeliveryPrice > 0)
+                {
+                    @:в цената е включена доставка
+                }
+                else
+                {
+                    @:в цената <b>не</b> е включена доставка <i class="fa fa-question-circle-o popover" aria-hidden="true" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от&lt;br&gt;тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i>
+                }
+            </h3>
+            <div id="step3" class="hidden">
+                <strong><span class="circle">1</span> Попълни данни за доставка</strong>
+                <input type="text" name="names" id="names-field" placeholder="Име и фамилия">
+                <input type="text" name="phone" id="phone-field" placeholder="Тел. за контакт">
+                <select name="city" id="city-dd">
+                    @foreach (var city in ViewBag.Cities)
+                    {
+                        <option value="@city.Id">@city.Name (п.к. @city.PostCode)</option>
+                    }
+                </select>
+                @if (ViewBag.DeliveryPrice == 0)
+                {
+                    <select name="courier" id="courier-dd">
+                        @foreach (var courier in ViewBag.Couriers)
+                        {
+                            <option value="@courier.Id">@courier.Name</option>
+                        }
+                    </select>
+                }
+                <textarea name="address" id="address-field" placeholder="Адрес за доставка"></textarea>
+                <textarea name="comment" id="comment-field" placeholder="Коментар / забележка (незадължително)"></textarea>
+                <input type="hidden" id="quantity-range" value="1">
+                <input type="hidden" id="payment-method" value="1">
+                <input type="hidden" id="product-acronym" value="@Model.Acronym">
+                <a href="#disabled" class="blue-btn hidden" id="create-order-btn" data-url="@Url.Action("Create", "Order")">Поръчай</a>
+            </div>
+            <div id="step4" class="hidden">
+                <div class="status-success">Успешно завършихте вашата поръчка</div>
+                <strong id="step4-acronym">Поръчка №<span></span></strong>
+                <dl>
+                    <dt>Метод на плащане:</dt>
+                    <dd id="step4-payment-method"></dd>
+                    <dt id="step4-courier-dt" class="hidden">Куриер:</dt>
+                    <dd id="step4-courier" class="hidden"></dd>
+                    <dt>Адрес за доставка:</dt>
+                    <dd id="step4-address"></dd>
+                    <dt>Крайна цена:</dt>
+                    <dd id="step4-price"></dd>
+                </dl>
+                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="fa fa-question-circle-o popover" aria-hidden="true" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от&lt;br&gt;тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i></div>
+            </div>
+            <a href="#disabled" class="blue-btn" id="show-form-btn">Поръчай</a>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/js/libs/jquery.colorbox-min.js"></script>
+    <script src="~/js/product.js"></script>
+}

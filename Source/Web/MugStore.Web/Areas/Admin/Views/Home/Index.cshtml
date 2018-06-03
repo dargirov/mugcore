@@ -1,0 +1,86 @@
+﻿@model MugStore.Web.Areas.Admin.ViewModels.Home.IndexViewModel
+@{
+    ViewBag.Title = "Mug3 Admin";
+}
+@using MugStore.Data.Models;
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Summary</h3>
+        <ul class="list-group">
+            @{
+                var newCount = Model.Orders.Where(o => (o.ConfirmationStatus == ConfirmationStatus.Pending || o.ConfirmationStatus == ConfirmationStatus.Confirmed) && o.OrderStatus == OrderStatus.InProgress).Count();
+            }
+            <li class="list-group-item@(newCount > 0 ? " list-group-item-warning" : "")">
+                <span class="tag tag-default tag-pill pull-xs-right">@newCount</span>
+                <h6 class="list-group-item-heading">Orders new</h6>
+                <p class="list-group-item-text">Pending or confirmed and in progress</p>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@Model.Orders.Where(o => o.OrderStatus == OrderStatus.Finalized).Count()</span>
+                <h6 class="list-group-item-heading">Orders finalized</h6>
+                <p class="list-group-item-text">Finalized</p>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@Model.Orders.Where(o => o.OrderStatus == OrderStatus.DeniedOnDelivery || o.OrderStatus == OrderStatus.Refunded || o.OrderStatus == OrderStatus.Returned).Count()</span>
+                <h6 class="list-group-item-heading">Orders returned</h6>
+                <p class="list-group-item-text">Denied on delivery, refunded, returned</p>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@Model.Images.Count()</span>
+                <h6 class="list-group-item-heading">Uploaded images</h6>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@Model.Bulletin.Count()</span>
+                <h6 class="list-group-item-heading">Emails for bulletin</h6>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-7 offset-md-1">
+        <h3>Prices</h3>
+        <canvas id="priceChart" data-labels="@Html.Raw(string.Join(", ", Model.PriceChartOrders.Select(x => $"{x.CreatedOn.ToString("dd MMM yy")}")))" data-price-customer="@Html.Raw(string.Join(", ", Model.PriceChartOrders.Select(x => $"{x.PriceCustomer}")))" data-price-supplier="@Html.Raw(string.Join(", ", Model.PriceChartOrders.Select(x => $"{x.PriceSupplier}")))"></canvas>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3 id="feedback-section" data-url-status="@Url.Action("FeedbackStatus")" data-url-delete="@Url.Action("FeedbackDelete")">Feedback</h3>
+        <ul class="list-group">
+            @foreach (var feedback in Model.Feedbacks)
+            {
+                <li class="list-group-item@(feedback.IsNew ? " list-group-item-warning" : "")">
+                    @if (feedback.IsNew)
+                    {
+                        <span class="tag tag-default tag-pill pull-xs-right"><a href="#" title="Mark as seen" data-id="@feedback.Id" class="feedback-status">!</a></span>
+                    }
+
+                    <span class="tag tag-default tag-pill pull-xs-right"><a href="#" title="Delete" data-id="@feedback.Id" class="feedback-delete">X</a></span>
+                    <h6 class="list-group-item-heading">From: @feedback.Name<br>Email: @feedback.Email</h6>
+                    <p class="list-group-item-text">@feedback.Text</p>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="col-md-6">
+        <h3>Site Log</h3>
+        <ul class="list-group" id="log-container">
+            @foreach (var log in Model.LogMessages)
+            {
+                <li class="list-group-item">
+                    @if (log.Code != null)
+                    {
+                        <span class="tag tag-default tag-pill pull-xs-right">@log.Code</span>
+                    }
+
+                    <p class="list-group-item-text">@log.CreatedOn.ToString("dd.MM.yyyy; HH:mm") - @log.Level.ToString() - @log.Content</p>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/admin/js/index.js"></script>
+}

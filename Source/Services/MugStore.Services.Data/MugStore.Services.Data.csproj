@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\MugStore.Data.Models\MugStore.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\MugStore.Data\MugStore.Data.csproj" />
+  </ItemGroup>
+
+</Project>

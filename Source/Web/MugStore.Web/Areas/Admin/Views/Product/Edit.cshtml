@@ -1,0 +1,144 @@
+﻿@model MugStore.Web.Areas.Admin.ViewModels.Product.CreateViewModel
+@{
+    ViewBag.Title = Model.Title + " - Mug3 Admin";
+}
+@Html.Partial("_MainDataPartial")
+
+<div class="row margin-top">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Images</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="images-list" data-edit-url="@Url.Action("EditImage", "Product")" data-product-id="@Model.Id">
+                @foreach (var image in Model.Images)
+                {
+                    var classNamePreview = "btn-secondary";
+                    var typePreview = "add";
+                    if (image.Preview3d)
+                    {
+                        classNamePreview = "btn-danger";
+                        typePreview = "remove";
+                    }
+
+                    var classNameThumb = "btn-secondary";
+                    var typeThumb = "add";
+                    if (image.Thumb)
+                    {
+                        classNameThumb = "btn-danger";
+                        typeThumb = "remove";
+                    }
+                    <li>
+                        <a href="@Url.RouteUrl("ProductImage", new { name = image.Name })" target="_blank">
+                            @if (image.Preview3d)
+                            {
+                                @:Click to open
+                            }
+                            else
+                            {
+                                <img src="@Url.RouteUrl("ProductImage", new { name = image.Name })" style="max-width: 200px;">
+                            }
+                        </a>
+                        <br>
+                        <a href="#disabled" data-image-id="@image.Id" data-type="@typePreview" class="btn @classNamePreview btn-sm btn-preview">Preview 3D</a>
+                        <a href="#disabled" data-image-id="@image.Id" data-type="@typeThumb" class="btn @classNameThumb btn-sm btn-thumb">Thumb</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("Upload", "Product", FormMethod.Post, new { area = "admin", enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-12">
+                @Html.HiddenFor(p => p.Id)
+                @Html.AntiForgeryToken()
+                <input type="file" name="file" id="file">
+            </div>
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-primary" value="Upload">
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row margin-top">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Tags</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <ul id="product-tag-list" data-product-id="@Model.Id" data-url="@Url.Action("EditTag", "Product")">
+                @foreach (var tag in Model.AllTags)
+                {
+                    <li>@tag.Name <a href="#disabled" class="btn btn-secondary btn-sm add-tag-btn" data-tag-id="@tag.Id">Add</a></li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul id="product-tag-list-right">
+                @foreach (var tag in Model.Tags)
+                {
+                    <li>@tag.Name <a href="#disabled" class="btn btn-secondary btn-sm remove-tag-btn" data-tag-id="@tag.Id">Remove</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+
+            $('.add-tag-btn').on('click', { type: 'add' }, addTagBtnClick);
+            $('.remove-tag-btn').on('click', { type: 'remove' }, addTagBtnClick);
+
+            function addTagBtnClick(e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var tagId = $(this).data('tag-id');
+                var productId = $('#product-tag-list').data('product-id');
+                var type = e.data.type;
+                var url = $('#product-tag-list').data('url');
+                var csrf = $('input[name=__RequestVerificationToken]').first().val();
+                
+                $.ajax({ method: 'POST', url: url, data: { tagId: tagId, productId: productId, type: type, __RequestVerificationToken: csrf } })
+                    .done(function (response) {
+                        if (response.success) {
+                            if (type === 'remove') {
+                                $btn.parent().remove();
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    });
+            }
+
+            $('.btn-thumb').on('click', { type: 'thumb' }, btnPreviewThumbClick);
+            $('.btn-preview').on('click', { type: 'preview' }, btnPreviewThumbClick);
+            function btnPreviewThumbClick(e) {
+                e.preventDefault();
+                var url = $('#images-list').data('edit-url');
+                var productId = $('#images-list').data('product-id');
+                var imageId = $(this).data('image-id');
+                var type = $(this).data('type');
+                var imageType = e.data.type;
+                var csrf = $('input[name=__RequestVerificationToken]').first().val();
+
+                $.ajax({ method: 'POST', url: url, data: { productId: productId, imageId: imageId, type: type, imageType: imageType, __RequestVerificationToken: csrf } })
+                    .done(function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Error');
+                        }
+                    });
+            }
+
+        });
+    </script>
+}

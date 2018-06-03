@@ -1,0 +1,90 @@
+﻿@model MugStore.Web.ViewModels.Home.ContactsViewModel
+@{
+    ViewBag.Title = "За контакти - Чаша с уникален дизайн";
+}
+
+@Html.Partial("_MenuPartial")
+
+<section id="contacts" class="site-section">
+    <h2>Контакти</h2>
+    <h4>За всякакви въпроси и коментари може да използвате контактите посочени по-долу</h4>
+    <div style="width: 100%; height: 400px; background-color: #ccc; margin-bottom: 30px;" id="map">
+
+    </div>
+    <div>
+        Фирмата е от 2004г. на пазара. През това време успя да се наложи с качествената продукция и точността си към клиентите. Работим само с качествени материали. Работим както единични бройки, така и по-голeми тиражи. От скоро се занимаваме и с изработка на чаши.
+    </div>
+    <div>
+        <ul>
+            <li>Адрес:</li>
+            <li>Асеновград<br>ул. Борислав №2 (срещу магазин LIDL)</li>
+            <li>Телефон:</li>
+            <li>@Model.Phone</li>
+            <li>Email:</li>
+            <li>@Model.Email</li>
+        </ul>
+    </div>
+</section>
+
+<section id="contact-form">
+    <div class="site-section">
+        <h2>Директен контакт</h2>
+        <form method="post" action="@Url.Action("Contacts", "Home")">
+            @if (this.ViewBag.MailSend != null)
+            {
+                if (this.ViewBag.MailSend)
+                {
+                    <strong class="status-success-block">Съобщението е изпратено успешно</strong>
+                }
+                else
+                {
+                    <strong class="status-error-block">Попълнете всички полета коректно</strong>
+                }
+            }
+            @Html.AntiForgeryToken()
+            <input type="text" name="name" placeholder="Име" required="required">
+            <input type="email" name="email" placeholder="Email адрес за обратна връзка" required="required">
+            <textarea name="comment" placeholder="Съобщение/Въпрос" required="required"></textarea>
+            <div>
+                <img src="~/images/captcha-sadxcvfasqgsoius.png" alt="captcha">
+                <input type="text" name="captcha" placeholder="Въведете сумата на числата" required="required">
+            </div>
+            <a href="#" class="blue-btn" id="contacts-send-email-btn">Изпрати</a>
+        </form>
+    </div>
+</section>
+
+
+
+@section scripts {
+    <script>
+        $(function () {
+
+            $('#contacts-send-email-btn').on('click', sendEmailBtnClick);
+            function sendEmailBtnClick(e) {
+                e.preventDefault();
+                $('#contact-form').find('form').submit();
+            }
+
+        });
+
+        var map;
+        function initialize() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 16,
+                center: new google.maps.LatLng(42.014304, 24.867672),
+            });
+
+            function addMarker(feature) {
+                var marker = new google.maps.Marker({
+                    position: feature.position,
+                    map: map
+                });
+            }
+
+            addMarker({ position: new google.maps.LatLng(42.014288, 24.868096), type: 'info' });
+        }
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxPmPN3oueCJAXWbJC3rfHgNSDvfs6Bhg&callback=initialize"></script>
+}

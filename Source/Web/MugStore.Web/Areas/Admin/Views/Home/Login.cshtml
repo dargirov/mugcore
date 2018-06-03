@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="~/admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/admin/css/tether.min.css">
+    <link rel="stylesheet" href="~/admin/css/main.css" asp-append-version="true">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <form class="form-inline" method="post" action="@Url.Action("Login", "Home", new { area = "Admin" })">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="sr-only" for="email">Email address</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/js/libs/jquery-2.2.3.min.js"></script>
+    <script src="~/admin/js/main.js" asp-append-version="true"></script>
+    <script src="~/admin/js/tether.min.js"></script>
+    <script src="~/admin/js/bootstrap.min.js"></script>
+
+</body>
+</html>

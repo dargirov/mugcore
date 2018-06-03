@@ -1,0 +1,131 @@
+﻿@model MugStore.Web.ViewModels.Home.IndexViewModel
+@{
+    ViewBag.Title = "Чаша със снимка - направи си сам чаша със снимки в 3D изглед";
+}
+
+@Html.Partial("_CanvasPartial")
+@Html.Partial("_MenuPartial")
+
+<section id="about-us-summary" class="site-section">
+    <h2>Защо чаша със снимка?</h2>
+    <h4>Направете уникален подарък на достъпна цена</h4>
+    <div>
+        <span><strong>Чаша със снимка</strong> е уникален начин да зарадвате ваш близък или познат. Това е оригинален подарък за малки и големи, роднини, колеги и познати. Чрез този сайт може да направите <strong>собствен дизайн</strong>, който да ви гарантира <strong>уникалност на чашата</strong>.</span>
+        <span>Предлагаме класически бели керамични чаши с голяма дръжка и обем от 330мл. Могат да се използват безпроблемно за топли напитки като кафе и чай както и да се поставят в микровълнова фурна.</span>
+    </div>
+</section>
+
+@{
+    string circleClass = Model.MugInfoType != "white" ? "circle-white" : "";
+}
+<section id="how-to-create" class="how-to-create-@Model.MugInfoType">
+    <div class="site-section">
+        <h2>Как да си направите чаша?</h2>
+        <div id="how-to-info">
+            <div>
+                <ul id="how-to-info-left">
+                    <li>
+                        <div><span class="circle @circleClass">1</span> Качете до 3 снимки</div>
+                        <div class="description">Може да качите до 3 снимки. За максимално качество ви препоръчваме да използвате изображения с висока резолюция - 2362px x 1004px при 300dpi.</div>
+                    </li>
+                    <li>
+                        <div><span class="circle @circleClass">3</span> Изберете количество и начин на плащане</div>
+                        <div class="description">Според избраното количество и начин на плащане се определя крайната цена.</div>
+                    </li>
+                </ul>
+            </div>
+            <div><img src="~/images/mug-@(Model.MugInfoType).jpg"></div>
+            <div>
+                <ul id="how-to-info-right">
+                    <li>
+                        <div><span class="circle @circleClass">2</span> Изберете позиция върху чашата</div>
+                        <div class="description">Използвайте стрелките за да позиционирате изображенията върху чашата.</div>
+                    </li>
+                    <li>
+                        <div><span class="circle @circleClass">4</span> Въведете информация за доставка</div>
+                        <div class="description">Въведете име, телефон и адрес за доставка. Не се изисква регистрация за да направите поръчка.</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="recommended-products" class="recommended-products-@Model.MugInfoType">
+    <div class="site-section">
+        <h2>Последни продукти</h2>
+        <div class="touchcarousel">
+            <div class="touchcarousel-wrapper">
+                <ul class="touchcarousel-container">
+                    @foreach (var product in Model.Products)
+                    {
+                        <li class="touchcarousel-item">
+                            <a asp-route="Product" asp-route-acronym="@product.Acronym">
+                                <img src="@Url.RouteUrl("ProductImage", new { name = product.Images.Where(i => i.Thumb).First().Name })" alt="@(product.PageTitle?.Replace("\"", ""))">
+                            </a>
+                            <strong>@product.Title</strong>
+                            <a asp-route="Product" asp-route-acronym="@product.Acronym" class="blue-btn">Виж повече</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.BlogPosts.Count() > 0)
+{
+    <section id="blog-posts" class="blog-post-@Model.MugInfoType-inv">
+        <div class="site-section">
+            <h2>Блог</h2>
+            <div>
+                <ul>
+                    @foreach (var post in Model.BlogPosts)
+                    {
+                        <li>
+                            <span><a asp-route="BlogPost" asp-route-acronym="@post.Acronym">@post.Title</a></span>
+                            <span>@Html.Raw(post.ShortDescription)</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+}
+
+@section scripts {
+    <script src="~/js/libs/jquery.colorbox-min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var scene = Scene;
+
+            if (!scene.isSupported()) {
+                $('#canvas-container').remove();
+            } else {
+                scene.init({ canvasId: 'canvas' });
+
+                var mug1 = Mug;
+                mug1.init('createMug', { x: 0, height: 2, z: 0 }, scene.getScene());
+                mug1.create();
+
+                var cart = Cart;
+                cart.init({ mug: mug1 });
+            }
+
+            $('#recommended-products').touchCarousel({
+                itemsPerPage: 4,
+                scrollbar: false,
+                scrollbarAutoHide: true,
+                pagingNav: false,
+                snapToItems: true,
+                scrollToLast: true,
+                useWebkit3d: true,
+                loopItems: true,
+                autoplay: true,
+                autoplayDelay: 4500
+            });
+
+        });
+    </script>
+}
