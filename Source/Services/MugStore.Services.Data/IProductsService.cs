@@ -14,7 +14,5 @@ namespace MugStore.Services.Data
         IQueryable<Product> Get();
 
         void Save();
-
-        IQueryable<Product> GetByTag(ProductTag tag);
     }
 }

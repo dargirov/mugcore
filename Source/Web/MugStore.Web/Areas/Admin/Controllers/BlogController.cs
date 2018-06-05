@@ -120,18 +120,13 @@ namespace MugStore.Web.Areas.Admin.Controllers
                 return this.Json(new { success = false });
             }
 
-            var postTagPost = new PostTagPost()
-            {
-                Post = post,
-                PostTag = tag
-            };
-
             switch (type)
             {
                 case "add":
-                    post.Tags.Add(postTagPost);
+                    post.Tags.Add(new PostTagPost() { Post = post, PostTag = tag });
                     break;
                 case "remove":
+                    var postTagPost = post.Tags.FirstOrDefault(x => x.PostTagId == tagId);
                     post.Tags.Remove(postTagPost);
                     break;
             }

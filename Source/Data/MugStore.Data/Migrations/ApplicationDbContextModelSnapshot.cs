@@ -394,16 +394,6 @@ namespace MugStore.Data.Migrations
 
                     b.Property<int>("PostTagId");
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<int>("Id");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
                     b.HasKey("PostId", "PostTagId");
 
                     b.HasIndex("PostTagId");
@@ -537,16 +527,6 @@ namespace MugStore.Data.Migrations
 
                     b.Property<int>("ProductTagId");
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<int>("Id");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
                     b.HasKey("ProductId", "ProductTagId");
 
                     b.HasIndex("ProductTagId");
@@ -617,7 +597,7 @@ namespace MugStore.Data.Migrations
             modelBuilder.Entity("MugStore.Data.Models.ProductTagProduct", b =>
                 {
                     b.HasOne("MugStore.Data.Models.Product", "Product")
-                        .WithMany("ProductTags")
+                        .WithMany("Tags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 

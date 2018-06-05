@@ -1,6 +1,6 @@
 ﻿namespace MugStore.Data.Models
 {
-    public class ProductTagProduct : BaseModel<int>
+    public class ProductTagProduct
     {
         public int ProductTagId { get; set; }
         public ProductTag ProductTag { get; set; }

@@ -9,7 +9,7 @@ using MugStore.Data;
 namespace MugStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180603112918_initial")]
+    [Migration("20180605034950_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -396,16 +396,6 @@ namespace MugStore.Data.Migrations
 
                     b.Property<int>("PostTagId");
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<int>("Id");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
                     b.HasKey("PostId", "PostTagId");
 
                     b.HasIndex("PostTagId");
@@ -539,16 +529,6 @@ namespace MugStore.Data.Migrations
 
                     b.Property<int>("ProductTagId");
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<int>("Id");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
                     b.HasKey("ProductId", "ProductTagId");
 
                     b.HasIndex("ProductTagId");
@@ -619,7 +599,7 @@ namespace MugStore.Data.Migrations
             modelBuilder.Entity("MugStore.Data.Models.ProductTagProduct", b =>
                 {
                     b.HasOne("MugStore.Data.Models.Product", "Product")
-                        .WithMany("ProductTags")
+                        .WithMany("Tags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 

@@ -86,7 +86,7 @@ namespace MugStore.Web.Controllers
 
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.PageDescription = $"Колекция от чаши със снимки за {tag.Name} в 3D изглед.";
-            var products = this.products.GetByTag(tag).ToList();
+            var products = tag.Products.Select(x => x.Product).ToList();
             var categories = this.categories.Get().OrderBy(c => c.Order).ToList();
 
             var viewModel = new IndexViewModel()

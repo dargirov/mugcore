@@ -188,19 +188,14 @@ namespace MugStore.Web.Areas.Admin.Controllers
                 return this.Json(new { success = false });
             }
 
-            var productTag = new ProductTagProduct()
-            {
-                Product = product,
-                ProductTag = tag
-            };
-
             switch (type)
             {
                 case "add":
-                    product.ProductTags.Add(productTag);
+                    product.Tags.Add(new ProductTagProduct() { Product = product, ProductTag = tag });
                     break;
                 case "remove":
-                    product.ProductTags.Remove(productTag);
+                    var productTagProduct = product.Tags.FirstOrDefault(x => x.ProductTagId == tagId);
+                    product.Tags.Remove(productTagProduct);
                     break;
             }
 

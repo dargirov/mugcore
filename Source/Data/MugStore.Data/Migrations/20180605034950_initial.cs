@@ -253,11 +253,6 @@ namespace MugStore.Data.Migrations
                 name: "PostTagPosts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
                     PostId = table.Column<int>(nullable: false),
                     PostTagId = table.Column<int>(nullable: false)
                 },
@@ -311,11 +306,6 @@ namespace MugStore.Data.Migrations
                 name: "ProductTagProducts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
                     ProductTagId = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: false)
                 },

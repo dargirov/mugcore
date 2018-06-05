@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MugStore.Data;
 using MugStore.Data.Models;
-using System;
 using System.Linq;
 
 namespace MugStore.Services.Data
@@ -9,12 +8,10 @@ namespace MugStore.Services.Data
     public class ProductsService : IProductsService
     {
         private readonly IDbRepository<Product> products;
-        private readonly IDbRepository<ProductTagProduct> productTagProducts;
 
-        public ProductsService(IDbRepository<Product> products, IDbRepository<ProductTagProduct> productTagProducts)
+        public ProductsService(IDbRepository<Product> products)
         {
             this.products = products;
-            this.productTagProducts = productTagProducts;
         }
 
         public void Create(Product product)
@@ -27,7 +24,7 @@ namespace MugStore.Services.Data
         {
             return this.products.All()
                 .Include(x => x.Images)
-                .Include(x => x.ProductTags)
+                .Include(x => x.Tags)
                 .ThenInclude(x => x.ProductTag)
                 .Where(p => p.Acronym == acronym)
                 .FirstOrDefault();
@@ -43,7 +40,7 @@ namespace MugStore.Services.Data
             return this.products.All()
                 .Where(x => x.Id == id)
                 .Include(x => x.Images)
-                .Include(x => x.ProductTags)
+                .Include(x => x.Tags)
                 .ThenInclude(x => x.ProductTag)
                 .FirstOrDefault();
         }
@@ -51,13 +48,6 @@ namespace MugStore.Services.Data
         public void Save()
         {
             this.products.Save();
-        }
-
-        public IQueryable<Product> GetByTag(ProductTag tag)
-        {
-            return this.productTagProducts.All()
-                .Where(x => x.ProductTag == tag)
-                .Select(x => x.Product);
         }
     }
 }

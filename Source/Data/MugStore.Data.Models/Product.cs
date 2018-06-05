@@ -9,7 +9,7 @@ namespace MugStore.Data.Models
         public Product()
         {
             this.Images = new HashSet<ProductImage>();
-            this.ProductTags = new HashSet<ProductTagProduct>();
+            this.Tags = new HashSet<ProductTagProduct>();
         }
 
         [Required]
@@ -39,7 +39,7 @@ namespace MugStore.Data.Models
 
         public virtual ICollection<ProductImage> Images { get; set; }
 
-        public virtual ICollection<ProductTagProduct> ProductTags { get; set; }
+        public virtual ICollection<ProductTagProduct> Tags { get; set; }
 
         [MaxLength(GlobalConstants.LinkToProductImageMaxLength)]
         public string LinkToSource { get; set; }

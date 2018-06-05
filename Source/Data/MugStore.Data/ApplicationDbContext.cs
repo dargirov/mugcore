@@ -110,7 +110,7 @@ namespace MugStore.Data
 
             modelBuilder.Entity<ProductTagProduct>()
                 .HasOne(x => x.Product)
-                .WithMany(x => x.ProductTags)
+                .WithMany(x => x.Tags)
                 .HasForeignKey(x => x.ProductId);
 
             modelBuilder.Entity<ProductTagProduct>()

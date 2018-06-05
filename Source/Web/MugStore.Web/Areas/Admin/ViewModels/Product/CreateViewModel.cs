@@ -53,7 +53,7 @@ namespace MugStore.Web.Areas.Admin.ViewModels.Product
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Data.Models.Product, CreateViewModel>()
-                .ForMember(x => x.Tags, x => x.MapFrom(y => y.ProductTags.Select(t => t.ProductTag)));
+                .ForMember(x => x.Tags, x => x.MapFrom(y => y.Tags.Select(t => t.ProductTag)));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MugStore.Data.Models
 {
-    public class PostTagPost : BaseModel<int>
+    public class PostTagPost
     {
         public int PostId { get; set; }
         public Post Post { get; set; }
