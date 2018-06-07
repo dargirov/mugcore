@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MugStore.Common;
+using MugStore.Services.Common;
 using MugStore.Services.Data;
 using SixLabors.ImageSharp;
 using System;
@@ -28,7 +29,7 @@ namespace MugStore.Web.Controllers
                 return NotFound(name);
             }
 
-            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToUploadImages, image.Path), image.Name);
+            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToUploadImages.FixOsPath(), image.Path), image.Name);
         }
 
         public IActionResult ProductImage(string name)
@@ -39,14 +40,14 @@ namespace MugStore.Web.Controllers
                 return NotFound(name);
             }
 
-            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToGalleryImages, image.Path), image.Name);
+            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToGalleryImages.FixOsPath(), image.Path), image.Name);
         }
 
         public IActionResult Upload()
         {
             try
             {
-                var imagesPath = Path.Combine(this.hostingEnvironment.ContentRootPath, GlobalConstants.PathToUploadImages);
+                var imagesPath = Path.Combine(this.hostingEnvironment.ContentRootPath, GlobalConstants.PathToUploadImages.FixOsPath());
                 var datePath = string.Format(@"{0}\{1}\", DateTime.Today.Year, DateTime.Today.Month);
                 var path = Path.Combine(imagesPath, datePath);
                 int width, height = default(int);

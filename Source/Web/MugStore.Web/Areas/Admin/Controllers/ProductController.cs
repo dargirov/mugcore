@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MugStore.Common;
 using MugStore.Data.Models;
+using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.Areas.Admin.ViewModels.Product;
 using MugStore.Web.Controllers;
@@ -141,7 +142,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
 
             if (file.Length > 0)
             {
-                var imagesPath = Path.Combine(this.hostingEnvironment.ContentRootPath, GlobalConstants.PathToGalleryImages);
+                var imagesPath = Path.Combine(this.hostingEnvironment.ContentRootPath, GlobalConstants.PathToGalleryImages.FixOsPath());
                 var path = imagesPath + id.ToString();
 
                 if (!Directory.Exists(path))
