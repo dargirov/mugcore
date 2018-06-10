@@ -28,7 +28,7 @@ namespace MugStore.Web.Controllers
             var product = this.products.Get(acronym);
             if (product == null)
             {
-                return NotFound(acronym);
+                return NotFound();
             }
 
             this.ViewBag.Cities = this.cities.Get().Where(c => c.Highlight).OrderBy(x => x.Name).ToList();

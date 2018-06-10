@@ -1,4 +1,5 @@
-﻿using MugStore.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MugStore.Data;
 using MugStore.Data.Models;
 using System.Linq;
 
@@ -49,12 +50,19 @@ namespace MugStore.Services.Data
 
         public ProductTag GetProductTag(string acronym)
         {
-            return this.productTags.All().Where(t => t.Acronym == acronym).FirstOrDefault();
+            return this.productTags.All()
+                .Include(x => x.Products)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Images)
+                .FirstOrDefault(t => t.Acronym == acronym);
         }
 
         public PostTag GetPostTag(string acronym)
         {
-            return this.postTags.All().Where(t => t.Acronym == acronym).FirstOrDefault();
+            return this.postTags.All()
+                .Include(x => x.Posts)
+                .ThenInclude(x => x.Post)
+                .FirstOrDefault(t => t.Acronym == acronym);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace MugStore.Web.Controllers
             try
             {
                 var imagesPath = Path.Combine(this.hostingEnvironment.ContentRootPath, GlobalConstants.PathToUploadImages.FixOsPath());
-                var datePath = string.Format(@"{0}\{1}\", DateTime.Today.Year, DateTime.Today.Month);
+                var datePath = string.Format(@"{0}\{1}\".FixOsPath(), DateTime.Today.Year, DateTime.Today.Month);
                 var path = Path.Combine(imagesPath, datePath);
                 int width, height = default(int);
                 double dpi = default(double);

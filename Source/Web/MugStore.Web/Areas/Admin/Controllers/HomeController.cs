@@ -120,7 +120,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
 
             feedback.IsNew = false;
             this.feedbacks.Save();
-            return null;
+            return Ok();
         }
 
         [Authorize(Policy = "LoggedIn")]
@@ -134,7 +134,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
             }
 
             this.feedbacks.Delete(feedback);
-            return null;
+            return Ok();
         }
     }
 }

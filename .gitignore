@@ -329,4 +329,6 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
+Source/Web/MugStore.Web/AppData
 mug3.db
+mug3_after_migrations.db

@@ -154,7 +154,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
                 var type = file.ContentType.Split('/');
                 var filePath = path + @"\" + name + "." + type[1];
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream = new FileStream(filePath.FixOsPath(), FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }

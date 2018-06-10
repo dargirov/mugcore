@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MugStore.Data.Models;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
-using MugStore.Data.Models;
 
 namespace MugStore.Services.Data
 {

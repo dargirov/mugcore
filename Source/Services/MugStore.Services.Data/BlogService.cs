@@ -19,9 +19,9 @@ namespace MugStore.Services.Data
         public IQueryable<Post> GetPosts(Expression<Func<Post, bool>> predicate)
         {
             return this.posts.All()
-                .Where(predicate)
                 .Include(x => x.Tags)
                 .ThenInclude(x => x.PostTag)
+                .Where(predicate)
                 .OrderByDescending(x => x.CreatedOn);
         }
 

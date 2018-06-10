@@ -22,6 +22,6 @@ namespace MugStore.Data.Models
         [Required]
         public bool Active { get; set; }
 
-        public virtual ICollection<ProductTagProduct> Products { get; set; }
+        public ICollection<ProductTagProduct> Products { get; set; }
     }
 }

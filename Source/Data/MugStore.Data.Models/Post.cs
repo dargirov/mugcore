@@ -33,7 +33,7 @@ namespace MugStore.Data.Models
         [Required]
         public string FullDescription { get; set; }
 
-        public virtual ICollection<PostTagPost> Tags { get; set; }
+        public ICollection<PostTagPost> Tags { get; set; }
 
         [Required]
         public bool Active { get; set; }

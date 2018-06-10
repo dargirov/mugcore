@@ -26,8 +26,7 @@ namespace MugStore.Services.Data
                 .Include(x => x.Images)
                 .Include(x => x.Tags)
                 .ThenInclude(x => x.ProductTag)
-                .Where(p => p.Acronym == acronym)
-                .FirstOrDefault();
+                .FirstOrDefault(p => p.Acronym == acronym);
         }
 
         public IQueryable<Product> Get()
@@ -38,11 +37,10 @@ namespace MugStore.Services.Data
         public Product Get(int id)
         {
             return this.products.All()
-                .Where(x => x.Id == id)
                 .Include(x => x.Images)
                 .Include(x => x.Tags)
                 .ThenInclude(x => x.ProductTag)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public void Save()

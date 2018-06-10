@@ -37,9 +37,9 @@ namespace MugStore.Data.Models
 
         public string PreviewData { get; set; }
 
-        public virtual ICollection<ProductImage> Images { get; set; }
+        public ICollection<ProductImage> Images { get; set; }
 
-        public virtual ICollection<ProductTagProduct> Tags { get; set; }
+        public ICollection<ProductTagProduct> Tags { get; set; }
 
         [MaxLength(GlobalConstants.LinkToProductImageMaxLength)]
         public string LinkToSource { get; set; }
