@@ -29,7 +29,7 @@ namespace MugStore.Web.Controllers
                 return NotFound(name);
             }
 
-            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToUploadImages.FixOsPath(), image.Path), image.Name);
+            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToUploadImages, image.Path), image.Name);
         }
 
         public IActionResult ProductImage(string name)
@@ -40,9 +40,10 @@ namespace MugStore.Web.Controllers
                 return NotFound(name);
             }
 
-            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToGalleryImages.FixOsPath(), image.Path), image.Name);
+            return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToGalleryImages, image.Path), image.Name);
         }
 
+        [RequestSizeLimit(3_000_000)]
         public IActionResult Upload()
         {
             try
@@ -129,7 +130,7 @@ namespace MugStore.Web.Controllers
         private IActionResult DownloadImage(string contentType, string imagePath, string imageName)
         {
             var type = contentType.Split('/');
-            var path = Path.Combine(this.hostingEnvironment.ContentRootPath, imagePath, imageName + "." + type[1]);
+            var path = Path.Combine(this.hostingEnvironment.ContentRootPath, imagePath.FixOsPath(), imageName.FixOsPath() + "." + type[1]);
 
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open))
