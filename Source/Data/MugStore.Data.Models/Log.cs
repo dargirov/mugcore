@@ -12,5 +12,8 @@ namespace MugStore.Data.Models
 
         [Required]
         public string Content { get; set; }
+
+        [MaxLength(255)]
+        public string IpAddress { get; set; }
     }
 }

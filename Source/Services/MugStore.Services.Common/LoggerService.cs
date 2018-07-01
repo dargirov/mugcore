@@ -2,6 +2,7 @@
 using MugStore.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace MugStore.Services.Common
 {
@@ -14,13 +15,14 @@ namespace MugStore.Services.Common
             this.logs = logs;
         }
 
-        public void Log(LogLevel level, string message, string code = null)
+        public void Log(LogLevel level, string message, string code = null, IPAddress ipAddress = null)
         {
             var log = new Log()
             {
                 Code = code,
                 Content = message,
-                Level = level
+                Level = level,
+                IpAddress = ipAddress?.ToString()
             };
 
             this.logs.Add(log);

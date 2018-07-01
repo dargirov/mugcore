@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.Attributes;
 using MugStore.Web.Infrastructure.Mapping;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace MugStore.Web
@@ -39,9 +41,15 @@ namespace MugStore.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSession();
 
+            services.AddAuthentication().AddCookie(options => options.LoginPath = "/Admin/Home/Login");
+
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("LoggedIn", policy => policy.Requirements.Add(new LoggedInRequirement()));
+                options.AddPolicy("LoggedIn", policy =>
+                {
+                    policy.Requirements.Add(new LoggedInRequirement());
+                    policy.AuthenticationSchemes = new List<string>() { CookieAuthenticationDefaults.AuthenticationScheme };
+                });
             });
 
             services.AddTransient(typeof(IDbRepository<>), typeof(DbRepository<>));

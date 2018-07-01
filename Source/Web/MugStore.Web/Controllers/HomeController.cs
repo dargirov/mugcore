@@ -123,10 +123,11 @@ namespace MugStore.Web.Controllers
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.PageDescription = "Грешка.";
             var exceptionHandler = this.HttpContext.Features.Get<IExceptionHandlerFeature>();
+            var ipAddress = this.HttpContext.Connection.RemoteIpAddress;
 
             if (exceptionHandler != null)
             {
-                this.logger.Log(LogLevel.Error, exceptionHandler.Error.ToString(), "500");
+                this.logger.Log(LogLevel.Error, exceptionHandler.Error.ToString(), "500", ipAddress);
             }
 
             return this.View();
@@ -137,7 +138,9 @@ namespace MugStore.Web.Controllers
         {
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.PageDescription = "Несъществуваща страница.";
-            this.logger.Log(LogLevel.Warn, this.HttpContext.Items["originalPath"]?.ToString() ?? string.Empty, "400");
+            var ipAddress = this.HttpContext.Connection.RemoteIpAddress;
+
+            this.logger.Log(LogLevel.Warn, this.HttpContext.Items["originalPath"]?.ToString() ?? string.Empty, "400", ipAddress);
 
             return this.View();
         }
