@@ -55,44 +55,13 @@
             <div class="col-md-4">
                 <fieldset class="form-group">
                     <label for="Active">Active</label>
-                    <select name="Active" id="Active" class="form-control">
-                        @{
-                        var selectedTrue = "";
-                        var selectedFalse = "";
-                        if (Model.Active)
-                        {
-                            selectedTrue = " selected=\"selected\"";
-                        }
-                        else
-                        {
-                            selectedFalse = " selected=\"selected\"";
-                        }
-
-                        var disabled = "";
-                        if (Model.Id == 0 || Model.Images.Count == 0)
-                        {
-                            disabled = " disabled=\"disabled\"";
-                        }
-                        }
-                        <option value="True" @Html.Raw(selectedTrue) @Html.Raw(disabled)>Yes</option>
-                        <option value="False" @Html.Raw(selectedFalse)>No</option>
-                    </select>
+                    <select asp-for="Active" asp-items="Model.ActiveStates" class="form-control"></select>
                 </fieldset>
             </div>
             <div class="col-md-4">
                 <fieldset class="form-group">
                     <label for="CategoryId">Category</label>
-                    <select name="CategoryId" id="CategoryId" class="form-control">
-                        @foreach (var category in Model.Categories)
-                        {
-                            var selected = "";
-                            if (category.Id == Model.CategoryId)
-                            {
-                                selected = " selected=\"selected\"";
-                            }
-                            <option value="@category.Id" @Html.Raw(selected)>@category.Name</option>
-                        }
-                    </select>
+                    <select asp-for="CategoryId" asp-items="Model.CategoriesListItems" class="form-control"></select>
                 </fieldset>
             </div>
         </div>

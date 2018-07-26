@@ -139,7 +139,7 @@ namespace MugStore.Web.Controllers
             }
 
             memory.Position = 0;
-            return this.File(memory, contentType, Path.GetFileName(path));
+            return this.File(memory, contentType);
         }
     }
 }

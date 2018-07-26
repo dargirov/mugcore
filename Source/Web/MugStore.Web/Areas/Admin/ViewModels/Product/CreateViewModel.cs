@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MugStore.Common;
 using MugStore.Data.Models;
 using MugStore.Web.Infrastructure.Mapping;
@@ -30,10 +31,18 @@ namespace MugStore.Web.Areas.Admin.ViewModels.Product
         [Required]
         public bool Active { get; set; }
 
+        public List<SelectListItem> ActiveStates => new List<SelectListItem>()
+        {
+            new SelectListItem() { Value = "False", Text = "No" },
+            new SelectListItem() { Value = "True", Text = "Yes" },
+        };
+
         [Required]
         public int CategoryId { get; set; }
 
         public IEnumerable<Data.Models.Category> Categories { get; set; }
+
+        public List<SelectListItem> CategoriesListItems => Categories?.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList();
 
         public string PreviewData { get; set; }
 
