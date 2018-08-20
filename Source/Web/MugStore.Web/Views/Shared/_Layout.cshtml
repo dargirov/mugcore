@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/css/colorbox.css" />
     <link rel="stylesheet" href="~/css/jquery.webui-popover.min.css" />
     <link rel="stylesheet" href="~/css/touchcarousel.css" />
-    <link rel="stylesheet" href="~/font_awesome_4_6_3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 
 </head>
@@ -31,6 +31,17 @@
             }
         </div>
     </section>
+
+    @if (ViewBag.FashShippingEnabled == true)
+    {
+        <section id="shipping">
+            <div><i class="fas fa-shipping-fast"></i></div>
+            <div>
+                <p>Бърза изработка</p>
+                <p>Всяка поръчка се обработва и изпраща в рамките на същия или следващия работен ден.</p>
+            </div>
+        </section>
+    }
 
     @RenderBody()
 
