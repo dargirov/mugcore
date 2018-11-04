@@ -45,10 +45,7 @@
             <input type="text" name="name" placeholder="Име" required="required">
             <input type="email" name="email" placeholder="Email адрес за обратна връзка" required="required">
             <textarea name="comment" placeholder="Съобщение/Въпрос" required="required"></textarea>
-            <div>
-                <img src="~/images/captcha-sadxcvfasqgsoius.png" alt="captcha">
-                <input type="text" name="captcha" placeholder="Въведете сумата на числата" required="required">
-            </div>
+            <div class="g-recaptcha" data-sitekey="@Model.SiteKey"></div>
             <a href="#" class="blue-btn" id="contacts-send-email-btn">Изпрати</a>
         </form>
     </div>

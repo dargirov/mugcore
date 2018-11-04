@@ -1119,16 +1119,6 @@ input.invalid, textarea.invalid {
     white-space: nowrap;
 }
 
-#contact-form form > div{
-    display: flex;
-}
-
-#contact-form form > div img {
-    height: 33px;
-    margin: 8px 0;
-    border: 1px solid #D4D4D4;
-}
-
 #shipping {
     display: flex;
     justify-content: center;

@@ -7,10 +7,13 @@ using MugStore.Data.Models;
 using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.ViewModels.Home;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Xml.Linq;
 
@@ -80,7 +83,8 @@ namespace MugStore.Web.Controllers
             var viewModel = new ContactsViewModel()
             {
                 Email = configuration["AppSettings:ContactsEmail"],
-                Phone = configuration["AppSettings:ContactsPhone"]
+                Phone = configuration["AppSettings:ContactsPhone"],
+                SiteKey = configuration["AppSettings:ReCaptchaSiteKey"]
             };
 
             return this.View(viewModel);
@@ -91,29 +95,41 @@ namespace MugStore.Web.Controllers
         public IActionResult Contacts(ContactsInputModel model)
         {
             this.AddTagsToViewBag(this.tags);
+            this.ViewBag.MailSend = false;
             this.ViewBag.PageDescription = "За контакти и въпроси при направа на чаша може да се свържете с нас.";
+            var captcha = this.HttpContext.Request.Form["g-recaptcha-response"].FirstOrDefault();
 
-            if (this.ModelState.IsValid && model.Captcha.Trim() == "15")
+            if (this.ModelState.IsValid && !string.IsNullOrWhiteSpace(captcha))
             {
-                this.feedbacks.Add(new Data.Models.Feedback()
+                using (var wb = new WebClient())
                 {
-                    Name = model.Name,
-                    Email = model.Email,
-                    Text = model.Comment,
-                    IsNew = true
-                });
+                    var data = new NameValueCollection();
+                    data["secret"] = configuration["AppSettings:ReCaptchaSecretKey"];
+                    data["response"] = captcha;
 
-                this.ViewBag.MailSend = true;
-            }
-            else
-            {
-                this.ViewBag.MailSend = false;
+                    var url = configuration["AppSettings:ReCaptchaUrl"];
+                    var response = wb.UploadValues(url, "POST", data);
+                    dynamic googleResponse = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(response));
+                    if (googleResponse.success == true)
+                    {
+                        this.feedbacks.Add(new Data.Models.Feedback()
+                        {
+                            Name = model.Name,
+                            Email = model.Email,
+                            Text = model.Comment,
+                            IsNew = true
+                        });
+
+                        this.ViewBag.MailSend = true;
+                    }
+                }
             }
 
             var viewModel = new ContactsViewModel()
             {
                 Email = configuration["ContactsEmail"],
-                Phone = configuration["ContactsPhone"]
+                Phone = configuration["ContactsPhone"],
+                SiteKey = configuration["AppSettings:ReCaptchaSiteKey"]
             };
 
             return this.View(viewModel);
