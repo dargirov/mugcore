@@ -9,17 +9,14 @@ var Cart = (function ($, Notification) {
             var $self = $(this);
             var data = new FormData();
             data.append('upload_file', $self.prop('files')[0]);
-            // append other variables to data if you want: data.append('field_name_x', field_value_x);
 
             $.ajax({
                 type: 'POST',
-                processData: false, // important
-                contentType: false, // important
+                processData: false,
+                contentType: false,
                 data: data,
                 url: $('#step1').data('url'),
                 dataType: 'json',
-                // in PHP you can call and process file in the same way as if it was submitted from a form:
-                // $_FILES['input_file_name']
                 success: uploadFile
             });
         });
@@ -171,7 +168,8 @@ var Cart = (function ($, Notification) {
                 invalidInput = true;
             }
 
-            if (data.deliveryInfo.phone.length > 0 && data.deliveryInfo.phone.length < 5) {
+            if ((data.deliveryInfo.phone.length > 0 && data.deliveryInfo.phone.length < 8)
+                || (data.deliveryInfo.phone.length > 0 && data.deliveryInfo.phone.match(/\d+/g) === null)) {
                 $('#phone-field').addClass('invalid').val('Въведи валиден телефон за контакт');
                 invalidInput = true;
             }

@@ -37,6 +37,7 @@ namespace MugStore.Web.Controllers
             this.ViewBag.PageHeading = product.Title;
             this.ViewBag.SingleMugPrice = decimal.Parse(this.configuration["AppSettings:SingleMugPrice"]);
             this.ViewBag.DeliveryPrice = decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]);
+            this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.PageDescription = $"{product.PageTitle}, {product.Title}";
             var viewModel = this.Mapper.Map<IndexViewModel>(product);

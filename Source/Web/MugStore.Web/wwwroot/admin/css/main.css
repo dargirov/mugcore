@@ -83,3 +83,8 @@
 .blog-full-description {
     height: 500px;
 }
+
+#feedback-container {
+    max-height: 500px;
+    overflow-y: scroll;
+}

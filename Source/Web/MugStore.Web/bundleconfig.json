@@ -1,0 +1,51 @@
+﻿[
+    {
+        "outputFileName": "wwwroot/css/site.min.css",
+        "inputFiles": [
+            "wwwroot/css/main.css",
+            "wwwroot/css/colorbox.css",
+            "wwwroot/css/jquery.webui-popover.min.css",
+            "wwwroot/css/touchcarousel.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/libs.min.js",
+        "inputFiles": [
+            "wwwroot/js/libs/babylon.2.3.js",
+            "wwwroot/js/libs/jquery-2.2.3.min.js",
+            "wwwroot/js/libs/touchcarousel-1.3.min.js",
+            "wwwroot/js/libs/jquery.webui-popover.min.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renamelocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/js/main.min.js",
+        "inputFiles": [
+            "wwwroot/js/notification.js",
+            "wwwroot/js/scene.js",
+            "wwwroot/js/mug.js",
+            "wwwroot/js/cart.js",
+            "wwwroot/js/main.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renamelocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/js/product.min.js",
+        "inputFiles": [
+            "wwwroot/js/product.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renamelocals": true
+        },
+        "sourceMap": false
+    }
+]
