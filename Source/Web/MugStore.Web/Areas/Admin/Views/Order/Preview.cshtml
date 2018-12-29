@@ -16,6 +16,7 @@
     {
         <div class="col-md-12">
             <strong>Product: <a href="@Url.RouteUrl("Product", new { acronym = Model.Product.Acronym })" target="_blank">@Model.Product.Title</a></strong>
+            <a href="@Url.Action("Edit", "Product", new { id = Model.Product.Id })" class="btn btn-secondary btn-sm">Edit</a>
         </div>
     }
     else

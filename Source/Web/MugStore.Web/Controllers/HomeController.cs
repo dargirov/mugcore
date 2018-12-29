@@ -182,9 +182,9 @@ namespace MugStore.Web.Controllers
         {
             var nodes = new List<SitemapNode>();
 
-            nodes.Add(new SitemapNode() { Priority = 1, Url = this.Url.RouteUrl("Default", new { action = "Index" }, this.Request.Scheme) });
-            nodes.Add(new SitemapNode() { Priority = 0.2, Url = this.Url.RouteUrl("Default", new { action = "Contacts" }, this.Request.Scheme) });
-            nodes.Add(new SitemapNode() { Priority = 0.3, Url = this.Url.RouteUrl("Default", new { controller = "Gallery", action = "Index" }, this.Request.Scheme) });
+            nodes.Add(new SitemapNode() { Priority = 1, Frequency = SitemapFrequency.Weekly, Url = this.Url.RouteUrl("Default", new { action = "Index" }, this.Request.Scheme) });
+            nodes.Add(new SitemapNode() { Priority = 0.1, Url = this.Url.RouteUrl("Default", new { action = "Contacts" }, this.Request.Scheme) });
+            nodes.Add(new SitemapNode() { Priority = 0.3, Frequency = SitemapFrequency.Weekly, Url = this.Url.RouteUrl("Default", new { controller = "Gallery", action = "Index" }, this.Request.Scheme) });
             if (this.blog.GetPosts(x => x.Active).Count() > 0)
             {
                 nodes.Add(new SitemapNode() { Priority = 0.6, Url = this.Url.RouteUrl("Default", new { controller = "Blog", action = "Index" }, this.Request.Scheme) });
@@ -195,8 +195,7 @@ namespace MugStore.Web.Controllers
             {
                 nodes.Add(new SitemapNode()
                 {
-                    Priority = 0.8,
-                    Frequency = SitemapFrequency.Monthly,
+                    Priority = 0.9,
                     Url = this.Url.RouteUrl("Product", new { acronym = product.Acronym }, this.Request.Scheme)
                 });
             }
@@ -207,7 +206,7 @@ namespace MugStore.Web.Controllers
                 nodes.Add(new SitemapNode()
                 {
                     Priority = 0.3,
-                    Frequency = SitemapFrequency.Weekly,
+                    Frequency = SitemapFrequency.Monthly,
                     Url = this.Url.RouteUrl("GalleryCategory", new { acronym = category.Acronym }, this.Request.Scheme)
                 });
             }
@@ -218,7 +217,6 @@ namespace MugStore.Web.Controllers
                 nodes.Add(new SitemapNode()
                 {
                     Priority = 0.4,
-                    Frequency = SitemapFrequency.Monthly,
                     Url = this.Url.RouteUrl("BlogPost", new { acronym = post.Acronym }, this.Request.Scheme)
                 });
             }
