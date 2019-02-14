@@ -14,11 +14,13 @@ namespace MugStore.Web.Controllers
     {
         private readonly IImagesService images;
         private readonly IHostingEnvironment hostingEnvironment;
+        private readonly ILoggerService loggerService;
 
-        public ImageController(IImagesService images, IHostingEnvironment hostingEnvironment)
+        public ImageController(IImagesService images, IHostingEnvironment hostingEnvironment, ILoggerService loggerService)
         {
             this.images = images;
             this.hostingEnvironment = hostingEnvironment;
+            this.loggerService = loggerService;
         }
 
         public IActionResult Index(string name)
@@ -43,7 +45,7 @@ namespace MugStore.Web.Controllers
             return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToGalleryImages, image.Path), image.Name);
         }
 
-        [RequestSizeLimit(3_000_000)]
+        [RequestSizeLimit(8_000_000)]
         public IActionResult Upload()
         {
             try
@@ -122,6 +124,8 @@ namespace MugStore.Web.Controllers
                     success = false,
                     message = ex.Message
                 };
+
+                this.loggerService.Log(Data.Models.LogLevel.Error, ex.Message, "500");
 
                 return this.Json(result);
             }
