@@ -1,7 +1,9 @@
 ﻿using MugStore.Data;
 using MugStore.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace MugStore.Services.Common
@@ -29,9 +31,9 @@ namespace MugStore.Services.Common
             this.logs.Save();
         }
 
-        public IEnumerable<Log> GetLogMessages()
+        public IEnumerable<Log> GetLogMessages(Expression<Func<Log, bool>> predicate)
         {
-            return this.logs.All().OrderByDescending(x => x.Id).Take(100).ToList();
+            return this.logs.All().Where(predicate).OrderByDescending(x => x.Id).Take(100).ToList();
         }
     }
 }

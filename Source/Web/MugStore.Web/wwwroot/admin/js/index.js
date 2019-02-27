@@ -89,4 +89,22 @@
             });
     }
 
+    $('#log-500').on('click', log500Click);
+    function log500Click(e) {
+        e.preventDefault();
+        $(this).addClass('active');
+        $('#log-400').removeClass('active');
+        $('#log-container-500').show();
+        $('#log-container-400').hide();
+    }
+
+    $('#log-400').on('click', log400Click);
+    function log400Click(e) {
+        e.preventDefault();
+        $(this).addClass('active');
+        $('#log-500').removeClass('active');
+        $('#log-container-400').show();
+        $('#log-container-500').hide();
+    }
+
 });

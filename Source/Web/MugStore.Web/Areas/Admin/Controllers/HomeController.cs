@@ -56,7 +56,8 @@ namespace MugStore.Web.Areas.Admin.Controllers
                 Images = images,
                 PriceChartOrders = priceChartOrders,
                 Feedbacks = feedbacks,
-                LogMessages = this.logger.GetLogMessages()
+                LogErrorMessages = this.logger.GetLogMessages(x => x.Code == "500"),
+                LogNotFoundMessages = this.logger.GetLogMessages(x => x.Code == "400"),
             };
 
             return this.View(viewModel);

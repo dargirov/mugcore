@@ -65,8 +65,29 @@
 
     <div class="col-md-6">
         <h3>Site Log</h3>
-        <ul class="list-group" id="log-container">
-            @foreach (var log in Model.LogMessages)
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" id="log-500">500</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="log-400">400</a>
+            </li>
+        </ul>
+        <ul class="list-group" id="log-container-500">
+            @foreach (var log in Model.LogErrorMessages)
+            {
+                <li class="list-group-item">
+                    @if (log.Code != null)
+                    {
+                        <span class="tag tag-default tag-pill pull-xs-right">@log.Code</span>
+                    }
+
+                    <p class="list-group-item-text">@log.CreatedOn.ToString("dd.MM.yyyy; HH:mm") - @log.Level.ToString() - @log.IpAddress - @log.Content</p>
+                </li>
+            }
+        </ul>
+        <ul class="list-group" id="log-container-400">
+            @foreach (var log in Model.LogNotFoundMessages)
             {
                 <li class="list-group-item">
                     @if (log.Code != null)

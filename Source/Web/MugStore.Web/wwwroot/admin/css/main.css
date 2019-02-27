@@ -71,9 +71,13 @@
     text-decoration: none;
 }
 
-#log-container {
-    max-height: 500px;
+#log-container-500, #log-container-400 {
+    max-height: 458px;
     overflow-y: scroll;
+}
+
+#log-container-400 {
+    display: none;
 }
 
 .blog-short-description {

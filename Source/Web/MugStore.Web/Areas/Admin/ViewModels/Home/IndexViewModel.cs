@@ -15,6 +15,8 @@ namespace MugStore.Web.Areas.Admin.ViewModels.Home
 
         public IEnumerable<Data.Models.Order> PriceChartOrders { get; set; }
 
-        public IEnumerable<Log> LogMessages { get; set; }
+        public IEnumerable<Log> LogErrorMessages { get; set; }
+
+        public IEnumerable<Log> LogNotFoundMessages { get; set; }
     }
 }

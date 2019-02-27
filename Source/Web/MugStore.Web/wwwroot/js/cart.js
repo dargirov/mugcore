@@ -4,11 +4,22 @@ var Cart = (function ($, Notification) {
     var _mug, _skipCustomization = false, _currentStep = 1;
     var MAX_IMAGE_COUNT = 3;
 
+    function addLoader() {
+        var html = '<div id="upload-loader"><div class="fa-5x"><i class="fas fa-sync fa-spin"></i></div></div>';
+        $('body').append(html);
+    }
+
+    function removeLoader() {
+        $('#upload-loader').remove();
+    }
+
     function bindUpload() {
         $('#step1').find('input[type=file]').on('change', function () {
             var $self = $(this);
             var data = new FormData();
             data.append('upload_file', $self.prop('files')[0]);
+
+            addLoader();
 
             $.ajax({
                 type: 'POST',
@@ -23,6 +34,9 @@ var Cart = (function ($, Notification) {
     }
 
     function uploadFile(data) {
+
+        removeLoader();
+
         if (data.success) {
             _mug.addImage({ name: data.filename, url: '/Download/' + data.filename, width: data.width, height: data.height, dpi: data.dpi });
             $('#customization-controls-container').removeClass('hidden');
@@ -31,7 +45,7 @@ var Cart = (function ($, Notification) {
 
             var images = MAX_IMAGE_COUNT - _mug.getImagesCount();
             if (images > 0) {
-                Notification.show({ selector: '#canvas-container-right input[type=file]', content: 'Може да качите още ' + images + ' ' + (images == 1 ? 'изображение' : 'изображения'), timeout: 4000, width: 270 });
+                Notification.show({ selector: '#canvas-container-right input[type=file]', content: 'Може да качите още ' + images + ' ' + (images === 1 ? 'изображение' : 'изображения'), timeout: 4000, width: 270 });
             } else {
                 $('#canvas-container-right input[type=file]').prop('disabled', true);
             }

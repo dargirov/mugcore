@@ -1141,6 +1141,13 @@ input.invalid, textarea.invalid {
     font-size: 14px;
 }
 
+#upload-loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color: #4a4949;
+}
+
 @media all and (max-width: 1000px) {
     #header > div {
         width: 100%;
