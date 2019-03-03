@@ -1148,6 +1148,17 @@ input.invalid, textarea.invalid {
     color: #4a4949;
 }
 
+#social-media-links {
+    display: block;
+    color: white;
+    font-size: 32px;
+    margin-top: 10px;
+}
+
+#social-media-links a {
+    color: inherit;
+}
+
 @media all and (max-width: 1000px) {
     #header > div {
         width: 100%;

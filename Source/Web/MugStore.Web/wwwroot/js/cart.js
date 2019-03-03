@@ -216,6 +216,12 @@ var Cart = (function ($, Notification) {
                             }
 
                             gotoStep4();
+
+                            // Facebook purchase event
+                            fbq('track', 'Purchase', {
+                                value: data.price.toFixed(2),
+                                currency: 'BGN',
+                            });
                         }
                     });
             }
