@@ -1,6 +1,16 @@
 ﻿@model MugStore.Web.Areas.Admin.ViewModels.Order.IndexViewModel
 @using MugStore.Data.Models
 
+<div class="row search-criteria">
+    <div class="col-md-12">
+        @{
+            var parms = new Dictionary<string, string> { ["All"] = Model.All ? string.Empty : "true" };
+            var active = Model.All ? "active" : string.Empty;
+        }
+        <a asp-action="index" asp-all-route-data="parms" class="btn btn-secondary btn-sm @active">Show all</a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         @Html.AntiForgeryToken()

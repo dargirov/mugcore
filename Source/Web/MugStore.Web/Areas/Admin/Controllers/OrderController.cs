@@ -4,6 +4,7 @@ using MugStore.Data.Models;
 using MugStore.Services.Data;
 using MugStore.Web.Areas.Admin.ViewModels.Order;
 using MugStore.Web.Controllers;
+using System;
 using System.Linq;
 
 namespace MugStore.Web.Areas.Admin.Controllers
@@ -21,12 +22,23 @@ namespace MugStore.Web.Areas.Admin.Controllers
             this.images = images;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(IndexInputModel model)
         {
-            var orders = this.orders.Get().OrderByDescending(o => o.Id).ToList();
+            var orders = this.orders.Get();
+
+            if (!model.All)
+            {
+                orders = orders.Where(x =>
+                    (x.ConfirmationStatus == ConfirmationStatus.Confirmed || x.ConfirmationStatus == ConfirmationStatus.Pending)
+                    && (x.OrderStatus == OrderStatus.InProgress || x.OrderStatus == OrderStatus.Sent || x.OrderStatus == OrderStatus.Finalized));
+            }
+
+            orders = orders.OrderByDescending(o => o.Id);
+
             var viewModel = new IndexViewModel()
             {
-                Orders = orders
+                Orders = orders.ToList(),
+                All = model.All
             };
 
             return this.View(viewModel);
