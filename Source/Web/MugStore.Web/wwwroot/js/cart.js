@@ -1,7 +1,7 @@
 var Cart = (function ($, Notification) {
     'use strict';
 
-    var _mug, _skipCustomization = false, _currentStep = 1;
+    var _mug, _skipCustomization = false, _currentStep = 1, _breakWidth = 1000;
     var MAX_IMAGE_COUNT = 3;
 
     function addLoader() {
@@ -45,23 +45,23 @@ var Cart = (function ($, Notification) {
 
             var images = MAX_IMAGE_COUNT - _mug.getImagesCount();
             if (images > 0) {
-                Notification.show({ selector: '#canvas-container-right input[type=file]', content: 'Може да качите още ' + images + ' ' + (images === 1 ? 'изображение' : 'изображения'), timeout: 4000, width: 270 });
+                var uploadMoreNotificationPlacement = window.innerWidth > _breakWidth ? 'top' : 'bottom';
+                Notification.show({ selector: '#canvas-container-right input[type=file]', content: 'Може да качите още ' + images + ' ' + (images === 1 ? 'изображение' : 'изображения'), placement: uploadMoreNotificationPlacement, timeout: 4000, width: 270 });
             } else {
                 $('#canvas-container-right input[type=file]').prop('disabled', true);
             }
 
-            if (images === 2) {
+            if (images === 2 && window.innerWidth > _breakWidth) {
                 Notification.show({ selector: '.move-controls', content: 'Използвайте стрелките за да преместите снимката върху чашата', placement: 'left', timeout: 6000, width: 190 });
             }
 
             if (data.width < 1500 && data.height < 700 && data.dpi < 120) {
-                Notification.show({ selector: '#canvas', content: 'Каченото изображение е с резолюция ' + data.width + 'px x ' + data.height + 'px @ ' + data.dpi + 'dpi. За постигане на максимално добро качество при печат ви препоръчваме да използвате изображение с размер 2362px x 1004px @ 300dpi.', placement: 'bottom', timeout: 14000, width: 500 });
+                var imageQualityNotificationWidth = window.innerWidth > _breakWidth ? 500 : 300;
+                Notification.show({ selector: '#canvas', content: 'Каченото изображение е с резолюция ' + data.width + 'px x ' + data.height + 'px @ ' + data.dpi + 'dpi. За постигане на максимално добро качество при печат ви препоръчваме да използвате изображение с размер 2362px x 1004px @ 300dpi.', placement: 'bottom', timeout: 14000, width: imageQualityNotificationWidth });
             }
 
         } else {
-            if (data.message === 'Parameter is not valid.') {
-                alert('Моля, изберете изображение');
-            }
+            alert('Възникна грешка при качване на файла. Моля, опитайте с друго изображение.');
         }
     }
 
