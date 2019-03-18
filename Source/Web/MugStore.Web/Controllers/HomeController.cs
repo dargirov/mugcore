@@ -157,7 +157,7 @@ namespace MugStore.Web.Controllers
             this.ViewBag.PageDescription = "Несъществуваща страница.";
             var ipAddress = this.HttpContext.Connection.RemoteIpAddress;
 
-            this.logger.Log(LogLevel.Warn, this.HttpContext.Items["originalPath"]?.ToString() ?? string.Empty, "400", ipAddress);
+            //this.logger.Log(LogLevel.Warn, this.HttpContext.Items["originalPath"]?.ToString() ?? string.Empty, "400", ipAddress);
 
             return this.View();
         }
