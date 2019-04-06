@@ -62,6 +62,7 @@ namespace MugStore.Web.Controllers
             this.ViewBag.DeliveryPrice = decimal.Parse(configuration["AppSettings:DeliveryPrice"]);
             this.ViewBag.PageDescription = "С този сайт може сам да си направиш чаша. Качи до 3 снимки и ги разположи на желаното място върху 3D модел на чаша. Поръчката става бързо и не е необходима регистрация.";
             this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
+            this.ViewBag.VacationEnabled = bool.Parse(this.configuration["AppSettings:VacationEnabled"]);
             this.AddTagsToViewBag(this.tags);
 
             var viewModel = new IndexViewModel()

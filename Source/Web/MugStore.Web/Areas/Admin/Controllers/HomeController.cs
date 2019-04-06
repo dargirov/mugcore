@@ -38,7 +38,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
             var orders = this.orders.Get().Where(o => o.ConfirmationStatus != ConfirmationStatus.Denied).ToList();
             var bulletins = this.bulletins.Get().OrderByDescending(b => b.Id).ToList();
             var feedbacks = this.feedbacks.Get().OrderByDescending(x => x.IsNew).ThenByDescending(x => x.Id).ToList();
-            var images = this.images.Get().OrderByDescending(i => i.Id).ToList();
+            var imagesCount = this.images.Get().Count();
             var priceChartOrders = new List<Order>();
 
             foreach (var order in this.orders.Get().Where(o => o.OrderStatus == OrderStatus.Finalized))
@@ -53,7 +53,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
             {
                 Orders = orders,
                 Bulletin = bulletins,
-                Images = images,
+                ImagesCount = imagesCount,
                 PriceChartOrders = priceChartOrders,
                 Feedbacks = feedbacks,
                 LogErrorMessages = this.logger.GetLogMessages(x => x.Code == "500"),

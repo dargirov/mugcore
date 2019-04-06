@@ -11,7 +11,7 @@ namespace MugStore.Web.Areas.Admin.ViewModels.Home
 
         public IEnumerable<Feedback> Feedbacks { get; set; }
 
-        public IEnumerable<Image> Images { get; set; }
+        public int ImagesCount { get; set; }
 
         public IEnumerable<Data.Models.Order> PriceChartOrders { get; set; }
 

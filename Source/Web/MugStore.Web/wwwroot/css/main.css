@@ -1119,7 +1119,7 @@ input.invalid, textarea.invalid {
     white-space: nowrap;
 }
 
-#shipping {
+#shipping, #vacation {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1127,17 +1127,21 @@ input.invalid, textarea.invalid {
     font-family: 'Comfortaa', sans-serif;
 }
 
-#shipping > div:first-of-type {
+#shipping > div:first-of-type, #vacation > div:first-of-type {
     font-size: 42px;
     padding: 0 20px;
     color: #03bf2b;
 }
 
-#shipping p:first-of-type {
+#vacation > div:first-of-type {
+    color: #ca1414;
+}
+
+#shipping p:first-of-type, #vacation p:first-of-type {
     font-size: 18px;
 }
 
-#shipping p:last-of-type {
+#shipping p:last-of-type, #vacation p:last-of-type {
     font-size: 14px;
 }
 

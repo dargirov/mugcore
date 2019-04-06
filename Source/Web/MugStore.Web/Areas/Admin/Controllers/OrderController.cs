@@ -82,12 +82,24 @@ namespace MugStore.Web.Areas.Admin.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult UploadedImages()
+        public IActionResult UploadedImages(int page = 1)
         {
-            var images = this.images.Get().OrderByDescending(i => i.Id).ToList();
+            const int pageSize = 100;
+
+            var images = this.images
+                .Get()
+                .OrderByDescending(i => i.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            var imagesCount = this.images.Get().Count();
+
             var viewModel = new UploadedImagesViewModel()
             {
-                Images = images
+                Images = images,
+                ImagesCount = imagesCount,
+                Pages = (int)Math.Ceiling((decimal)imagesCount / pageSize),
+                CurrentPage = page
             };
 
             return this.View(viewModel);

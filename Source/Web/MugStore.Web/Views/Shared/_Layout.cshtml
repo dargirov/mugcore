@@ -62,6 +62,16 @@
             </div>
         </section>
     }
+    else if (ViewBag.VacationEnabled == true)
+    {
+        <section id="vacation">
+            <div><i class="fas fa-umbrella-beach"></i></div>
+            <div>
+                <p>На почивка сме</p>
+                <p>Всички поръчки направени между 28 март и 7 април ще бъдат обработени и изпратени на 8 април.</p>
+            </div>
+        </section>
+    }
 
     @RenderBody()
 
