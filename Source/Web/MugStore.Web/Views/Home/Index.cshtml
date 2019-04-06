@@ -15,12 +15,17 @@
     </div>
 </section>
 
-@*<section id="company-orders-summary" class="site-section">
+<section id="company-orders-summary" class="site-section">
     <h2>Поръчка на повече чаши?</h2>
     <div>
-        Имате нужда от много еднакви чаши за фирма, парти или друго мероприятие?
+        <div>
+            Имате нужда от много еднакви <strong>чаши за фирма</strong>, парти или друго мероприятие? Направете поръчка и напишете като коментар вашите изисквания или се <a asp-controller="home" asp-action="contacts" class="link">свържете</a> с нас.
+        </div>
+        <div>
+            <img src="~/images/chashi.jpg" alt="фирмени чаши">
+        </div>
     </div>
-</section>*@
+</section>
 
 @{
     string circleClass = Model.MugInfoType != "white" ? "circle-white" : "";
