@@ -20,6 +20,7 @@
                     <th>Id</th>
                     <th>Acronym</th>
                     <th>Address</th>
+                    <th>Note</th>
                     <th>Quantity</th>
                     <th>Date</th>
                     <th>Order Status</th>
@@ -63,6 +64,20 @@
                                     <li><span class="tag tag-default">Comment</span> @order.DeliveryInfo.Comment</li>
                                 }
                             </ul>
+                        </td>
+                        <td>
+                            <a asp-controller="order" class="btn btn-secondary btn-sm order-note-edit">Edit</a>
+                            <br>@order.Note
+                            <br>
+                            <form method="post" asp-controller="order" asp-action="note" class="order-note-container">
+                                <div class="form-group">
+                                    <textarea name="note" class="form-control">@order.Note</textarea>
+                                    <input type="hidden" name="orderId" value="@order.Id">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-sm btn-warning">
+                                </div>
+                            </form>
                         </td>
                         <td>@order.Quantity</td>
                         <td>@order.CreatedOn</td>

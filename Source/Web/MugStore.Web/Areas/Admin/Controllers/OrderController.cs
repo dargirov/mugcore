@@ -104,5 +104,19 @@ namespace MugStore.Web.Areas.Admin.Controllers
 
             return this.View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Note(NoteInputModel model)
+        {
+            var order = this.orders.Get(model.OrderId);
+            order.Note = string.IsNullOrWhiteSpace(model.Note)
+                ? null
+                : model.Note;
+
+            this.orders.Save();
+
+            return RedirectToAction(nameof(OrderController.Index));
+        }
     }
 }

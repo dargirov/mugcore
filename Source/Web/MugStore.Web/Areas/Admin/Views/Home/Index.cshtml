@@ -9,20 +9,28 @@
         <h3>Summary</h3>
         <ul class="list-group">
             @{
-                var newCount = Model.Orders.Where(o => (o.ConfirmationStatus == ConfirmationStatus.Pending || o.ConfirmationStatus == ConfirmationStatus.Confirmed) && o.OrderStatus == OrderStatus.InProgress).Count();
+                var newCount = Model.Orders.Count(o => (o.ConfirmationStatus == ConfirmationStatus.Pending || o.ConfirmationStatus == ConfirmationStatus.Confirmed) && o.OrderStatus == OrderStatus.InProgress);
             }
             <li class="list-group-item@(newCount > 0 ? " list-group-item-warning" : "")">
                 <span class="tag tag-default tag-pill pull-xs-right">@newCount</span>
                 <h6 class="list-group-item-heading">Orders new</h6>
                 <p class="list-group-item-text">Pending or confirmed and in progress</p>
             </li>
+            @{
+                var sentCount = Model.Orders.Count(o => o.OrderStatus == OrderStatus.Sent);
+            }
+            <li class="list-group-item@(sentCount > 0 ? " list-group-item-info" : "")">
+                <span class="tag tag-default tag-pill pull-xs-right">@sentCount</span>
+                <h6 class="list-group-item-heading">Orders sent</h6>
+                <p class="list-group-item-text">Sent</p>
+            </li>
             <li class="list-group-item">
-                <span class="tag tag-default tag-pill pull-xs-right">@Model.Orders.Where(o => o.OrderStatus == OrderStatus.Finalized).Count()</span>
+                <span class="tag tag-default tag-pill pull-xs-right">@Model.Orders.Count(o => o.OrderStatus == OrderStatus.Finalized)</span>
                 <h6 class="list-group-item-heading">Orders finalized</h6>
                 <p class="list-group-item-text">Finalized</p>
             </li>
             <li class="list-group-item">
-                <span class="tag tag-default tag-pill pull-xs-right">@Model.Orders.Where(o => o.OrderStatus == OrderStatus.DeniedOnDelivery || o.OrderStatus == OrderStatus.Refunded || o.OrderStatus == OrderStatus.Returned).Count()</span>
+                <span class="tag tag-default tag-pill pull-xs-right">@Model.Orders.Count(o => o.OrderStatus == OrderStatus.DeniedOnDelivery || o.OrderStatus == OrderStatus.Refunded || o.OrderStatus == OrderStatus.Returned)</span>
                 <h6 class="list-group-item-heading">Orders returned</h6>
                 <p class="list-group-item-text">Denied on delivery, refunded, returned</p>
             </li>

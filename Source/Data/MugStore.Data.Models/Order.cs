@@ -46,5 +46,7 @@ namespace MugStore.Data.Models
         public int? ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public string Note { get; set; }
     }
 }
