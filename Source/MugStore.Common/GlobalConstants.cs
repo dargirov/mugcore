@@ -32,6 +32,8 @@
 
         public const int MaxDeliveryInfoPhoneLength = 20;
 
+        public const int MaxDeliveryInfoEmail = 100;
+
         public const int MaxProductTitleLength = 300;
 
         public const int MaxProductAcronymLength = 310;

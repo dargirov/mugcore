@@ -173,9 +173,8 @@ namespace MugStore.Web.Controllers
         {
             var orders = this.orders.Get().Where(x => (x.ConfirmationStatus == ConfirmationStatus.Pending || x.ConfirmationStatus == ConfirmationStatus.Confirmed) && x.OrderStatus == OrderStatus.InProgress).Count();
             var feedbacks = this.feedbacks.Get().Where(x => x.IsNew).Count();
-            var bulletins = this.bulletins.Get().Count();
 
-            return this.Content($"{orders}:{feedbacks}:{bulletins}", "text/plain", Encoding.UTF8);
+            return this.Content($"{orders}:{feedbacks}", "text/plain", Encoding.UTF8);
         }
 
         [Route("sitemap.xml")]

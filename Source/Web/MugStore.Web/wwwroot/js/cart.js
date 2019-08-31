@@ -164,6 +164,7 @@ var Cart = (function ($, Notification) {
             data.deliveryInfo.cityId = $('#city-dd').val();
             data.deliveryInfo.address = $('#address-field').val();
             data.deliveryInfo.comment = $('#comment-field').val();
+            data.deliveryInfo.email = $('#email-field').val();
             data.deliveryInfo.courierId = $('#courier-dd').val();
 
             var invalidInput = false;
@@ -207,6 +208,11 @@ var Cart = (function ($, Notification) {
                             $('#step4-payment-method').html(paymentMethods[data.paymentMethod]);
                             $('#step4-address').html(data.fullName + '<br>' + data.city + ', ' + data.address + '<br>' + data.phone);
                             $('#step4-price').html(data.price.toFixed(2) + ' лв.');
+                            if (data.email !== null) {
+                                $('#step4-email-dt').removeClass('hidden');
+                                $('#step4-email').removeClass('hidden').html(data.email);
+                            }
+
                             if (data.courier !== null) {
                                 $('#step4-courier-dt').removeClass('hidden');
                                 $('#step4-courier').removeClass('hidden').html(data.courier);

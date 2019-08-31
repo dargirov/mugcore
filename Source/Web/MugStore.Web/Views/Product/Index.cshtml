@@ -129,6 +129,10 @@
                 <strong><span class="circle">1</span> Попълни данни за доставка</strong>
                 <input type="text" name="names" id="names-field" placeholder="Име и фамилия">
                 <input type="text" name="phone" id="phone-field" placeholder="Тел. за контакт">
+                <div id="email-address-container">
+                    <input type="email" name="email" id="email-field" placeholder="Email адрес (незадължително)">
+                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато изпратим поръчката." data-placement="top-left" data-animation="pop"></i>
+                </div>
                 <select name="city" id="city-dd">
                     @foreach (var city in ViewBag.Cities)
                     {
@@ -157,6 +161,8 @@
                 <dl>
                     <dt>Метод на плащане:</dt>
                     <dd id="step4-payment-method"></dd>
+                    <dt id="step4-email-dt" class="hidden">Email:</dt>
+                    <dd id="step4-email" class="hidden"></dd>
                     <dt id="step4-courier-dt" class="hidden">Куриер:</dt>
                     <dd id="step4-courier" class="hidden"></dd>
                     <dt>Адрес за доставка:</dt>

@@ -62,9 +62,10 @@ namespace MugStore.Web.Controllers
                     FullName = model.DeliveryInfo.FullName,
                     Address = model.DeliveryInfo.Address,
                     CityId = model.DeliveryInfo.CityId,
-                    Comment = model.DeliveryInfo.Comment,
+                    Comment = !string.IsNullOrWhiteSpace(model.DeliveryInfo.Comment) ? model.DeliveryInfo.Comment : null,
                     Phone = model.DeliveryInfo.Phone,
-                    CourierId = model.DeliveryInfo.CourierId
+                    CourierId = model.DeliveryInfo.CourierId,
+                    Email = !string.IsNullOrWhiteSpace(model.DeliveryInfo.Email) ? model.DeliveryInfo.Email : null,
                 },
                 ConfirmationStatus = ConfirmationStatus.Pending,
                 OrderStatus = OrderStatus.InProgress
@@ -105,10 +106,11 @@ namespace MugStore.Web.Controllers
                 address = order.DeliveryInfo.Address,
                 phone = order.DeliveryInfo.Phone,
                 comment = order.DeliveryInfo.Comment,
+                email = order.DeliveryInfo.Email,
                 city = city.Name,
                 courier = courier?.Name,
                 quantity = order.Quantity,
-                price = (order.Quantity * decimal.Parse(this.configuration["AppSettings:SingleMugPrice"])) +decimal.Parse(this.configuration["AppSettings:DeliveryPrice"])
+                price = (order.Quantity * decimal.Parse(this.configuration["AppSettings:SingleMugPrice"])) +decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]),
             };
 
             return this.Json(result);

@@ -53,13 +53,18 @@
                         <td>
                             <ul class="orders-list">
                                 <li><span class="tag tag-default">Name</span> @order.DeliveryInfo.FullName</li>
+                                @if (!string.IsNullOrWhiteSpace(order.DeliveryInfo.Email))
+                                {
+                                    <li><span class="tag tag-default">Email</span> @order.DeliveryInfo.Email</li>
+                                }
+
                                 @if (order.DeliveryInfo.CourierId != null)
                                 {
                                     <li><span class="tag tag-default">Courier</span> @order.DeliveryInfo.Courier.Name</li>
                                 }
                                 <li><span class="tag tag-default">Address</span> @order.DeliveryInfo.City.Name (@order.DeliveryInfo.City.PostCode), @order.DeliveryInfo.Address</li>
                                 <li><span class="tag tag-default">Phone</span> @order.DeliveryInfo.Phone</li>
-                                @if (order.DeliveryInfo.Comment != null)
+                                @if (!string.IsNullOrWhiteSpace(order.DeliveryInfo.Comment))
                                 {
                                     <li><span class="tag tag-default">Comment</span> @order.DeliveryInfo.Comment</li>
                                 }

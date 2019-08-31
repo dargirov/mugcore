@@ -26,5 +26,8 @@ namespace MugStore.Data.Models
         public int? CourierId { get; set; }
 
         public virtual Courier Courier { get; set; }
+
+        [MaxLength(GlobalConstants.MaxDeliveryInfoEmail)]
+        public string Email { get; set; }
     }
 }
