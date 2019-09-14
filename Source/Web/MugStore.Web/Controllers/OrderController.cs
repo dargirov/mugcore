@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MugStore.Data.Models;
+using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.ViewModels.Order;
 using System;
@@ -18,8 +19,9 @@ namespace MugStore.Web.Controllers
         private readonly IProductsService products;
         private readonly ICouriersService couriers;
         private readonly IConfiguration configuration;
+        private readonly ILoggerService logger;
 
-        public OrderController(IOrdersService orders, IImagesService images, ICitiesService cities, IProductsService products, ICouriersService couriers, IConfiguration configuration)
+        public OrderController(IOrdersService orders, IImagesService images, ICitiesService cities, IProductsService products, ICouriersService couriers, IConfiguration configuration, ILoggerService logger)
         {
             this.orders = orders;
             this.images = images;
@@ -27,6 +29,7 @@ namespace MugStore.Web.Controllers
             this.products = products;
             this.couriers = couriers;
             this.configuration = configuration;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> Create([FromBody]CreateInputModel model)
@@ -156,8 +159,9 @@ namespace MugStore.Web.Controllers
             {
                 await client.PostAsync(this.configuration["AppSettings:AzureFunctionUrl"], content);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                logger.Log(LogLevel.Error, e.Message, "500");
             }
         }
     }
