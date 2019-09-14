@@ -4,6 +4,9 @@ using MugStore.Data.Models;
 using MugStore.Services.Data;
 using MugStore.Web.ViewModels.Order;
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace MugStore.Web.Controllers
 {
@@ -26,7 +29,7 @@ namespace MugStore.Web.Controllers
             this.configuration = configuration;
         }
 
-        public IActionResult Create([FromBody]CreateInputModel model)
+        public async Task<IActionResult> Create([FromBody]CreateInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -97,6 +100,8 @@ namespace MugStore.Web.Controllers
                 this.images.Save();
             }
 
+            await SendEmailNotification(order);
+
             var result = new
             {
                 status = "success",
@@ -131,6 +136,29 @@ namespace MugStore.Web.Controllers
             }
 
             return acronym;
+        }
+
+        private async Task SendEmailNotification(Order order)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-functions-key", this.configuration["AppSettings:AzureFunctionKey"]);
+
+            var values = new Dictionary<string, string>
+            {
+                ["orderId"] = order.Acronym,
+                ["courier"] = order.DeliveryInfo.Courier?.Name,
+                ["quantity"] = order.Quantity.ToString(),
+            };
+
+            var content = new FormUrlEncodedContent(values);
+
+            try
+            {
+                await client.PostAsync(this.configuration["AppSettings:AzureFunctionUrl"], content);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
