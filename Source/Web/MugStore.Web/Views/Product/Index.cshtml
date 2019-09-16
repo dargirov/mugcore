@@ -153,7 +153,7 @@
                 <input type="hidden" id="quantity-range" value="1">
                 <input type="hidden" id="payment-method" value="1">
                 <input type="hidden" id="product-acronym" value="@Model.Acronym">
-                <a href="#disabled" class="blue-btn hidden" id="create-order-btn" data-url="@Url.Action("Create", "Order")">Поръчай</a>
+                <a href="#disabled" class="blue-btn hidden" id="create-order-btn" data-url="@Url.Action("Create", "Order")" data-send-email-url="@Url.Action("SendEmail", "Order")">Поръчай</a>
             </div>
             <div id="step4" class="hidden">
                 <div class="status-success">Успешно завършихте вашата поръчка</div>

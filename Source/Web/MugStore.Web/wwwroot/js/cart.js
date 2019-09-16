@@ -144,6 +144,7 @@ var Cart = (function ($, Notification) {
         function createOrderBtnClick(e) {
             e.preventDefault();
             var url = $(this).data('url');
+            var sendEmailUrl = $(this).data('send-email-url');
             var count = !_skipCustomization ? _mug.getImagesCount() : 0;
             var data = {};
             data.images = [];
@@ -222,6 +223,9 @@ var Cart = (function ($, Notification) {
                             }
 
                             gotoStep4();
+
+                            $.ajax({ method: "POST", url: sendEmailUrl, data: { acronym: data.acronym } })
+                                .done(function () { });
 
                             // Facebook purchase event
                             fbq('track', 'Purchase', {

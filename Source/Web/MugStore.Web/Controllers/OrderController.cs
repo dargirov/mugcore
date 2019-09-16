@@ -6,6 +6,7 @@ using MugStore.Services.Data;
 using MugStore.Web.ViewModels.Order;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace MugStore.Web.Controllers
             this.logger = logger;
         }
 
-        public async Task<IActionResult> Create([FromBody]CreateInputModel model)
+        public IActionResult Create([FromBody]CreateInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -103,8 +104,6 @@ namespace MugStore.Web.Controllers
                 this.images.Save();
             }
 
-            await SendEmailNotification(order);
-
             var result = new
             {
                 status = "success",
@@ -124,25 +123,15 @@ namespace MugStore.Web.Controllers
             return this.Json(result);
         }
 
-        private string GenerateAcronym()
+        [HttpPost]
+        public async Task<IActionResult> SendEmail(string acronym)
         {
-            var date = DateTime.UtcNow;
-            var rand = new Random();
-
-            var acronym = string.Format("{0}{1}", date.ToString("yyMMdd"), rand.Next(1000, 9999));
-            var order = this.orders.Get(acronym);
-
-            while (order != null)
+            var order = this.orders.Get().FirstOrDefault(x => x.Acronym == acronym);
+            if (order == null)
             {
-                acronym = string.Format("{0}{1}", date.ToString("yyMMdd"), rand.Next(1000, 9999));
-                order = this.orders.Get(acronym);
+                return BadRequest();
             }
 
-            return acronym;
-        }
-
-        private async Task SendEmailNotification(Order order)
-        {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("x-functions-key", this.configuration["AppSettings:AzureFunctionKey"]);
 
@@ -163,6 +152,25 @@ namespace MugStore.Web.Controllers
             {
                 logger.Log(LogLevel.Error, e.Message, "500");
             }
+
+            return Ok();
+        }
+
+        private string GenerateAcronym()
+        {
+            var date = DateTime.UtcNow;
+            var rand = new Random();
+
+            var acronym = string.Format("{0}{1}", date.ToString("yyMMdd"), rand.Next(1000, 9999));
+            var order = this.orders.Get(acronym);
+
+            while (order != null)
+            {
+                acronym = string.Format("{0}{1}", date.ToString("yyMMdd"), rand.Next(1000, 9999));
+                order = this.orders.Get(acronym);
+            }
+
+            return acronym;
         }
     }
 }

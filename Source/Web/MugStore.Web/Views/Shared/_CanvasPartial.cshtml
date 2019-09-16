@@ -124,7 +124,7 @@
                 <textarea name="address" id="address-field" placeholder="Адрес за доставка"></textarea>
                 <textarea name="comment" id="comment-field" placeholder="Коментар / забележка (незадължително)"></textarea>
 
-                <a href="#" data-url="@Url.Action("Create", "Order")" class="blue-btn" id="create-order-btn">Поръчай</a>
+                <a href="#" data-url="@Url.Action("Create", "Order")" data-send-email-url="@Url.Action("SendEmail", "Order")" class="blue-btn" id="create-order-btn">Поръчай</a>
                 <i class="fas fa-long-arrow-alt-left order-back" data-to-step="2"></i>
             </div>
 
