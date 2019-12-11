@@ -21,8 +21,9 @@ namespace MugStore.Web.Controllers
         private readonly ICouriersService couriers;
         private readonly IConfiguration configuration;
         private readonly ILoggerService logger;
+        private readonly ITagsService tags;
 
-        public OrderController(IOrdersService orders, IImagesService images, ICitiesService cities, IProductsService products, ICouriersService couriers, IConfiguration configuration, ILoggerService logger)
+        public OrderController(IOrdersService orders, IImagesService images, ICitiesService cities, IProductsService products, ICouriersService couriers, IConfiguration configuration, ILoggerService logger, ITagsService tags)
         {
             this.orders = orders;
             this.images = images;
@@ -31,6 +32,35 @@ namespace MugStore.Web.Controllers
             this.couriers = couriers;
             this.configuration = configuration;
             this.logger = logger;
+            this.tags = tags;
+        }
+
+        public IActionResult Index(string acronym)
+        {
+            if (string.IsNullOrWhiteSpace(acronym) || acronym.Length != 10)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var order = this.orders.Get(acronym);
+            if (order == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            this.ViewBag.ShowRight = false;
+            this.AddTagsToViewBag(this.tags);
+            this.ViewBag.PageDescription = $"Поръчка №{acronym}, преглед на поръчка";
+
+            var viewModel = new IndexViewModel
+            {
+                Order = order,
+                PageTitle = "Поръчка №" + acronym,
+                TotalPrice = CalculateTotalPrice(order),
+                DeliveryPrice = decimal.Parse(this.configuration["AppSettings:DeliveryPrice"])
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Create([FromBody]CreateInputModel model)
@@ -117,7 +147,7 @@ namespace MugStore.Web.Controllers
                 city = city.Name,
                 courier = courier?.Name,
                 quantity = order.Quantity,
-                price = (order.Quantity * decimal.Parse(this.configuration["AppSettings:SingleMugPrice"])) +decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]),
+                price = CalculateTotalPrice(order),
             };
 
             return this.Json(result);
@@ -171,6 +201,11 @@ namespace MugStore.Web.Controllers
             }
 
             return acronym;
+        }
+
+        private decimal CalculateTotalPrice(Order order)
+        {
+            return (order.Quantity * decimal.Parse(this.configuration["AppSettings:SingleMugPrice"])) + decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]);
         }
     }
 }

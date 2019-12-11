@@ -1,0 +1,96 @@
+﻿@model MugStore.Web.ViewModels.Order.IndexViewModel
+@{
+    ViewBag.Title = Model.PageTitle;
+
+    var confirmationStatus = new Dictionary<MugStore.Data.Models.ConfirmationStatus, string>
+    {
+        [MugStore.Data.Models.ConfirmationStatus.Pending] = "Чака потвърждение",
+        [MugStore.Data.Models.ConfirmationStatus.Denied] = "Отказана",
+        [MugStore.Data.Models.ConfirmationStatus.Confirmed] = "Потвърдена",
+        [MugStore.Data.Models.ConfirmationStatus.Recall] = "Повторно позвъняване",
+    };
+
+    var orderStatus = new Dictionary<MugStore.Data.Models.OrderStatus, string>
+    {
+        [MugStore.Data.Models.OrderStatus.DeniedOnDelivery] = "Отказана при доставка",
+        [MugStore.Data.Models.OrderStatus.Finalized] = "Завършена",
+        [MugStore.Data.Models.OrderStatus.InProgress] = "В процес на изпълнение",
+        [MugStore.Data.Models.OrderStatus.Refunded] = "Рекламация",
+        [MugStore.Data.Models.OrderStatus.Returned] = "Върната",
+        [MugStore.Data.Models.OrderStatus.Sent] = "Изпратена",
+    };
+}
+
+@Html.Partial("_CanvasPartial")
+@Html.Partial("_MenuPartial")
+
+
+<section id="order-page" class="site-section">
+    <h1>Поръчка №@Model.Order.Acronym</h1>
+    <table>
+        <tr>
+            <td>Метод на плащане:</td>
+            <td>Наложен платеж (плащане при доставка)</td>
+        </tr>
+        @if (!string.IsNullOrEmpty(Model.Order.DeliveryInfo.Email))
+        {
+            <tr>
+                <td>Email адрес:</td>
+                <td>@Model.Order.DeliveryInfo.Email</td>
+            </tr>
+        }
+        <tr>
+            <td>Куриер:</td>
+            <td>@Model.Order.DeliveryInfo.Courier.Name</td>
+        </tr>
+        <tr>
+            <td>Име:</td>
+            <td>@Model.Order.DeliveryInfo.FullName</td>
+        </tr>
+        <tr>
+            <td>Телефон:</td>
+            <td>@Model.Order.DeliveryInfo.Phone</td>
+        </tr>
+        <tr>
+            <td>Адрес за доставка:</td>
+            <td>@Model.Order.DeliveryInfo.City.Name, @Model.Order.DeliveryInfo.Address</td>
+        </tr>
+        <tr>
+            <td>Крайна цена:</td>
+            <td>
+                @Model.Order.PriceCustomer лв.
+                @if (Model.DeliveryPrice == 0)
+                {
+                    <br><text>В цената не е включена доставка.<br>Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма.</text>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>Потвърдена:</td>
+            <td>@confirmationStatus[Model.Order.ConfirmationStatus]</td>
+        </tr>
+        <tr>
+            <td>Статус:</td>
+            <td>@orderStatus[Model.Order.OrderStatus]</td>
+        </tr>
+    </table>
+    <strong>* Пратката се изпраща с опция за преглед. Моля, огледайте чашата за счупване или надраскване на изображението пред куриера.</strong>
+</section>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var scene = Scene;
+            scene.init({ canvasId: 'canvas' });
+
+            var mug1 = Mug;
+            mug1.init('mug1', { x: 0, height: 2, z: 0 }, scene.getScene());
+            mug1.create();
+
+            @foreach (var image in Model.Order.Images)
+            {
+                @:mug1.addImage({ name: '@image.Id.ToString()', url: '/Download/@image.Name', width: @image.Width, height: @image.Height, dpi: @image.Dpi, rotation: '@image.Rotation', y: '@image.Y' });
+            }
+        });
+    </script>
+}
