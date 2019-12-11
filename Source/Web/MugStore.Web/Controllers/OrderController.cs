@@ -35,6 +35,7 @@ namespace MugStore.Web.Controllers
             this.tags = tags;
         }
 
+        [HttpGet("/o/{acronym}")]
         public IActionResult Index(string acronym)
         {
             if (string.IsNullOrWhiteSpace(acronym) || acronym.Length != 10)

@@ -132,10 +132,6 @@ namespace MugStore.Web
                     template: "blog/{acronym}",
                     defaults: new { controller = "Blog", action = "Post" });
                 routes.MapRoute(
-                    name: "Order",
-                    template: "order/{acronym}",
-                    defaults: new { controller = "Order", action = "Index" });
-                routes.MapRoute(
                     name: "areas",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
