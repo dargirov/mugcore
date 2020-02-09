@@ -21,7 +21,7 @@
     <div>
         <div id="product-details-upper-container">
             <div id="image-gallery">
-                <a class="gallery-img" asp-route="ProductImage" asp-route-name="@(Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name)"><img src="@Url.RouteUrl("ProductImage", new { name = Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name })"></a>
+                <a class="gallery-img" asp-route="ProductImage" asp-route-name="@(Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name)"><img itemprop="image" src="@(Model.BaseUrl + Url.RouteUrl("ProductImage", new { name = Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name }))"></a>
                 <ul>
                     @{
                         var count = 0;
@@ -37,7 +37,7 @@
                                 continue;
                             }
 
-                            <li><a class="gallery-img" href="@Url.RouteUrl("ProductImage", new { name = image.Name })"><img itemprop="image" src="@Url.RouteUrl("ProductImage", new { name = image.Name })" alt="@(Model.PageTitle?.Replace("\"", ""))"></a></li>
+                            <li><a class="gallery-img" href="@Url.RouteUrl("ProductImage", new { name = image.Name })"><img itemprop="image" src="@(Model.BaseUrl + Url.RouteUrl("ProductImage", new { name = image.Name }))" alt="@(Model.PageTitle?.Replace("\"", ""))"></a></li>
                         }
                     }
                 </ul>
@@ -45,7 +45,7 @@
             <div id="product-details-info">
                 <h1 itemprop="name">@Model.Title</h1>
                 <h2 itemprop="description">@Model.Description</h2>
-                <strong>Код на продукт: @Model.Code</strong>
+                <strong itemprop="sku" content="@Model.Code">Код на продукт: @Model.Code</strong>
                 <meta itemprop="productID" content="@Model.Code" />
                 <ul>
                     @foreach (var tag in Model.Tags)
@@ -109,11 +109,12 @@
         <div id="product-details-order">
             <h2 id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                 Цена:
-                <span itemprop="price" content="@(ViewBag.SingleMugPrice + ViewBag.DeliveryPrice)">
+                <span itemprop="price">
                     @string.Format("{0:0.00}", ViewBag.SingleMugPrice + ViewBag.DeliveryPrice)
                 </span>
                 <span itemprop="priceCurrency" content="BGN">лв.</span>
-                <link itemprop="availability" href="http://schema.org/InStock" />
+                <link itemprop="availability" href="http://schema.org/InStock">
+                <link itemprop="url" content="@Model.BaseUrl/p/@Model.Acronym">
             </h2>
             <h3 id="product-price-info">
                 @if (ViewBag.DeliveryPrice > 0)
@@ -180,4 +181,30 @@
 @section scripts {
     <script src="~/js/libs/jquery.colorbox-min.js"></script>
     <script src="~/js/product.min.js" asp-append-version="true"></script>
+}
+
+@section StructuredData {
+    <script type="application/ld+json">
+        {
+        "@@context": "https://schema.org",
+        "@@type": "BreadcrumbList",
+        "itemListElement": [
+        {
+        "@@type": "ListItem",
+        "position": 1,
+        "name": "Начало",
+        "item": "@Model.BaseUrl"
+        },{
+        "@@type": "ListItem",
+        "position": 2,
+        "name": "Галерия Чаши",
+        "item": "@Model.BaseUrl/gallery"
+        },{
+        "@@type": "ListItem",
+        "position": 3,
+        "name": "@Model.PageTitle",
+        "item": "@Model.BaseUrl/p/@Model.Acronym"
+        }]
+        }
+    </script>
 }

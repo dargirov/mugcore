@@ -47,7 +47,8 @@ namespace MugStore.Web.Controllers
                 Categories = categories,
                 Products = products,
                 CurrentPage = page,
-                TotalPages = totalPages
+                TotalPages = totalPages,
+                BaseUrl = GetBaseUrl()
             };
 
             return this.View(viewModel);
@@ -70,7 +71,10 @@ namespace MugStore.Web.Controllers
             {
                 CategoryName = category.Name,
                 Categories = categories,
-                Products = products
+                Products = products,
+                Acronym = acronym,
+                BaseUrl = GetBaseUrl(),
+                Type = "gallery"
             };
 
             return this.View("Index", viewModel);
@@ -93,7 +97,10 @@ namespace MugStore.Web.Controllers
             {
                 CategoryName = tag.Name,
                 Products = products,
-                Categories = categories
+                Categories = categories,
+                Acronym = acronym,
+                BaseUrl = GetBaseUrl(),
+                Type = "tag"
             };
 
             return this.View("Index", viewModel);

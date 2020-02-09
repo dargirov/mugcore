@@ -16,5 +16,10 @@ namespace MugStore.Web.Controllers
         {
             this.ViewBag.Tags = tags.GetProductTag().Where(t => t.Active).OrderBy(t => Guid.NewGuid()).Take(GlobalConstants.MaxTagsInFooter).ToList();
         }
+
+        protected string GetBaseUrl()
+        {
+            return $"{this.HttpContext.Request.Scheme}://{this.HttpContext.Request.Host.Value}";
+        }
     }
 }

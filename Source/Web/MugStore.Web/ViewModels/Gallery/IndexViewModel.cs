@@ -14,5 +14,11 @@ namespace MugStore.Web.ViewModels.Gallery
         public int CurrentPage { get; set; }
 
         public int TotalPages { get; set; }
+
+        public string BaseUrl { get; set; }
+
+        public string Acronym { get; set; }
+
+        public string Type { get; set; }
     }
 }

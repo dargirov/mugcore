@@ -61,17 +61,33 @@
                 @Model.TotalPrice лв.
                 @if (Model.DeliveryPrice == 0)
                 {
-                    <br><text>В цената не е включена доставка.<br>Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма.</text>
+                    <br><text><strong>В цената не е включена доставка.</strong> <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от<br>тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-target="webuiPopover0"></i></text>
                 }
             </td>
         </tr>
         <tr>
             <td>Потвърдена:</td>
-            <td>@confirmationStatus[Model.Order.ConfirmationStatus]</td>
+            <td>
+				@confirmationStatus[Model.Order.ConfirmationStatus]
+				@if (Model.Order.ConfirmationStatus == MugStore.Data.Models.ConfirmationStatus.Confirmed)
+				{
+					<i class="fas fa-check-circle"></i>
+				}
+			</td>
         </tr>
         <tr>
             <td>Статус:</td>
-            <td>@orderStatus[Model.Order.OrderStatus]</td>
+            <td>
+				@orderStatus[Model.Order.OrderStatus]
+				@if (Model.Order.OrderStatus == MugStore.Data.Models.OrderStatus.Sent)
+				{
+					<i class="fas fa-truck"></i>
+				}
+				else if (Model.Order.OrderStatus == MugStore.Data.Models.OrderStatus.Finalized)
+				{
+					<i class="fas fa-check-circle"></i>
+				}
+			</td>
         </tr>
     </table>
     <strong>* Пратката се изпраща с опция за преглед. Моля, огледайте чашата за счупване или надраскване на изображението пред куриера.</strong>

@@ -76,3 +76,32 @@
     </div>
 </section>
 
+@section StructuredData {
+    <script type="application/ld+json">
+        {
+        "@@context": "https://schema.org",
+        "@@type": "BreadcrumbList",
+        "itemListElement": [
+        {
+        "@@type": "ListItem",
+        "position": 1,
+        "name": "Начало",
+        "item": "@Model.BaseUrl"
+        },{
+        "@@type": "ListItem",
+        "position": 2,
+        "name": "Галерия Чаши",
+        "item": "@Model.BaseUrl/gallery"
+        }
+        @if (Model.CategoryName != null)
+        {
+            @:,{
+            @:"@@type": "ListItem",
+            @:"position": 3,
+            @:"name": "@Model.CategoryName",
+            @:"item": "@Model.BaseUrl/@Model.Type/@Model.Acronym"
+            @:}
+        }]
+        }
+    </script>
+}

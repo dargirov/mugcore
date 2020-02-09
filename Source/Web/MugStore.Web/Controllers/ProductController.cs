@@ -45,6 +45,7 @@ namespace MugStore.Web.Controllers
             var viewModel = this.Mapper.Map<IndexViewModel>(product);
             viewModel.Email = this.configuration["AppSettings:ContactsEmail"];
             viewModel.Phone = this.configuration["AppSettings:ContactsPhone"];
+            viewModel.BaseUrl = GetBaseUrl();
 
             return this.View(viewModel);
         }

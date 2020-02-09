@@ -32,6 +32,8 @@ namespace MugStore.Web.ViewModels.Product
 
         public string Phone { get; set; }
 
+        public string BaseUrl { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Data.Models.Product, IndexViewModel>()

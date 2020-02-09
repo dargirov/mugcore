@@ -1198,20 +1198,23 @@ input.invalid, textarea.invalid {
 }
 
 #order-page h1 {
+	font-family: 'Comfortaa', cursive;
     font-size: 32px;
+	line-height: 40px;
     color: #111;
+	text-align: center;
 }
 
 #order-page table {
     margin-top: 10px;
-    font-family: 'Roboto Condensed', sans-serif;
-    max-width: 450px;
+    font-family: 'Comfortaa', cursive;
+    max-width: 480px;
 }
 
 #order-page tr td:first-of-type {
     text-align: right;
     padding: 5px;
-    min-width: 150px;
+    min-width: 160px;
 }
 
 #order-page tr td:last-of-type {
@@ -1220,11 +1223,14 @@ input.invalid, textarea.invalid {
 }
 
 #order-page strong {
-    font-family: Arial;
-    color: #222;
+    font-family: 'PT Sans', sans-serif;
+    color: #ff6f6f;
     text-align: center;
-    font-style: italic;
     max-width: 600px;
+}
+
+#order-page .fas {
+    color: #0fcabf;
 }
 
 @media all and (max-width: 1000px) {
@@ -1424,4 +1430,8 @@ input.invalid, textarea.invalid {
         flex-direction: column;
         align-items: center;
     }
+	
+	#order-page tr td:first-of-type {
+		min-width: auto;
+	}
 }
