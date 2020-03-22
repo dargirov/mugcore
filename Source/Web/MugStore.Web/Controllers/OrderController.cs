@@ -44,7 +44,7 @@ namespace MugStore.Web.Controllers
             }
 
             var order = this.orders.Get(acronym);
-            if (order == null)
+            if (order == null || (DateTime.Now - order.CreatedOn).TotalDays > 60)
             {
                 return RedirectToAction("Index", "Home");
             }

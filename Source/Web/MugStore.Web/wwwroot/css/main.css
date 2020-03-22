@@ -1430,8 +1430,13 @@ input.invalid, textarea.invalid {
         flex-direction: column;
         align-items: center;
     }
-	
-	#order-page tr td:first-of-type {
-		min-width: auto;
-	}
+
+    #order-page tr td:first-of-type {
+        min-width: auto;
+    }
+
+    #gallery-left a {
+        display: inline-block;
+        padding: 5px 0;
+    }
 }
