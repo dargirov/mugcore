@@ -109,7 +109,7 @@
 
             @if (Model.PreviewImage != null)
             {
-                @:mug1.addImage({ name: '@Model.PreviewImage.Id.ToString()', url: '/Download/@Model.PreviewImage.Name', width: 2362, height: 1004, dpi: 300 });
+                @:mug1.addImage({ name: '@Model.PreviewImage.Id.ToString()', url: '/DownloadProductImage/@Model.PreviewImage.Name', width: 2362, height: 1004, dpi: 300 });
             }
             else
             {
