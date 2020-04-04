@@ -140,9 +140,14 @@ var Cart = (function ($, Notification) {
         }
 
         // final button for creating order
+        var orderCreateStarted = false;
         $('#create-order-btn').on('click', createOrderBtnClick);
         function createOrderBtnClick(e) {
             e.preventDefault();
+            if (orderCreateStarted) {
+                return;
+            }
+
             var url = $(this).data('url');
             var sendEmailUrl = $(this).data('send-email-url');
             var count = !_skipCustomization ? _mug.getImagesCount() : 0;
@@ -201,13 +206,17 @@ var Cart = (function ($, Notification) {
             }
 
             if (!invalidInput) {
+                orderCreateStarted = true;
+                $(this).prepend('<i class="fas fa-sync fa-spin"></i>');
                 $.ajax({ method: "POST", url: url, data: JSON.stringify(data), contentType: "application/json; charset=utf-8" })
                     .done(function (data) {
+                        orderCreateStarted = false;
                         var paymentMethods = ['', 'Наложен платеж', 'Банков превод'];
                         if (data.status === 'success') {
                             $('#step4-acronym').find('span').html(data.acronym);
                             $('#step4-payment-method').html(paymentMethods[data.paymentMethod]);
                             $('#step4-address').html(data.fullName + '<br>' + data.city + ', ' + data.address + '<br>' + data.phone);
+                            $('#step4-quantity').html(data.quantity);
                             $('#step4-price').html(data.price.toFixed(2) + ' лв.');
                             if (data.email !== null) {
                                 $('#step4-email-dt').removeClass('hidden');

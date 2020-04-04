@@ -56,6 +56,10 @@
             <td>@Model.Order.DeliveryInfo.City.Name, @Model.Order.DeliveryInfo.Address</td>
         </tr>
         <tr>
+            <td>Количество:</td>
+            <td>@Model.Order.Quantity</td>
+        </tr>
+        <tr>
             <td>Крайна цена:</td>
             <td>
                 @Model.TotalPrice лв.
@@ -68,26 +72,26 @@
         <tr>
             <td>Потвърдена:</td>
             <td>
-				@confirmationStatus[Model.Order.ConfirmationStatus]
-				@if (Model.Order.ConfirmationStatus == MugStore.Data.Models.ConfirmationStatus.Confirmed)
-				{
-					<i class="fas fa-check-circle"></i>
-				}
-			</td>
+                @confirmationStatus[Model.Order.ConfirmationStatus]
+                @if (Model.Order.ConfirmationStatus == MugStore.Data.Models.ConfirmationStatus.Confirmed)
+                {
+                    <i class="fas fa-check-circle"></i>
+                }
+            </td>
         </tr>
         <tr>
             <td>Статус:</td>
             <td>
-				@orderStatus[Model.Order.OrderStatus]
-				@if (Model.Order.OrderStatus == MugStore.Data.Models.OrderStatus.Sent)
-				{
-					<i class="fas fa-truck"></i>
-				}
-				else if (Model.Order.OrderStatus == MugStore.Data.Models.OrderStatus.Finalized)
-				{
-					<i class="fas fa-check-circle"></i>
-				}
-			</td>
+                @orderStatus[Model.Order.OrderStatus]
+                @if (Model.Order.OrderStatus == MugStore.Data.Models.OrderStatus.Sent)
+                {
+                    <i class="fas fa-truck"></i>
+                }
+                else if (Model.Order.OrderStatus == MugStore.Data.Models.OrderStatus.Finalized)
+                {
+                    <i class="fas fa-check-circle"></i>
+                }
+            </td>
         </tr>
     </table>
     <strong>* Пратката се изпраща с опция за преглед. Моля, огледайте чашата за счупване или надраскване на изображението пред куриера.</strong>
@@ -103,9 +107,16 @@
             mug1.init('mug1', { x: 0, height: 2, z: 0 }, scene.getScene());
             mug1.create();
 
-            @foreach (var image in Model.Order.Images)
+            @if (Model.PreviewImage != null)
             {
-                @:mug1.addImage({ name: '@image.Id.ToString()', url: '/Download/@image.Name', width: @image.Width, height: @image.Height, dpi: @image.Dpi, rotation: '@image.Rotation', y: '@image.Y' });
+                @:mug1.addImage({ name: '@Model.PreviewImage.Id.ToString()', url: '/Download/@Model.PreviewImage.Name', width: 2362, height: 1004, dpi: 300 });
+            }
+            else
+            {
+                @foreach (var image in Model.Order.Images)
+                {
+                    @:mug1.addImage({ name: '@image.Id.ToString()', url: '/Download/@image.Name', width: @image.Width, height: @image.Height, dpi: @image.Dpi, rotation: '@image.Rotation', y: '@image.Y' });
+                }
             }
         });
     </script>

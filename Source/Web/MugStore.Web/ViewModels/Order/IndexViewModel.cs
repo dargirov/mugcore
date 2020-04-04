@@ -9,5 +9,7 @@
         public decimal TotalPrice { get; set; }
 
         public decimal DeliveryPrice { get; set; }
+
+        public Data.Models.ProductImage PreviewImage { get; set; }
     }
 }

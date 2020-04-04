@@ -61,6 +61,11 @@ namespace MugStore.Web.Controllers
                 DeliveryPrice = decimal.Parse(this.configuration["AppSettings:DeliveryPrice"])
             };
 
+            if (order.ProductId.HasValue && order.ProductId > 0)
+            {
+                viewModel.PreviewImage = products.Get(order.ProductId.Value).Images.FirstOrDefault(x => x.Preview3d == true);
+            }
+
             return View(viewModel);
         }
 

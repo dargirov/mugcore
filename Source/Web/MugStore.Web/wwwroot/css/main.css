@@ -320,14 +320,6 @@ textarea {
     width: 200px;
 }
 
-/*.touchcarousel-container a {
-    text-decoration: none;
-    color: #555;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-}*/
-
 #recommended-products strong {
     display: block;
     color: #636363;
@@ -445,7 +437,7 @@ textarea {
 }
 
 .order-back {
-    font-size: 28px !important;
+    font-size: 36px !important;
     cursor: pointer;
 }
 
@@ -1198,11 +1190,11 @@ input.invalid, textarea.invalid {
 }
 
 #order-page h1 {
-	font-family: 'Comfortaa', cursive;
+    font-family: 'Comfortaa', cursive;
     font-size: 32px;
-	line-height: 40px;
+    line-height: 40px;
     color: #111;
-	text-align: center;
+    text-align: center;
 }
 
 #order-page table {
@@ -1231,6 +1223,10 @@ input.invalid, textarea.invalid {
 
 #order-page .fas {
     color: #0fcabf;
+}
+
+#create-order-btn i {
+    margin-right: 10px;
 }
 
 @media all and (max-width: 1000px) {
@@ -1438,5 +1434,14 @@ input.invalid, textarea.invalid {
     #gallery-left a {
         display: inline-block;
         padding: 5px 0;
+    }
+
+    input[type=text], input[type=email], select {
+        height: 40px;
+    }
+
+    .blue-btn {
+        height: 40px;
+        padding-top: 12px;
     }
 }
