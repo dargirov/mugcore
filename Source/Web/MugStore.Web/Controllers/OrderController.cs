@@ -192,6 +192,20 @@ namespace MugStore.Web.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult Feedback(string acronym, string message)
+        {
+            var order = this.orders.Get().FirstOrDefault(x => x.Acronym == acronym);
+            if (order == null || string.IsNullOrWhiteSpace(message) || message.Length > 1000)
+            {
+                return BadRequest();
+            }
+
+            order.Feedback = message;
+            this.orders.Save();
+            return this.Ok();
+        }
+
         private string GenerateAcronym()
         {
             var date = DateTime.UtcNow;

@@ -231,6 +231,11 @@ var Cart = (function ($, Notification) {
                                 $('#step4-price').html(priceHtml + ' *');
                             }
 
+                            if (data.comment !== null) {
+                                $('#step4-comment-dt').removeClass('hidden');
+                                $('#step4-comment').removeClass('hidden').html(data.comment);
+                            }
+
                             gotoStep4();
 
                             $.ajax({ method: "POST", url: sendEmailUrl, data: { acronym: data.acronym } })
@@ -250,6 +255,31 @@ var Cart = (function ($, Notification) {
         function removeInvalidMessageFocus(e) {
             $(this).val('');
             $(this).removeClass('invalid');
+        }
+
+        $('#step4-feedback-container').on('submit', feedbackSubmit);
+        function feedbackSubmit(e) {
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var acronym = $('#step4-acronym').find('span').text();
+            var message = $('#step4-feedback-textarea').val();
+
+            if (acronym.length === 0) {
+                return;
+            }
+
+            if (message.length === 0) {
+                alert('Моля, попълнете полето.');
+                return;
+            }
+
+            $(this).find('input[type=submit]').prop('disabled', true);
+            $(this).find('textarea').prop('disabled', true);
+
+            $.ajax({ method: "POST", url: url, data: { acronym: acronym, message: message } })
+                .done(function () {
+                    alert('Благодарим за информацията.');
+                });
         }
     }
 

@@ -131,21 +131,23 @@
             <div id="step4" class="hidden">
                 <div class="status-success">Успешно завършихте вашата поръчка</div>
                 <strong id="step4-acronym">Поръчка №<span></span></strong>
-                <dl>
-                    <dt>Метод на плащане:</dt>
-                    <dd id="step4-payment-method"></dd>
-                    <dt id="step4-email-dt" class="hidden">Email:</dt>
-                    <dd id="step4-email" class="hidden"></dd>
-                    <dt id="step4-courier-dt" class="hidden">Куриер:</dt>
-                    <dd id="step4-courier" class="hidden"></dd>
-                    <dt>Адрес за доставка:</dt>
-                    <dd id="step4-address"></dd>
-                    <dt>Количество:</dt>
-                    <dd id="step4-quantity"></dd>
-                    <dt>Крайна цена:</dt>
-                    <dd id="step4-price"></dd>
-                </dl>
+                <ol>
+                    <li>Метод на плащане: <b id="step4-payment-method"></b></li>
+                    <li id="step4-email-dt" class="hidden">Email: <b id="step4-email"></b></li>
+                    <li id="step4-courier-dt" class="hidden">Куриер: <b id="step4-courier"></b></li>
+                    <li>Адрес за доставка: <b id="step4-address"></b></li>
+                    <li id="step4-comment-dt" class="hidden">Коментар: <b id="step4-comment"></b></li>
+                    <li>Количество: <b id="step4-quantity"></b></li>
+                    <li>Крайна цена: <b id="step4-price"></b></li>
+                </ol>
                 <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от&lt;br&gt;тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i></div>
+                <div id="step4-feedback">
+                    <label for="step4-feedback-textarea">От къде научихте за нас?</label>
+                    <form id="step4-feedback-container" method="post" action="@Url.Action("Feedback", "Order")">
+                        <textarea id="step4-feedback-textarea" placeholder="Търсене в Google, страницата ни във Facebook или от другаде?"></textarea>
+                        <input type="submit" value="&gt;&gt;">
+                    </form>
+                </div>
             </div>
         </div>
     }
