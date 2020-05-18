@@ -910,7 +910,7 @@ input.invalid, textarea.invalid {
     font-family: Tahoma;
     font-size: 14px;
     color: #333;
-    margin-top: 12px;
+    margin-top: 20px;
 }
 
 #step4-feedback textarea {
@@ -922,6 +922,22 @@ input.invalid, textarea.invalid {
 #step4-feedback-container {
     display: flex;
     margin-top: 5px;
+}
+
+#step4 a {
+    font-family: Tahoma;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+}
+
+#step4 a:hover {
+    text-decoration: underline;
+    color: #111;
+}
+
+#step4-fblink {
+    margin-top: 12px;
 }
 
 .how-to-create-dark {
