@@ -14,8 +14,10 @@
                     </div>
                     <div id="canvas-price-container-msrp"><s><span>@Html.Raw(string.Format("{0:0.00} лв.", ViewBag.SingleMugMsrpPrice))</span></s> -@ViewBag.Decrease%</div>
                 </div>
-                <strong><span class="circle">1</span> Качи изображение <i class="far fa-question-circle" aria-hidden="true" id="image-help" data-url="@Url.Action("ImageHelp", "Home")"></i></strong>
-                <input type="file">
+                <label>
+                    <strong><span class="circle">1</span> Качи изображение <i class="far fa-question-circle" aria-hidden="true" id="image-help" data-url="@Url.Action("ImageHelp", "Home")"></i></strong>
+                    <input type="file">
+                </label>
                 <div id="customization-controls-container" class="hidden">
                     <strong><span class="circle">2</span> Задай разположение</strong>
                     <div data-image="0" class="move-controls hidden">
@@ -149,7 +151,7 @@
                     </form>
                 </div>
                 <div id="step4-fblink">
-                    <a href="https://www.facebook.com/chasha.snimki" target="_blank">Харесайте ни във Facebook <i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer">Харесайте ни във Facebook <i class="fab fa-facebook-square"></i></a>
                 </div>
             </div>
         </div>

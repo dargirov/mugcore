@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="bg">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -96,15 +96,15 @@
                 <h5>За нас</h5>
                 Фирмата се занимава с изработка на рекламни материали от 2004г. През това време успя да се наложи с качествена продукция и точността си към клиентите.
                 <span id="social-media-links">
-                    <a href="https://www.facebook.com/chasha.snimki" target="_blank"><i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><i class="fab fa-facebook-square"></i><span>Вижте Facebook страницата ни</span></a>
                 </span>
             </div>
             <div>
                 <h5>Бюлетин</h5>
-                Абонирайте се за нашия бюлетин за да разберете веднага за новите ни предложения и промоции.
                 <form method="post" id="subscribe-to-bulletin-form" data-url="@Url.Action("Add", "Bulletin")">
+                    <label for="subscribe-to-bulletin-field">Абонирайте се за нашия бюлетин за да разберете веднага за новите ни предложения и промоции.</label>
                     @Html.AntiForgeryToken()
-                    <input type="email" placeholder="Email адрес" required="required">
+                    <input type="email" id="subscribe-to-bulletin-field" placeholder="Email адрес" required="required">
                     <a href="#" class="blue-btn" id="bulletin-add-btn">Запиши</a>
                 </form>
                 <div id="subscribe-success" class="status-success hidden">Успешна регистрация</div>
