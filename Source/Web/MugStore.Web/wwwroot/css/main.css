@@ -530,7 +530,7 @@ input.invalid, textarea.invalid {
 
 #gallery-left strong {
     display: block;
-    background-color: #0fcabf;
+    background-color: #217e79;
     box-sizing: border-box;
     padding: 10px 20px;
     margin-right: 20px;
@@ -620,8 +620,8 @@ input.invalid, textarea.invalid {
 
 #product-details-info {
     padding-left: 30px;
-    width: 100%;
-    min-width: 362px;
+    width: 362px;
+    overflow-x: hidden;
 }
 
 #product-details-info h1 {
@@ -1314,7 +1314,7 @@ input.invalid, textarea.invalid {
 
     #product-details-info, #product-details-order {
         padding-left: 0;
-        min-width: initial;
+        width: initial;
     }
 
     #contacts ul {
