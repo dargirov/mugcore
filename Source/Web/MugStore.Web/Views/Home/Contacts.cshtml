@@ -19,9 +19,9 @@
             <li>Адрес:</li>
             <li>Асеновград<br>ул. Борислав №2 (срещу магазин LIDL)</li>
             <li>Телефон:</li>
-            <li>@Model.Phone</li>
+            <li><a href="tel:@Model.Phone.Replace(" ", "")">@Model.Phone</a></li>
             <li>Email:</li>
-            <li>@Model.Email</li>
+            <li><a href="mailto:@Model.Email">@Model.Email</a></li>
         </ul>
     </div>
 </section>

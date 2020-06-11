@@ -12,7 +12,9 @@ using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.Attributes;
 using MugStore.Web.Infrastructure.Mapping;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 
 namespace MugStore.Web
@@ -89,7 +91,15 @@ namespace MugStore.Web
 
             app.UseSession();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    // Cache static files for 30 days
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=31536000");
+                    ctx.Context.Response.Headers.Append("Expires", DateTime.UtcNow.AddYears(1).ToString("R", CultureInfo.InvariantCulture));
+                }
+            });
 
             app.Use(async (ctx, next) =>
             {
@@ -97,7 +107,7 @@ namespace MugStore.Web
 
                 if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
                 {
-                    //Re-execute the request so the user gets the error page
+                    // Re-execute the request so the user gets the error page
                     string originalPath = ctx.Request.Path.Value;
                     ctx.Items["originalPath"] = originalPath;
                     ctx.Request.Path = "/Home/404";

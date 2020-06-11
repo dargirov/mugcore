@@ -224,7 +224,7 @@ canvas {
     margin: 30px 0;
 }
 
-#footer h5 {
+#footer h4 {
     margin-bottom: 20px;
     color: white;
     font-family: 'PT Sans', sans-serif;
@@ -507,6 +507,11 @@ input.invalid, textarea.invalid {
     color: #333;
 }
 
+#contacts li a {
+    color: #555;
+    text-decoration: none;
+}
+
 #contact-form {
     background-color: #0fcabf;
 }
@@ -620,8 +625,8 @@ input.invalid, textarea.invalid {
 
 #product-details-info {
     padding-left: 30px;
-    width: 362px;
-    overflow-x: hidden;
+    width: 100%;
+    min-width: 362px;
 }
 
 #product-details-info h1 {
@@ -636,13 +641,14 @@ input.invalid, textarea.invalid {
 #product-details-info h2 {
     font-family: "Roboto Condensed",sans-serif;
     font-size: 17px;
-    color: #A5A5A5;
+    color: #737272;
     font-weight: normal;
     text-align: left;
 }
 
 #product-details-info ul {
     list-style-type: none;
+    margin-bottom: 10px;
 }
 
 #product-details-info li {
@@ -658,7 +664,7 @@ input.invalid, textarea.invalid {
 }
 
 #product-details-info li a {
-    color: #AbAbAb;
+    color: #737272;
     text-decoration: none;
 }
 
@@ -798,7 +804,7 @@ input.invalid, textarea.invalid {
 }
 
 #product-details-full-info {
-    color: #a5a5a5;
+    color: #737272;
     margin-top: 60px;
     font-size: 13px;
 }
@@ -1314,7 +1320,7 @@ input.invalid, textarea.invalid {
 
     #product-details-info, #product-details-order {
         padding-left: 0;
-        width: initial;
+        min-width: initial;
     }
 
     #contacts ul {
@@ -1360,10 +1366,6 @@ input.invalid, textarea.invalid {
     #about-us-summary > div > span:last-of-type {
         padding: 0;
         padding-top: 20px;
-    }
-
-    #footer nav li {
-        padding: 6px 0;
     }
 
     #gallery-right ul {
@@ -1484,5 +1486,20 @@ input.invalid, textarea.invalid {
     .blue-btn {
         height: 40px;
         padding-top: 12px;
+    }
+
+    #product-details-info li a {
+        display: inline-block;
+        padding: 4px 0;
+    }
+
+    #product-details-full-info a {
+        display: inline-block;
+        padding: 4px 0;
+    }
+
+    #footer nav a {
+        display: inline-block;
+        padding: 6px 0;
     }
 }

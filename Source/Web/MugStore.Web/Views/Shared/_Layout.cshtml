@@ -38,8 +38,7 @@
         fbq('track', 'PageView');
     </script>
     <noscript>
-        <img height="1" width="1" style="display:none"
-             src="https://www.facebook.com/tr?id=900034700182795&ev=PageView&noscript=1" />
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=900034700182795&ev=PageView&noscript=1" />
     </noscript>
     <!-- End Facebook Pixel Code -->
 </head>
@@ -93,14 +92,14 @@
     <footer id="footer">
         <div>
             <div>
-                <h5>За нас</h5>
+                <h4>За нас</h4>
                 Фирмата се занимава с изработка на рекламни материали от 2004г. През това време успя да се наложи с качествена продукция и точността си към клиентите.
                 <span id="social-media-links">
                     <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><i class="fab fa-facebook-square"></i><span>Вижте Facebook страницата ни</span></a>
                 </span>
             </div>
             <div>
-                <h5>Бюлетин</h5>
+                <h4>Бюлетин</h4>
                 <form method="post" id="subscribe-to-bulletin-form" data-url="@Url.Action("Add", "Bulletin")">
                     <label for="subscribe-to-bulletin-field">Абонирайте се за нашия бюлетин за да разберете веднага за новите ни предложения и промоции.</label>
                     @Html.AntiForgeryToken()
@@ -110,7 +109,7 @@
                 <div id="subscribe-success" class="status-success hidden">Успешна регистрация</div>
             </div>
             <div>
-                <h5>Информация</h5>
+                <h4>Информация</h4>
                 <nav>
                     <ol>
                         <li><a href="@Url.Action("index", "home")">Начало</a></li>
@@ -119,17 +118,17 @@
                         <li><a href="@Url.Action("contacts", "home")">Контакти</a></li>
                     </ol>
                 </nav>
-                <h5>Приятели</h5>
+                <h4>Приятели</h4>
                 <nav>
                     <ol>
-                        <li><a href="//sitostil.com" target="_blank" rel="noopener">Ситопечат и реклама</a></li>
-                        <li><a href="//svetlini.bg" target="_blank" rel="noopener">Осветление за автомобили</a></li>
-                        <li><a href="//remont-farove.com" target="_blank" rel="noopener">Ремонт на фарове</a></li>
+                        <li><a href="//sitostil.com" target="_blank" rel="noopener" title="Печат върху текстил и изработка на рекламни материали">Ситопечат и реклама</a></li>
+                        <li><a href="//svetlini.bg" target="_blank" rel="noopener" title="Продажба на осветителни тела за автомобили и тежкотоварни превозни средства">Осветление за автомобили</a></li>
+                        <li><a href="//remont-farove.com" target="_blank" rel="noopener" title="Ремонт на фарове и възстановяване на рефлектори">Ремонт на фарове</a></li>
                     </ol>
                 </nav>
             </div>
             <div>
-                <h5>Тагове</h5>
+                <h4>Тагове</h4>
                 <ul>
                     @foreach (var tag in ViewBag.Tags)
                     {
@@ -142,7 +141,7 @@
 
     <environment include="Development">
         <script src="~/js/libs/babylon.2.3.js" asp-append-version="true"></script>
-        <script src="~/js/libs/jquery-2.2.3.min.js" asp-append-version="true"></script>
+        <script src="~/js/libs/jquery-3.5.1.min.js" asp-append-version="true"></script>
         <script src="~/js/libs/touchcarousel-1.3.min.js" asp-append-version="true"></script>
         <script src="~/js/libs/jquery.webui-popover.min.js" asp-append-version="true"></script>
         <script src="~/js/notification.js" asp-append-version="true"></script>

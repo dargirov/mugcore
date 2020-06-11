@@ -5,6 +5,7 @@ using MugStore.Services.Common;
 using MugStore.Services.Data;
 using SixLabors.ImageSharp;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -42,6 +43,8 @@ namespace MugStore.Web.Controllers
                 return NotFound(name);
             }
 
+            this.HttpContext.Response.Headers.Add("Cache-Control", "public,max-age=31536000");
+            this.HttpContext.Response.Headers.Add("Expires", DateTime.UtcNow.AddYears(1).ToString("R", CultureInfo.InvariantCulture));
             return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToGalleryImages, image.Path), image.Name);
         }
 

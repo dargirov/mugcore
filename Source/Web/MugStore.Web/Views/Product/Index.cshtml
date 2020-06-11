@@ -21,7 +21,7 @@
     <div>
         <div id="product-details-upper-container">
             <div id="image-gallery">
-                <a class="gallery-img" asp-route="ProductImage" asp-route-name="@(Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name)"><img itemprop="image" src="@(Model.BaseUrl + Url.RouteUrl("ProductImage", new { name = Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name }))"></a>
+                <a class="gallery-img" asp-route="ProductImage" asp-route-name="@(Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name)"><img itemprop="image" src="@(Model.BaseUrl + Url.RouteUrl("ProductImage", new { name = Model.Images.Where(i => !i.Thumb && !i.Preview3d).First().Name }))" alt="@(Model.PageTitle?.Replace("\"", ""))"><span class="hidden">@Model.PageTitle</span></a>
                 <ul>
                     @{
                         var count = 0;
@@ -37,7 +37,7 @@
                                 continue;
                             }
 
-                            <li><a class="gallery-img" href="@Url.RouteUrl("ProductImage", new { name = image.Name })"><img itemprop="image" src="@(Model.BaseUrl + Url.RouteUrl("ProductImage", new { name = image.Name }))" alt="@(Model.PageTitle?.Replace("\"", ""))"></a></li>
+                            <li><a class="gallery-img" href="@Url.RouteUrl("ProductImage", new { name = image.Name })"><img itemprop="image" src="@(Model.BaseUrl + Url.RouteUrl("ProductImage", new { name = image.Name }))" alt="@(Model.PageTitle?.Replace("\"", ""))"><span class="hidden">@Model.PageTitle</span></a></li>
                         }
                     }
                 </ul>
@@ -47,13 +47,14 @@
                 <h2 itemprop="description">@Model.Description</h2>
                 <strong itemprop="sku" content="@Model.Code">Код на продукт: @Model.Code</strong>
                 <meta itemprop="productID" content="@Model.Code" />
+                <meta itemprop="mpn" content="@Model.Code" />
                 <ul>
                     @foreach (var tag in Model.Tags)
                     {
                         <li><a asp-route="Tag" asp-route-acronym="@tag.Acronym">@tag.Name</a></li>
                     }
                 </ul>
-                <div class="fb-like" data-layout="standard" data-action="like" data-size="small" data-share="false"></div>
+                <div class="fb-like" data-layout="button" data-action="like" data-size="large" data-share="false"></div>
             </div>
         </div>
         <div id="product-details-full-info">
@@ -81,8 +82,8 @@
                         <strong>За консултация</strong>
                         Може да се свържете с нас чрез:
                         <ol>
-                            <li>тел. @Model.Phone в работно време</li>
-                            <li>email: @Model.Email</li>
+                            <li>тел. <a href="tel:@Model.Phone.Replace(" ", "")">@Model.Phone</a> в работно време</li>
+                            <li>email: <a href="mailto:@Model.Email">@Model.Email</a></li>
                             <li><a href="@Url.Action("contacts", "home")">формата за контакти</a> или заповядайте в нашия офис в гр. Асеновград</li>
                         </ol>
                     </div>
@@ -115,6 +116,7 @@
                 </span>
                 <span itemprop="priceCurrency" content="BGN">лв.</span>
                 <link itemprop="availability" href="http://schema.org/InStock">
+                <link itemprop="priceValidUntil" content="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")">
                 <link itemprop="url" content="@Model.BaseUrl/p/@Model.Acronym">
             </h2>
             <h3 id="product-price-info">
@@ -178,7 +180,7 @@
                     </form>
                 </div>
                 <div id="step4-fblink">
-                    <a href="https://www.facebook.com/chasha.snimki" target="_blank">Харесайте ни във Facebook <i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer">Харесайте ни във Facebook <i class="fab fa-facebook-square"></i></a>
                 </div>
             </div>
             <a href="#disabled" class="blue-btn" id="show-form-btn">Поръчай</a>
