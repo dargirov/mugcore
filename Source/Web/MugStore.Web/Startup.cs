@@ -71,6 +71,7 @@ namespace MugStore.Web
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<ILoggerService, LoggerService>();
+            services.AddTransient<IMailService, MailService>();
 
             var autoMapperConfig = new AutoMapperConfig();
             autoMapperConfig.Execute(Assembly.GetExecutingAssembly());

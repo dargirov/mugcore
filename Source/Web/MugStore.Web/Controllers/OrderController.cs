@@ -22,8 +22,9 @@ namespace MugStore.Web.Controllers
         private readonly IConfiguration configuration;
         private readonly ILoggerService logger;
         private readonly ITagsService tags;
+        private readonly IMailService mailService;
 
-        public OrderController(IOrdersService orders, IImagesService images, ICitiesService cities, IProductsService products, ICouriersService couriers, IConfiguration configuration, ILoggerService logger, ITagsService tags)
+        public OrderController(IOrdersService orders, IImagesService images, ICitiesService cities, IProductsService products, ICouriersService couriers, IConfiguration configuration, ILoggerService logger, ITagsService tags, IMailService mailService)
         {
             this.orders = orders;
             this.images = images;
@@ -33,6 +34,7 @@ namespace MugStore.Web.Controllers
             this.configuration = configuration;
             this.logger = logger;
             this.tags = tags;
+            this.mailService = mailService;
         }
 
         [HttpGet("/o/{acronym}")]
@@ -168,21 +170,13 @@ namespace MugStore.Web.Controllers
                 return BadRequest();
             }
 
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("x-functions-key", this.configuration["AppSettings:AzureFunctionKey"]);
-
-            var values = new Dictionary<string, string>
-            {
-                ["orderId"] = order.Acronym,
-                ["courier"] = order.DeliveryInfo.Courier?.Name,
-                ["quantity"] = order.Quantity.ToString(),
-            };
-
-            var content = new FormUrlEncodedContent(values);
-
             try
             {
-                await client.PostAsync(this.configuration["AppSettings:AzureFunctionUrl"], content);
+                await AzureFunctionSendMailAsync(order);
+                if (!string.IsNullOrWhiteSpace(order.DeliveryInfo.Email))
+                {
+                    await this.mailService.SendMailAsync(order);
+                }
             }
             catch (Exception e)
             {
@@ -226,6 +220,22 @@ namespace MugStore.Web.Controllers
         private decimal CalculateTotalPrice(Order order)
         {
             return (order.Quantity * decimal.Parse(this.configuration["AppSettings:SingleMugPrice"])) + decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]);
+        }
+
+        private async Task AzureFunctionSendMailAsync(Order order)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-functions-key", this.configuration["AppSettings:AzureFunctionKey"]);
+
+            var values = new Dictionary<string, string>
+            {
+                ["orderId"] = order.Acronym,
+                ["courier"] = order.DeliveryInfo.Courier?.Name,
+                ["quantity"] = order.Quantity.ToString(),
+            };
+
+            var content = new FormUrlEncodedContent(values);
+            await client.PostAsync(this.configuration["AppSettings:AzureFunctionUrl"], content);
         }
     }
 }
