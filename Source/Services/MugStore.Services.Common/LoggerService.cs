@@ -17,12 +17,12 @@ namespace MugStore.Services.Common
             this.logs = logs;
         }
 
-        public void Log(LogLevel level, string message, string code = null, IPAddress ipAddress = null)
+        public void Log(LogLevel level, Exception ex, string code = null, IPAddress ipAddress = null)
         {
             var log = new Log()
             {
                 Code = code,
-                Content = message,
+                Content = ex.ToString(),
                 Level = level,
                 IpAddress = ipAddress?.ToString()
             };

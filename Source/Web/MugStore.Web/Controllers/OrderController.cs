@@ -178,9 +178,9 @@ namespace MugStore.Web.Controllers
                     await this.mailService.SendMailAsync(order);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, e.Message, "500");
+                logger.Log(LogLevel.Error, ex, "500");
             }
 
             return Ok();

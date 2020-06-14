@@ -146,7 +146,7 @@ namespace MugStore.Web.Controllers
 
             if (exceptionHandler != null)
             {
-                this.logger.Log(LogLevel.Error, exceptionHandler.Error.ToString(), "500", ipAddress);
+                this.logger.Log(LogLevel.Error, exceptionHandler.Error, "500", ipAddress);
             }
 
             return this.View();

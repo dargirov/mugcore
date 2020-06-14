@@ -128,7 +128,7 @@ namespace MugStore.Web.Controllers
                     message = ex.Message
                 };
 
-                this.loggerService.Log(Data.Models.LogLevel.Error, ex.Message, "500");
+                this.loggerService.Log(Data.Models.LogLevel.Error, ex, "500");
 
                 return this.Json(result);
             }
