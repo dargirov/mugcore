@@ -139,6 +139,11 @@ namespace MugStore.Web.Controllers
             var type = contentType.Split('/');
             var path = Path.Combine(this.hostingEnvironment.ContentRootPath, imagePath.FixOsPath(), imageName.FixOsPath() + "." + type[1]);
 
+            if (!System.IO.File.Exists(path))
+            {
+                return NotFound();
+            }
+
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open))
             {
