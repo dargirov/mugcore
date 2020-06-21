@@ -1276,6 +1276,36 @@ input.invalid, textarea.invalid {
     margin-right: 10px;
 }
 
+#features ul {
+    display: flex;
+    list-style-type: none;
+}
+
+#features li {
+    width: 25%;
+    padding-right: 15px;
+    text-align: center;
+}
+
+#features li:last-of-type {
+    padding-right: 0;
+}
+
+#features strong {
+    display: block;
+    color: #343434;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+#features i {
+    display: block;
+    color: #343434;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
 @media all and (max-width: 1000px) {
     #header > div {
         width: 100%;
@@ -1501,5 +1531,15 @@ input.invalid, textarea.invalid {
     #footer nav a {
         display: inline-block;
         padding: 6px 0;
+    }
+
+    #features ul {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    #features li {
+        width: 45%;
+        padding-right: 0;
     }
 }

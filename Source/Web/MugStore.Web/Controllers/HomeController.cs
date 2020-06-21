@@ -129,8 +129,8 @@ namespace MugStore.Web.Controllers
 
             var viewModel = new ContactsViewModel()
             {
-                Email = configuration["ContactsEmail"],
-                Phone = configuration["ContactsPhone"],
+                Email = configuration["AppSettings:ContactsEmail"],
+                Phone = configuration["AppSettings:ContactsPhone"],
                 SiteKey = configuration["AppSettings:ReCaptchaSiteKey"]
             };
 
@@ -159,7 +159,7 @@ namespace MugStore.Web.Controllers
             this.ViewBag.PageDescription = "Несъществуваща страница.";
             var ipAddress = this.HttpContext.Connection.RemoteIpAddress;
 
-            //this.logger.Log(LogLevel.Warn, this.HttpContext.Items["originalPath"]?.ToString() ?? string.Empty, "400", ipAddress);
+            // this.logger.Log(LogLevel.Warn, this.HttpContext.Items["originalPath"]?.ToString() ?? string.Empty, "400", ipAddress);
 
             return this.View();
         }
