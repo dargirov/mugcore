@@ -17,16 +17,13 @@
     var scene = Scene;
     var cart = Cart;
 
-    if (!scene.isSupported()) {
-        $('#canvas-container').remove();
-        cart.init({});
-    } else {
+    function init(color) {
         scene.init({ canvasId: 'canvas' });
 
         var mug1 = Mug;
-        mug1.init('mugPreview', { x: 0, height: 2, z: 0 }, scene.getScene());
+        mug1.init('mugPreview', { x: 0, height: 2, z: 0 }, scene.getScene(), color);
         mug1.create();
-        
+
         cart.init({ mug: mug1 });
 
         var previewImages = $('#product-details').data('preview-images').split(',');
@@ -35,6 +32,24 @@
                 mug1.addImage({ name: previewImages[i], url: '/DownloadProductImage/' + previewImages[i], width: 2362, height: 1004, dpi: 300 });
             }
         }
+    }
+
+    $('#color-dropdown ul a').on('click', function () {
+        if (scene.isSupported()) {
+            var color = $(this).data('color');
+            var colorText = $(this).text().trim();
+            $('#color-dropdown span:first-of-type').text('Цвят: ' + colorText);
+            $('#color-dropdown > a').data('color', color).click();
+            scene.dispose();
+            init(color);
+        }
+    });
+
+    if (!scene.isSupported()) {
+        $('#canvas-container').remove();
+        cart.init({});
+    } else {
+        init('std');
     }
 
     $('#show-form-btn').on('click', orderCreateBtnClick);

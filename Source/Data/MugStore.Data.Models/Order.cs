@@ -50,5 +50,7 @@ namespace MugStore.Data.Models
         public string Note { get; set; }
 
         public string Feedback { get; set; }
+
+        public string Color { get; set; }
     }
 }

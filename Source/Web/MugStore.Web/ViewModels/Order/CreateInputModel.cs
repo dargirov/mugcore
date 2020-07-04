@@ -19,5 +19,7 @@ namespace MugStore.Web.ViewModels.Order
         public List<ImageInputModel> Images { get; set; }
 
         public string ProductAcronym { get; set; }
+
+        public string Color { get; set; }
     }
 }

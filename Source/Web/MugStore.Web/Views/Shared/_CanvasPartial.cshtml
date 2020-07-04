@@ -1,5 +1,31 @@
 ﻿<section id="canvas-container">
     <div>
+        <div id="color-container">
+            <div id="color-dropdown">
+                <a data-enabled="true" data-color="std"><span>Цвят: Бял</span><span><i class="fas fa-caret-down"></i></span></a>
+                <ul>
+                    <li><a data-color="std"><img src="~/images/mug_color_white.png" alt="Чаша цвят бял"> Бял</a></li>
+                    @if (bool.Parse(ViewBag.EnabledColors["Red"]))
+                    {
+                        <li><a data-color="red"><img src="~/images/mug_color_red.png" alt="Чаша цвят червен"> Червен</a></li>
+                    }
+                    @if (bool.Parse(ViewBag.EnabledColors["Green"]))
+                    {
+                    <li><a data-color="green"><img src="~/images/mug_color_green.png" alt="Чаша цвят зелен"> Зелен</a></li>
+                    }
+                    
+                    @if (bool.Parse(ViewBag.EnabledColors["Blue"]))
+                    {
+                        <li><a data-color="blue"><img src="~/images/mug_color_blue.png" alt="Чаша цвят син"> Син</a></li>
+                    }
+                    
+                    @if (bool.Parse(ViewBag.EnabledColors["Yellow"]))
+                    {
+                        <li><a data-color="yellow"><img src="~/images/mug_color_yellow.png" alt="Чаша цвят жълт"> Жълт</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
         <canvas id="canvas"></canvas>
     </div>
     @if ((bool)ViewBag.ShowRight)
@@ -21,30 +47,30 @@
                 <div id="customization-controls-container" class="hidden">
                     <strong><span class="circle">2</span> Задай разположение</strong>
                     <div data-image="0" class="move-controls hidden">
-                        <img src="~/images/controls.png" usemap="#controls0">
+                        <img src="~/images/controls.png" usemap="#controls0" alt="Премести">
                         <map name="controls0">
-                            <area class="move" data-direction="right" href="#disabled" shape="poly" coords="80,26,75,65,47,42">
-                            <area class="move" data-direction="up" href="#disabled" shape="poly" coords="25,5,62,7,41,36">
-                            <area class="move" data-direction="left" href="#disabled" shape="poly" coords="5,23,4,59,36,41">
-                            <area class="move" data-direction="down" href="#disabled" shape="poly" coords="22,77,57,81,42,48">
+                            <area class="move" alt="Премести" data-direction="right" href="#disabled" shape="poly" coords="80,26,75,65,47,42">
+                            <area class="move" alt="Премести" data-direction="up" href="#disabled" shape="poly" coords="25,5,62,7,41,36">
+                            <area class="move" alt="Премести" data-direction="left" href="#disabled" shape="poly" coords="5,23,4,59,36,41">
+                            <area class="move" alt="Премести" data-direction="down" href="#disabled" shape="poly" coords="22,77,57,81,42,48">
                         </map>
                     </div>
                     <div data-image="1" class="move-controls hidden">
-                        <img src="~/images/controls.png" usemap="#controls1">
+                        <img src="~/images/controls.png" usemap="#controls1" alt="Премести">
                         <map name="controls1">
-                            <area class="move" data-direction="right" href="#disabled" shape="poly" coords="80,26,75,65,47,42">
-                            <area class="move" data-direction="up" href="#disabled" shape="poly" coords="25,5,62,7,41,36">
-                            <area class="move" data-direction="left" href="#disabled" shape="poly" coords="5,23,4,59,36,41">
-                            <area class="move" data-direction="down" href="#disabled" shape="poly" coords="22,77,57,81,42,48">
+                            <area class="move" alt="Премести" data-direction="right" href="#disabled" shape="poly" coords="80,26,75,65,47,42">
+                            <area class="move" alt="Премести" data-direction="up" href="#disabled" shape="poly" coords="25,5,62,7,41,36">
+                            <area class="move" alt="Премести" data-direction="left" href="#disabled" shape="poly" coords="5,23,4,59,36,41">
+                            <area class="move" alt="Премести" data-direction="down" href="#disabled" shape="poly" coords="22,77,57,81,42,48">
                         </map>
                     </div>
                     <div data-image="2" class="move-controls hidden">
-                        <img src="~/images/controls.png" usemap="#controls2">
+                        <img src="~/images/controls.png" usemap="#controls2" alt="Премести">
                         <map name="controls2">
-                            <area class="move" data-direction="right" href="#disabled" shape="poly" coords="80,26,75,65,47,42">
-                            <area class="move" data-direction="up" href="#disabled" shape="poly" coords="25,5,62,7,41,36">
-                            <area class="move" data-direction="left" href="#disabled" shape="poly" coords="5,23,4,59,36,41">
-                            <area class="move" data-direction="down" href="#disabled" shape="poly" coords="22,77,57,81,42,48">
+                            <area class="move" alt="Премести" data-direction="right" href="#disabled" shape="poly" coords="80,26,75,65,47,42">
+                            <area class="move" alt="Премести" data-direction="up" href="#disabled" shape="poly" coords="25,5,62,7,41,36">
+                            <area class="move" alt="Премести" data-direction="left" href="#disabled" shape="poly" coords="5,23,4,59,36,41">
+                            <area class="move" alt="Премести" data-direction="down" href="#disabled" shape="poly" coords="22,77,57,81,42,48">
                         </map>
                     </div>
 
@@ -70,7 +96,7 @@
                             @if (ViewBag.DeliveryPrice == 0)
                             {
                                 @:за ваша сметка
-                                <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от&lt;br&gt;тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i>
+                                <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя&lt;br&gt;от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i>
                             }
                             else
                             {
@@ -100,7 +126,7 @@
                 <input type="text" name="phone" id="phone-field" placeholder="Тел. за контакт">
                 <div id="email-address-container">
                     <input type="email" name="email" id="email-field" placeholder="Email адрес (незадължително)">
-                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато изпратим поръчката." data-placement="top-left" data-animation="pop"></i>
+                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; изпратим поръчката." data-placement="top-left" data-animation="pop"></i>
                 </div>
                 <select name="city" id="city-dd">
                     @foreach (var city in ViewBag.Cities)
@@ -142,7 +168,7 @@
                     <li>Количество: <b id="step4-quantity"></b></li>
                     <li>Крайна цена: <b id="step4-price"></b></li>
                 </ol>
-                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от&lt;br&gt;тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i></div>
+                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="250"></i></div>
                 <div id="step4-feedback">
                     <label for="step4-feedback-textarea">От къде научихте за нас?</label>
                     <form id="step4-feedback-container" method="post" action="@Url.Action("Feedback", "Order")">

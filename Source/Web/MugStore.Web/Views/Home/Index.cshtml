@@ -136,17 +136,32 @@
 
             var scene = Scene;
 
-            if (!scene.isSupported()) {
-                $('#canvas-container').remove();
-            } else {
+            function init(color) {
                 scene.init({ canvasId: 'canvas' });
 
                 var mug1 = Mug;
-                mug1.init('createMug', { x: 0, height: 2, z: 0 }, scene.getScene());
+                mug1.init('createMug', { x: 0, height: 2, z: 0 }, scene.getScene(), color);
                 mug1.create();
 
                 var cart = Cart;
                 cart.init({ mug: mug1 });
+            }
+
+            $('#color-dropdown ul a').on('click', function () {
+                if (scene.isSupported()) {
+                    var color = $(this).data('color');
+                    var colorText = $(this).text().trim();
+                    $('#color-dropdown span:first-of-type').text('Цвят: ' + colorText);
+                    $('#color-dropdown > a').data('color', color).click();
+                    scene.dispose();
+                    init(color);
+                }
+            });
+
+            if (!scene.isSupported()) {
+                $('#canvas-container').remove();
+            } else {
+                init('std');
             }
 
             $('#recommended-products').touchCarousel({

@@ -6,6 +6,7 @@ using MugStore.Services.Data;
 using MugStore.Web.ViewModels.Order;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -98,9 +99,9 @@ namespace MugStore.Web.Controllers
             {
                 Acronym = this.GenerateAcronym(),
                 Quantity = model.Quantity,
-                PriceCustomer = decimal.Parse(this.configuration["AppSettings:SingleMugPrice"]),
-                PriceSupplier = decimal.Parse(this.configuration["AppSettings:SungleMugPriceSupplier"]),
-                PriceDelivery = decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]),
+                PriceCustomer = decimal.Parse(this.configuration["AppSettings:SingleMugPrice"], CultureInfo.InvariantCulture),
+                PriceSupplier = decimal.Parse(this.configuration["AppSettings:SungleMugPriceSupplier"], CultureInfo.InvariantCulture),
+                PriceDelivery = decimal.Parse(this.configuration["AppSettings:DeliveryPrice"], CultureInfo.InvariantCulture),
                 PaymentMethod = model.PaymentMethod,
                 DeliveryInfo = new DeliveryInfo()
                 {
@@ -113,7 +114,8 @@ namespace MugStore.Web.Controllers
                     Email = !string.IsNullOrWhiteSpace(model.DeliveryInfo.Email) ? model.DeliveryInfo.Email : null,
                 },
                 ConfirmationStatus = ConfirmationStatus.Pending,
-                OrderStatus = OrderStatus.InProgress
+                OrderStatus = OrderStatus.InProgress,
+                Color = model.Color
             };
 
             if (model.ProductAcronym != null)

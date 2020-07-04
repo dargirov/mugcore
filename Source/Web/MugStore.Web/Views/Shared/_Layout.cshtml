@@ -37,12 +37,14 @@
         fbq('init', '900034700182795');
         fbq('track', 'PageView');
     </script>
-    <noscript>
-        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=900034700182795&ev=PageView&noscript=1" />
-    </noscript>
     <!-- End Facebook Pixel Code -->
 </head>
 <body>
+    <!-- Facebook Pixel Code -->
+    <noscript>
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=900034700182795&ev=PageView&noscript=1" alt="facebook pixel">
+    </noscript>
+    <!-- End Facebook Pixel Code -->
     <!-- Facebook JS SDK Code -->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/bg_BG/sdk.js#xfbml=1&version=v7.0&appId=137734049690989&autoLogAppEvents=1"></script>
@@ -67,13 +69,13 @@
 
     @if (ViewBag.FashShippingEnabled == true)
     {
-        <section id="shipping">
+        <div id="shipping">
             <div><i class="fas fa-shipping-fast"></i></div>
             <div>
                 <p>Бърза изработка</p>
                 <p>Всяка поръчка се обработва и изпраща в рамките на същия или следващия работен ден.</p>
             </div>
-        </section>
+        </div>
     }
 
     @if (ViewBag.VacationEnabled == true)
@@ -118,7 +120,7 @@
                         <li><a href="@Url.Action("contacts", "home")">Контакти</a></li>
                     </ol>
                 </nav>
-                <h4>Приятели</h4>
+                <h4 id="footer-friends">Приятели</h4>
                 <nav>
                     <ol>
                         <li><a href="//sitostil.com" target="_blank" rel="noopener" title="Печат върху текстил и изработка на рекламни материали">Ситопечат и реклама</a></li>

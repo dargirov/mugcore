@@ -19,5 +19,7 @@ namespace MugStore.Web.Areas.Admin.ViewModels.Order
         public decimal PriceDelivery { get; set; }
 
         public string Feedback { get; set; }
+
+        public string Color { get; set; }
     }
 }

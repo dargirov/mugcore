@@ -1,7 +1,7 @@
 var Cart = (function ($, Notification) {
     'use strict';
 
-    var _mug, _skipCustomization = false, _currentStep = 1, _breakWidth = 1000;
+    var _mug, _skipCustomization = false, _currentStep = 1, _breakWidth = 1000, _eventsBound = false;
     var MAX_IMAGE_COUNT = 3;
 
     function addLoader() {
@@ -35,6 +35,11 @@ var Cart = (function ($, Notification) {
 
     function uploadFile(data) {
 
+        if ($('#color-dropdown > ul').css('display') === 'block') {
+            $('#color-dropdown > a').click();
+        }
+
+        $('#color-dropdown > a').data('enabled', false).addClass('disabled');
         removeLoader();
 
         if (data.success) {
@@ -52,12 +57,12 @@ var Cart = (function ($, Notification) {
             }
 
             if (images === 2 && window.innerWidth > _breakWidth) {
-                Notification.show({ selector: '.move-controls', content: 'Използвайте стрелките за да преместите снимката върху чашата', placement: 'left', timeout: 6000, width: 190 });
+                Notification.show({ selector: '.move-controls', content: 'Използвайте стрелките за да преместите снимката върху чашата', placement: 'left', timeout: false, width: 190 });
             }
 
             if (data.width < 1500 && data.height < 700 && data.dpi < 120) {
                 var imageQualityNotificationWidth = window.innerWidth > _breakWidth ? 500 : 300;
-                Notification.show({ selector: '#canvas', content: 'Каченото изображение е с резолюция ' + data.width + 'px x ' + data.height + 'px @ ' + data.dpi + 'dpi. За постигане на максимално добро качество при печат ви препоръчваме да използвате изображение с размер 2362px x 1004px @ 300dpi.', placement: 'bottom', timeout: 14000, width: imageQualityNotificationWidth });
+                Notification.show({ selector: '#canvas', content: 'Каченото изображение е с резолюция ' + data.width + 'px x ' + data.height + 'px @ ' + data.dpi + 'dpi. За постигане на максимално добро качество при печат ви препоръчваме да използвате изображение с размер 2362px x 1004px @ 300dpi.', placement: 'bottom', timeout: false, width: imageQualityNotificationWidth });
             }
 
         } else {
@@ -205,6 +210,8 @@ var Cart = (function ($, Notification) {
                 invalidInput = true;
             }
 
+            data.color = $('#color-dropdown > a').data('color');
+
             if (!invalidInput) {
                 orderCreateStarted = true;
                 $(this).prepend('<i class="fas fa-sync fa-spin"></i>');
@@ -319,7 +326,10 @@ var Cart = (function ($, Notification) {
             _mug = options.mug;
         }
 
-        bindEvents();
+        if (!_eventsBound) {
+            bindEvents();
+            _eventsBound = true;
+        }
     }
 
     return {

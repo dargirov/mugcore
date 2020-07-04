@@ -7,12 +7,12 @@
             options = {};
         }
 
-       _trigger = options.trigger || 'hover';
-       _animation = options.animation || 'pop';
+        _trigger = options.trigger || 'click';
+        _animation = options.animation || 'pop';
     }
 
     function bind(selector) {
-        $(selector).webuiPopover({ trigger: _trigger });
+        $(selector).webuiPopover({ trigger: _trigger, closeable: true });
     }
 
     function show(options) {
@@ -26,6 +26,7 @@
         var timeout = options.timeout || false;
         var width = options.width || 300;
         var placement = options.placement || 'top';
+        var closeable = options.closeable || true;
 
         $(selector).webuiPopover('destroy');
         $(selector).webuiPopover(
@@ -37,7 +38,8 @@
                 placement: placement,
                 width: width,
                 multi: true,
-                autoHide: timeout
+                autoHide: timeout,
+                closeable: closeable
             });
         $(selector).webuiPopover('show');
     }

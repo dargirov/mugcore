@@ -126,7 +126,7 @@
                 }
                 else
                 {
-                    @:в цената <b>не</b> е включена доставка <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от&lt;br&gt;тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i>
+                    @:в цената <b>не</b> е включена доставка <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="300"></i>
                 }
             </h3>
             <div id="step3" class="hidden">
@@ -135,7 +135,7 @@
                 <input type="text" name="phone" id="phone-field" placeholder="Тел. за контакт">
                 <div id="email-address-container">
                     <input type="email" name="email" id="email-field" placeholder="Email адрес (незадължително)">
-                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато изпратим поръчката." data-placement="top-left" data-animation="pop"></i>
+                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; изпратим поръчката." data-placement="top-left" data-animation="pop"></i>
                 </div>
                 <select name="city" id="city-dd">
                     @foreach (var city in ViewBag.Cities)
@@ -171,7 +171,7 @@
                     <li>Количество: <b id="step4-quantity"></b></li>
                     <li>Крайна цена: <b id="step4-price"></b></li>
                 </ol>
-                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="far fa-question-circle popover" aria-hidden="true" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от&lt;br&gt;тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i></div>
+                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="far fa-question-circle popover" aria-hidden="true" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="250"></i></div>
                 <div id="step4-feedback">
                     <label for="step4-feedback-textarea">От къде научихте за нас?</label>
                     <form id="step4-feedback-container" method="post" action="@Url.Action("Feedback", "Order")">

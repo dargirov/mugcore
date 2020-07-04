@@ -42,4 +42,23 @@
     Notification.init();
     Notification.bind('.popover');
 
+    $('#color-dropdown > a').on('click', colorDropDownClick);
+    function colorDropDownClick(e) {
+        e.preventDefault();
+        var enabled = $(this).data('enabled');
+        if (enabled !== true) {
+            return;
+        }
+
+        var $ul = $('#color-dropdown > ul');
+        var visible = $ul.css('display') === 'block';
+        if (visible) {
+            $(this).find('.fas').removeClass('fa-caret-up').addClass('fa-caret-down');
+            $ul.slideUp();
+        } else {
+            $ul.slideDown();
+            $(this).find('.fas').removeClass('fa-caret-down').addClass('fa-caret-up');
+        }
+    }
+
 });

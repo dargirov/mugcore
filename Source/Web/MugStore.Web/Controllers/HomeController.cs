@@ -64,6 +64,7 @@ namespace MugStore.Web.Controllers
             this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
             this.ViewBag.VacationEnabled = bool.Parse(this.configuration["AppSettings:VacationEnabled"]);
             this.ViewBag.VacationMessage = this.configuration["AppSettings:VacationMessage"];
+            this.ViewBag.EnabledColors = this.configuration.GetSection("EnabledColors");
             this.AddTagsToViewBag(this.tags);
 
             var viewModel = new IndexViewModel()
