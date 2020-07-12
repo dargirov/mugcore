@@ -52,7 +52,13 @@ namespace MugStore.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            var colorMugs = this.GetColorMugs(this.configuration).ToList();
+            this.ViewBag.SingleMugPrice = decimal.Parse(configuration["AppSettings:SingleMugPrice"]);
+            this.ViewBag.SingleMugMsrpPrice = decimal.Parse(configuration["AppSettings:SingleMugMsrpPrice"]);
             this.ViewBag.ShowRight = false;
+            this.ViewBag.ColorMugs = colorMugs;
+            this.ViewBag.ColorMugsEnabled = false;
+            this.ViewBag.ColorMugName = colorMugs.FirstOrDefault(x => x.Color?.ToLowerInvariant() == order.Color?.ToLowerInvariant())?.Name ?? "Бял";
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.PageDescription = $"Поръчка №{acronym}, преглед на поръчка";
 
@@ -95,12 +101,21 @@ namespace MugStore.Web.Controllers
                 }
             }
 
+            var priceCustomer = decimal.Parse(this.configuration["AppSettings:SingleMugPrice"], CultureInfo.InvariantCulture);
+            var priceSupplier = decimal.Parse(this.configuration["AppSettings:SungleMugPriceSupplier"], CultureInfo.InvariantCulture);
+            var colorMug = this.GetColorMugs(this.configuration).FirstOrDefault(x => x.Color.ToLowerInvariant() == model.Color?.ToLowerInvariant());
+            if (colorMug != null)
+            {
+                priceCustomer = colorMug.SingleMugPrice;
+                priceSupplier = colorMug.SungleMugPriceSupplier;
+            }
+
             var order = new Order()
             {
                 Acronym = this.GenerateAcronym(),
                 Quantity = model.Quantity,
-                PriceCustomer = decimal.Parse(this.configuration["AppSettings:SingleMugPrice"], CultureInfo.InvariantCulture),
-                PriceSupplier = decimal.Parse(this.configuration["AppSettings:SungleMugPriceSupplier"], CultureInfo.InvariantCulture),
+                PriceCustomer = priceCustomer,
+                PriceSupplier = priceSupplier,
                 PriceDelivery = decimal.Parse(this.configuration["AppSettings:DeliveryPrice"], CultureInfo.InvariantCulture),
                 PaymentMethod = model.PaymentMethod,
                 DeliveryInfo = new DeliveryInfo()
@@ -221,7 +236,7 @@ namespace MugStore.Web.Controllers
 
         private decimal CalculateTotalPrice(Order order)
         {
-            return (order.Quantity * decimal.Parse(this.configuration["AppSettings:SingleMugPrice"])) + decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]);
+            return order.Quantity * order.PriceCustomer + order.PriceDelivery;
         }
 
         private async Task AzureFunctionSendMailAsync(Order order)

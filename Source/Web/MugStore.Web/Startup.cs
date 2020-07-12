@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,10 +16,6 @@ using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.Attributes;
 using MugStore.Web.Infrastructure.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Reflection;
 
 namespace MugStore.Web
 {

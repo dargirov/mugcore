@@ -2,28 +2,20 @@
     <div>
         <div id="color-container">
             <div id="color-dropdown">
-                <a data-enabled="true" data-color="std"><span>Цвят: Бял</span><span><i class="fas fa-caret-down"></i></span></a>
-                <ul>
-                    <li><a data-color="std"><img src="~/images/mug_color_white.png" alt="Чаша цвят бял"> Бял</a></li>
-                    @if (bool.Parse(ViewBag.EnabledColors["Red"]))
-                    {
-                        <li><a data-color="red"><img src="~/images/mug_color_red.png" alt="Чаша цвят червен"> Червен</a></li>
-                    }
-                    @if (bool.Parse(ViewBag.EnabledColors["Green"]))
-                    {
-                    <li><a data-color="green"><img src="~/images/mug_color_green.png" alt="Чаша цвят зелен"> Зелен</a></li>
-                    }
-                    
-                    @if (bool.Parse(ViewBag.EnabledColors["Blue"]))
-                    {
-                        <li><a data-color="blue"><img src="~/images/mug_color_blue.png" alt="Чаша цвят син"> Син</a></li>
-                    }
-                    
-                    @if (bool.Parse(ViewBag.EnabledColors["Yellow"]))
-                    {
-                        <li><a data-color="yellow"><img src="~/images/mug_color_yellow.png" alt="Чаша цвят жълт"> Жълт</a></li>
-                    }
-                </ul>
+                @if (this.ViewBag.ColorMugsEnabled)
+                {
+                    <a data-enabled="true" data-color="std"><span>Цвят: Бял</span><span><i class="fas fa-caret-down"></i></span></a>
+                    <ul>
+                        <li><a data-color="std" data-price="@ViewBag.SingleMugPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" data-price-msrp="@ViewBag.SingleMugMsrpPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"><img src="~/images/mug_color_white.png" alt="Чаша цвят бял"> Бял</a></li>
+                        @foreach (ColorMugModel colorMug in this.ViewBag.ColorMugs)
+                        {
+                            if (colorMug.Enabled)
+                            {
+                                <li><a data-color="@colorMug.Color.ToLowerInvariant()" data-price="@colorMug.SingleMugPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" data-price-msrp="@colorMug.SingleMugMsrpPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"><img src="~/images/mug_color_@(colorMug.Color.ToLowerInvariant()).png" alt="Чаша цвят @colorMug.Name"> @colorMug.Name</a></li>
+                            }
+                        }
+                    </ul>
+                }
             </div>
         </div>
         <canvas id="canvas"></canvas>
@@ -38,7 +30,7 @@
                         <span>00</span>
                         <span> лв.</span>
                     </div>
-                    <div id="canvas-price-container-msrp"><s><span>@Html.Raw(string.Format("{0:0.00} лв.", ViewBag.SingleMugMsrpPrice))</span></s> -@ViewBag.Decrease%</div>
+                    <div id="canvas-price-container-msrp"><s><span>@ViewBag.SingleMugMsrpPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) лв.</span></s> <i>-@ViewBag.Decrease%</i></div>
                 </div>
                 <label>
                     <strong><span class="circle">1</span> Качи изображение <i class="far fa-question-circle" aria-hidden="true" id="image-help" data-url="@Url.Action("ImageHelp", "Home")"></i></strong>

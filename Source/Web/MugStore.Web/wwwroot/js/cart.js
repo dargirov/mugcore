@@ -123,7 +123,10 @@ var Cart = (function ($, Notification) {
             var deliveryFee = parseFloat($('#delivery-fee').data('fee'));
 
             $('#selected-quantity').html(quantity);
-            $('.price-container-calc').find('h3').html((price * quantity + deliveryFee) + '.');
+            var newPrice = (price * quantity + deliveryFee).toFixed(2).toString();
+            var newPriceParts = newPrice.split('.');
+            $('.price-container-calc').find('h3').html(newPriceParts[0] + '.');
+            $('.price-container-calc').find('span:first-of-type').html(newPriceParts.length === 2 ? newPriceParts[1] : '00');
         }
 
         // go back bottons

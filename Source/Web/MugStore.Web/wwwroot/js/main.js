@@ -61,4 +61,34 @@
         }
     }
 
+    bindColorDropdownClick = function(scene, init) {
+        $('#color-dropdown ul a').on('click', function (e) {
+            e.preventDefault();
+            var color = $(this).data('color');
+            var price = $(this).data('price').toString();
+            var priceMsrp = $(this).data('price-msrp').toString();
+            var colorText = $(this).text().trim();
+            $('#color-dropdown span:first-of-type').text('Цвят: ' + colorText);
+            $('#color-dropdown > a').data('color', color).click();
+            scene.dispose();
+            init(color);
+
+            var $priceInCanvas = $('#canvas-container-right');
+            var $priceInProduct = $('#product-details-order');
+            if ($priceInCanvas.length === 1) {
+                var priceParts = price.split('.');
+                var decrease = (price - priceMsrp) / priceMsrp * 100;
+                $priceInCanvas.find('.price-container-canvas h3').html(priceParts[0] + '.');
+                $priceInCanvas.find('.price-container-canvas span:first-of-type').html(priceParts.length === 2 ? priceParts[1] : '00');
+                $priceInCanvas.find('#canvas-price-container-msrp span').html(priceMsrp + ' лв.');
+                $priceInCanvas.find('#canvas-price-container-msrp i').html('-' + Math.abs(Math.round(decrease)) + '%');
+                $priceInCanvas.find('#single-price').data('price', price).html(price + ' лв.');
+                $priceInCanvas.find('.price-container-calc h3').html(priceParts[0] + '.');
+                $priceInCanvas.find('.price-container-calc span:first-of-type').html(priceParts.length === 2 ? priceParts[1] : '00');
+            } else if ($priceInProduct.length === 1) {
+                $priceInProduct.find('#product-price span:first-of-type').html(price);
+            }
+        });
+    }
+
 });

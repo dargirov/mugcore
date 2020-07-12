@@ -1,6 +1,6 @@
 ﻿@model MugStore.Web.ViewModels.Home.IndexViewModel
 @{
-    ViewBag.Title = "Чаша със снимка - направи си чаша със снимки в 3D изглед";
+    ViewBag.Title = "Чаша със снимка - бели и цветни чаши в 3D изглед";
 }
 
 @Html.Partial("_CanvasPartial")
@@ -147,16 +147,7 @@
                 cart.init({ mug: mug1 });
             }
 
-            $('#color-dropdown ul a').on('click', function () {
-                if (scene.isSupported()) {
-                    var color = $(this).data('color');
-                    var colorText = $(this).text().trim();
-                    $('#color-dropdown span:first-of-type').text('Цвят: ' + colorText);
-                    $('#color-dropdown > a').data('color', color).click();
-                    scene.dispose();
-                    init(color);
-                }
-            });
+            bindColorDropdownClick(scene, init);
 
             if (!scene.isSupported()) {
                 $('#canvas-container').remove();

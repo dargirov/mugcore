@@ -112,7 +112,7 @@
             <h2 id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                 Цена:
                 <span itemprop="price">
-                    @string.Format("{0:0.00}", ViewBag.SingleMugPrice + ViewBag.DeliveryPrice)
+                    @((ViewBag.SingleMugPrice + ViewBag.DeliveryPrice).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture))
                 </span>
                 <span itemprop="priceCurrency" content="BGN">лв.</span>
                 <link itemprop="availability" href="http://schema.org/InStock">

@@ -60,9 +60,13 @@
             <td>@Model.Order.Quantity</td>
         </tr>
         <tr>
+            <td>Цвят:</td>
+            <td>@this.ViewBag.ColorMugName</td>
+        </tr>
+        <tr>
             <td>Крайна цена:</td>
             <td>
-                @Model.TotalPrice лв.
+                @Model.TotalPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) лв.
                 @if (Model.DeliveryPrice == 0)
                 {
                     <br><text><strong>В цената не е включена доставка.</strong> <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от<br>тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-target="webuiPopover0"></i></text>
@@ -94,7 +98,7 @@
             </td>
         </tr>
     </table>
-    <strong>* Пратката се изпраща с опция за преглед. Моля, огледайте чашата за счупване или надраскване на изображението пред куриера.</strong>
+    <strong>* Пратката се изпраща със застраховка. Моля, огледайте чашата за счупване или надраскване на изображението пред куриера.</strong>
 </section>
 
 @section scripts {

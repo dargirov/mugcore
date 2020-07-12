@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MugStore.Common;
 using MugStore.Data.Models;
 using MugStore.Services.Common;
 using MugStore.Services.Data;
+using MugStore.Web.Models;
 using MugStore.Web.ViewModels.Home;
 using Newtonsoft.Json;
 using System;
@@ -64,7 +66,8 @@ namespace MugStore.Web.Controllers
             this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
             this.ViewBag.VacationEnabled = bool.Parse(this.configuration["AppSettings:VacationEnabled"]);
             this.ViewBag.VacationMessage = this.configuration["AppSettings:VacationMessage"];
-            this.ViewBag.EnabledColors = this.configuration.GetSection("EnabledColors");
+            this.ViewBag.ColorMugs = this.GetColorMugs(this.configuration);
+            this.ViewBag.ColorMugsEnabled = true;
             this.AddTagsToViewBag(this.tags);
 
             var viewModel = new IndexViewModel()
@@ -183,13 +186,14 @@ namespace MugStore.Web.Controllers
         public IActionResult SitemapXml()
         {
             var nodes = new List<SitemapNode>();
+            var scheme = "https";
 
-            nodes.Add(new SitemapNode() { Priority = 1, Frequency = SitemapFrequency.Weekly, Url = this.Url.RouteUrl("Default", new { action = "Index" }, this.Request.Scheme) });
-            nodes.Add(new SitemapNode() { Priority = 0.1, Url = this.Url.RouteUrl("Default", new { action = "Contacts" }, this.Request.Scheme) });
-            nodes.Add(new SitemapNode() { Priority = 0.3, Frequency = SitemapFrequency.Weekly, Url = this.Url.RouteUrl("Default", new { controller = "Gallery", action = "Index" }, this.Request.Scheme) });
+            nodes.Add(new SitemapNode() { Priority = 1, Frequency = SitemapFrequency.Weekly, Url = this.Url.RouteUrl("Default", new { action = "Index" }, scheme) });
+            nodes.Add(new SitemapNode() { Priority = 0.1, Url = this.Url.RouteUrl("Default", new { action = "Contacts" }, scheme) });
+            nodes.Add(new SitemapNode() { Priority = 0.3, Frequency = SitemapFrequency.Weekly, Url = this.Url.RouteUrl("Default", new { controller = "Gallery", action = "Index" }, scheme) });
             if (this.blog.GetPosts(x => x.Active).Count() > 0)
             {
-                nodes.Add(new SitemapNode() { Priority = 0.6, Url = this.Url.RouteUrl("Default", new { controller = "Blog", action = "Index" }, this.Request.Scheme) });
+                nodes.Add(new SitemapNode() { Priority = 0.6, Url = this.Url.RouteUrl("Default", new { controller = "Blog", action = "Index" }, scheme) });
             }
 
             var products = this.products.Get().Where(p => p.Active).OrderByDescending(p => p.Id).ToList();
@@ -198,7 +202,7 @@ namespace MugStore.Web.Controllers
                 nodes.Add(new SitemapNode()
                 {
                     Priority = 0.9,
-                    Url = this.Url.RouteUrl("Product", new { acronym = product.Acronym }, this.Request.Scheme)
+                    Url = this.Url.RouteUrl("Product", new { acronym = product.Acronym }, scheme)
                 });
             }
 
@@ -209,7 +213,7 @@ namespace MugStore.Web.Controllers
                 {
                     Priority = 0.3,
                     Frequency = SitemapFrequency.Monthly,
-                    Url = this.Url.RouteUrl("GalleryCategory", new { acronym = category.Acronym }, this.Request.Scheme)
+                    Url = this.Url.RouteUrl("GalleryCategory", new { acronym = category.Acronym }, scheme)
                 });
             }
 
@@ -219,7 +223,7 @@ namespace MugStore.Web.Controllers
                 nodes.Add(new SitemapNode()
                 {
                     Priority = 0.4,
-                    Url = this.Url.RouteUrl("BlogPost", new { acronym = post.Acronym }, this.Request.Scheme)
+                    Url = this.Url.RouteUrl("BlogPost", new { acronym = post.Acronym }, scheme)
                 });
             }
 

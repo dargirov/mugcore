@@ -36,11 +36,13 @@ namespace MugStore.Web.Controllers
             this.ViewBag.ShowRight = false;
             this.ViewBag.PageHeading = product.Title;
             this.ViewBag.SingleMugPrice = decimal.Parse(this.configuration["AppSettings:SingleMugPrice"]);
+            this.ViewBag.SingleMugMsrpPrice = decimal.Parse(configuration["AppSettings:SingleMugMsrpPrice"]);
             this.ViewBag.DeliveryPrice = decimal.Parse(this.configuration["AppSettings:DeliveryPrice"]);
             this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
             this.ViewBag.VacationEnabled = bool.Parse(this.configuration["AppSettings:VacationEnabled"]);
             this.ViewBag.VacationMessage = this.configuration["AppSettings:VacationMessage"];
-            this.ViewBag.EnabledColors = this.configuration.GetSection("EnabledColors");
+            this.ViewBag.ColorMugs = this.GetColorMugs(this.configuration);
+            this.ViewBag.ColorMugsEnabled = true;
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.PageDescription = $"{product.PageTitle}, {product.Title}";
             var viewModel = this.Mapper.Map<IndexViewModel>(product);

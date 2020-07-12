@@ -104,10 +104,9 @@ var Mug = (function (BABYLON) {
         }
 
         var mat = new BABYLON.StandardMaterial(_name + 'HandleMat', _scene);
-        // TODO: enable this later
-        //if (_color !== 'std') {
-        //    mat.diffuseColor = _colors[_color];
-        //}
+        if (_color !== 'std') {
+            mat.diffuseColor = _colors[_color];
+        }
 
         mat.alpha = 1.0;
         mat.backFaceCulling = false;

@@ -34,16 +34,7 @@
         }
     }
 
-    $('#color-dropdown ul a').on('click', function () {
-        if (scene.isSupported()) {
-            var color = $(this).data('color');
-            var colorText = $(this).text().trim();
-            $('#color-dropdown span:first-of-type').text('Цвят: ' + colorText);
-            $('#color-dropdown > a').data('color', color).click();
-            scene.dispose();
-            init(color);
-        }
-    });
+    bindColorDropdownClick(scene, init);
 
     if (!scene.isSupported()) {
         $('#canvas-container').remove();
