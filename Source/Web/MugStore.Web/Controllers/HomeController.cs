@@ -1,16 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using MugStore.Common;
-using MugStore.Data.Models;
-using MugStore.Services.Common;
-using MugStore.Services.Data;
-using MugStore.Web.Models;
-using MugStore.Web.ViewModels.Home;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -18,6 +6,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MugStore.Common;
+using MugStore.Data.Models;
+using MugStore.Services.Common;
+using MugStore.Services.Data;
+using MugStore.Web.ViewModels.Home;
+using Newtonsoft.Json;
 
 namespace MugStore.Web.Controllers
 {
@@ -62,7 +60,7 @@ namespace MugStore.Web.Controllers
             this.ViewBag.SingleMugMsrpPrice = decimal.Parse(configuration["AppSettings:SingleMugMsrpPrice"]);
             this.ViewBag.Decrease = Math.Round((this.ViewBag.SingleMugMsrpPrice - this.ViewBag.SingleMugPrice) / this.ViewBag.SingleMugMsrpPrice * 100);
             this.ViewBag.DeliveryPrice = decimal.Parse(configuration["AppSettings:DeliveryPrice"]);
-            this.ViewBag.PageDescription = "С този сайт може сам да си направиш чаша. Качи до 3 снимки и ги разположи на желаното място върху 3D модел на чаша. Поръчката става бързо и не е необходима регистрация.";
+            this.ViewBag.PageDescription = "Качи до 3 снимки и ги разположи върху 3D модел на чаша. Поръчката става бързо и не изисква регистрация. Експресна изработка и изпращане.";
             this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
             this.ViewBag.VacationEnabled = bool.Parse(this.configuration["AppSettings:VacationEnabled"]);
             this.ViewBag.VacationMessage = this.configuration["AppSettings:VacationMessage"];

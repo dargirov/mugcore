@@ -46,7 +46,6 @@ canvas {
 #canvas-container-right {
     width: 300px;
     padding-top: 80px;
-    /*height: 400px;*/
 }
 
 #canvas-container-right strong, #product-details-order strong {
@@ -56,6 +55,11 @@ canvas {
     font-weight: normal;
     margin: 30px 0 5px 0;
     display: block;
+}
+
+#canvas-container-right input[type=file] {
+    height: 30px;
+    margin: 5px 0;
 }
 
 #product-details-order strong {
@@ -1193,6 +1197,7 @@ input.invalid, textarea.invalid {
     top: 50%;
     left: 50%;
     color: #4a4949;
+    transform: translate(-40px);
 }
 
 #social-media-links {
@@ -1586,7 +1591,12 @@ input.invalid, textarea.invalid {
 
     #footer nav a {
         display: inline-block;
-        padding: 8px 0;
+        padding: 7px 0;
+        font-size: 14px;
+    }
+
+    #social-media-links a span {
+        font-size: 14px;
     }
 
     #features ul {
@@ -1603,5 +1613,17 @@ input.invalid, textarea.invalid {
 
     #features li:nth-of-type(3), #features li:nth-of-type(4) {
         margin-top: 20px;
+    }
+
+    .image-help-container img {
+        width: 100%;
+    }
+
+    i.fa-question-circle.popover {
+        font-size: 18px;
+    }
+
+    #step4 a {
+        font-size: 16px;
     }
 }
