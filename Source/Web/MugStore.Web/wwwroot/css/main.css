@@ -1208,6 +1208,7 @@ input.invalid, textarea.invalid {
 }
 
 #social-media-links a {
+    display: block;
     color: inherit;
     text-decoration: none;
 }
@@ -1365,6 +1366,49 @@ input.invalid, textarea.invalid {
 #color-dropdown li img {
     height: 30px;
     margin-right: 10px;
+}
+
+#faq {
+    background-color: #333;
+}
+
+#faq h2 {
+    color: #fff;
+}
+
+#faq ul {
+    list-style-type: none;
+}
+
+#faq li {
+    margin-bottom: 15px;
+}
+
+#faq li:last-of-type {
+    margin-bottom: 0;
+}
+
+#faq li > a {
+    display: inline-block;
+    font-family: 'Comfortaa', cursive;
+    cursor: pointer;
+    text-decoration: none;
+    color: #0fcabf;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#faq li > div {
+    display: none;
+    font-family: 'Comfortaa', cursive;
+    font-size: 16px;
+    color: #a7a7a7;
+    padding-left: 16px;
+}
+
+#faq li > div a {
+    font-size: 16px;
+    color: #fff;
 }
 
 @media all and (max-width: 1000px) {
@@ -1625,5 +1669,9 @@ input.invalid, textarea.invalid {
 
     #step4 a {
         font-size: 16px;
+    }
+
+    #faq li > div {
+        padding-left: 0;
     }
 }

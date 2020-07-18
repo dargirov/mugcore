@@ -17,11 +17,70 @@
     <div>
         <ul>
             <li>Адрес:</li>
-            <li>Асеновград<br>ул. Борислав №2 (срещу магазин LIDL)</li>
+            <li>гр. Асеновград<br>ул. Борислав №2 (срещу магазин LIDL)</li>
             <li>Телефон:</li>
             <li><a href="tel:@Model.Phone.Replace(" ", "")">@Model.Phone</a></li>
             <li>Email:</li>
             <li><a href="mailto:@Model.Email">@Model.Email</a></li>
+        </ul>
+    </div>
+</section>
+
+<section id="faq">
+    <div class="site-section">
+        <h2>Често задавани въпроси</h2>
+        <ul>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Какви са размерите и материала на чашата?</a>
+                <div>Предлагаме керамични чаши с височина 10см, диаметър 8.5см и обем от 330мл.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Може ли чашата да се поставя в микровълнова печка или съдомияла машина?</a>
+                <div>Да.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Какво е времето за изпълнение на поръчка?</a>
+                @if (ViewBag.FashShippingEnabled)
+                {
+                    <div>Поръчки направени в работен ден преди 14 часа се изработват и изпращат в рамките на същия ден. Поръчки направени по-късно се изпращат на следващия работен ден.</div>
+                }
+                else
+                {
+                    <div>Поръчките се изработват и изпращат в рамките на 2-3 работни дни.</div>
+                }
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Колко време отнема доставката?</a>
+                <div>Доставката се извършва от избрана от вас куриерска фирма и обикновена отнема 1 работен ден.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> С кои куриерски фирми работим?</a>
+                <div>Може да изберете между куриерска фирма <a href="https://www.econt.com/" target="_blank">Еконт</a>, <a href="https://speedy.bg/bg/" target="_blank">Спиди</a> или <a href="https://www.leoexpres.bg/" target="_blank">Лео Експрес</a>.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Колко струва доставката?</a>
+                <div>Цената се определя от избраната куриерска фирма и от това дали доставката е до офис или до адрес. Ние препоръчваме доставка до офис на Еконт.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Мога ли да взема чашата от вашия офис?</a>
+                <div>Да, офисът ни се намира в гр. Асеновград, ул. Борислав №2 (срещу магазин LIDL).</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Как става плащането?</a>
+                <div>Чрез наложен платеж при доставка от куриер или на място в нашия офис. Ако желаете може да получите фактура.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Възможно ли е да върна продукт?</a>
+                <div>Да, продукт от нашата <a asp-controller="gallery" asp-action="index">галерия</a> може да бъдат върнат, като го заменим с друг или възстановим сумата.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Възможно ли е да добавя тескт върху 3D модела?</a>
+                <div>В момента не е възможно да изпишите текст върху модела. Може да го напишете като коментар и ние ще го добавим върху чашата.</div>
+            </li>
+            <li>
+                <a><i class="fas fa-caret-down"></i> Предлагате ли магически чаши?</a>
+                <div>Не, за момента предлагаме само класически бели чаши и чаши с оцветена вътрешна част и дръжка.</div>
+            </li>
         </ul>
     </div>
 </section>
@@ -61,6 +120,12 @@
             function sendEmailBtnClick(e) {
                 e.preventDefault();
                 $('#contact-form').find('form').submit();
+            }
+
+            $('#faq li > a').on('click', faqItemClick);
+            function faqItemClick(e) {
+                e.preventDefault();
+                $(this).parent().find('>div').slideDown();
             }
 
         });

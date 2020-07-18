@@ -83,6 +83,7 @@ namespace MugStore.Web.Controllers
         {
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.PageDescription = "За контакти и въпроси при направа на чаша може да се свържете с нас.";
+            this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
 
             var viewModel = new ContactsViewModel()
             {
