@@ -1394,16 +1394,16 @@ input.invalid, textarea.invalid {
     cursor: pointer;
     text-decoration: none;
     color: #0fcabf;
-    font-size: 18px;
+    font-size: 16px;
     margin: 10px 0;
 }
 
 #faq li > div {
     display: none;
     font-family: 'Comfortaa', cursive;
-    font-size: 16px;
+    font-size: 14px;
     color: #a7a7a7;
-    padding-left: 16px;
+    padding-left: 14px;
 }
 
 #faq li > div a {

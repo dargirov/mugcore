@@ -102,6 +102,7 @@ namespace MugStore.Web.Controllers
             this.AddTagsToViewBag(this.tags);
             this.ViewBag.MailSend = false;
             this.ViewBag.PageDescription = "За контакти и въпроси при направа на чаша може да се свържете с нас.";
+            this.ViewBag.FashShippingEnabled = bool.Parse(this.configuration["AppSettings:FastShippingEnabled"]);
             var captcha = this.HttpContext.Request.Form["g-recaptcha-response"].FirstOrDefault();
 
             if (this.ModelState.IsValid && !string.IsNullOrWhiteSpace(captcha))
