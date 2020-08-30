@@ -23,7 +23,8 @@ namespace MugStore.Web.Controllers
 
         protected string GetBaseUrl()
         {
-            return $"{this.HttpContext.Request.Scheme}://{this.HttpContext.Request.Host.Value}";
+            //return $"{this.HttpContext.Request.Scheme}://{this.HttpContext.Request.Host.Value}";
+            return $"https://{this.HttpContext.Request.Host.Value}";
         }
 
         protected IEnumerable<ColorMugModel> GetColorMugs(IConfiguration configuration)
