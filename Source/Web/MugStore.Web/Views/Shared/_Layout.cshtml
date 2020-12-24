@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="@ViewBag.PageDescription">
     <title>@ViewBag.Title</title>
 
@@ -19,7 +19,14 @@
 
     @RenderSection("StructuredData", required: false)
 
-    <script src='https://www.google.com/recaptcha/api.js?hl=bg'></script>
+    @{
+        var controller = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
+        var action = ViewContext.RouteData.Values["Action"].ToString().ToLower();
+        if (controller == "home" && action == "contacts")
+        {
+            <script src='https://www.google.com/recaptcha/api.js?hl=bg'></script>
+        }
+    }
 
     <!-- Facebook Pixel Code -->
     <script>
@@ -94,7 +101,7 @@
     <footer id="footer">
         <div>
             <div>
-                <h4>За нас</h4>
+                <h5>За нас</h5>
                 Фирмата се занимава с изработка на рекламни материали от 2004г. През това време успя да се наложи с качествена продукция и точността си към клиентите.
                 <span id="social-media-links">
                     <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><i class="fab fa-facebook-square"></i><span>Вижте Facebook страницата ни</span></a>
@@ -102,7 +109,7 @@
                 </span>
             </div>
             <div>
-                <h4>Бюлетин</h4>
+                <h5>Бюлетин</h5>
                 <form method="post" id="subscribe-to-bulletin-form" data-url="@Url.Action("Add", "Bulletin")">
                     <label for="subscribe-to-bulletin-field">Абонирайте се за нашия бюлетин за да разберете веднага за новите ни предложения и промоции.</label>
                     @Html.AntiForgeryToken()
@@ -112,7 +119,7 @@
                 <div id="subscribe-success" class="status-success hidden">Успешна регистрация</div>
             </div>
             <div>
-                <h4>Информация</h4>
+                <h5>Информация</h5>
                 <nav>
                     <ol>
                         <li><a href="@Url.Action("index", "home")">Начало</a></li>
@@ -122,7 +129,7 @@
                         <li><a href="/home/contacts#faq">Въпроси</a></li>
                     </ol>
                 </nav>
-                <h4 id="footer-friends">Приятели</h4>
+                <h5 id="footer-friends">Приятели</h5>
                 <nav>
                     <ol>
                         <li><a href="//sitostil.com" target="_blank" rel="noopener" title="Печат върху текстил и изработка на рекламни материали">Ситопечат и реклама</a></li>
@@ -132,7 +139,7 @@
                 </nav>
             </div>
             <div>
-                <h4>Тагове</h4>
+                <h5>Тагове</h5>
                 <ul>
                     @foreach (var tag in ViewBag.Tags)
                     {

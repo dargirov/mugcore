@@ -168,7 +168,7 @@ canvas {
     margin: 10px 0 20px 0;
 }
 
-.site-section h4 {
+.site-section h3, .site-section h4 {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 21px;
     color: #737272;
@@ -228,7 +228,7 @@ canvas {
     margin: 30px 0;
 }
 
-#footer h4 {
+#footer h5 {
     margin-bottom: 20px;
     color: white;
     font-family: 'PT Sans', sans-serif;
@@ -1668,7 +1668,7 @@ input.invalid, textarea.invalid {
         padding: 4px 0;
     }
 
-    #footer h4 {
+    #footer h5 {
         margin-bottom: 15px;
     }
 

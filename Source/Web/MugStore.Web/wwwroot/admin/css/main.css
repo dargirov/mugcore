@@ -100,3 +100,12 @@
 .order-note-container {
     display: none;
 }
+
+.hidden {
+    display: none;
+}
+
+.table-orders textarea {
+    width: 0px;
+    height: 0px;
+}

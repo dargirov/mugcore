@@ -6,6 +6,11 @@
         @{
             var parms = new Dictionary<string, string> { ["All"] = Model.All ? string.Empty : "true" };
             var active = Model.All ? "active" : string.Empty;
+            var colorMapping = new Dictionary<string, string>
+            {
+                ["std"] = "бял",
+                ["yellow"] = "жълт",
+            };
         }
         <a asp-action="index" asp-all-route-data="parms" class="btn btn-secondary btn-sm @active">Show all</a>
     </div>
@@ -64,10 +69,20 @@
                                 }
                                 <li><span class="tag tag-default">Address</span> @order.DeliveryInfo.City.Name (@order.DeliveryInfo.City.PostCode), @order.DeliveryInfo.Address</li>
                                 <li><span class="tag tag-default">Phone</span> @order.DeliveryInfo.Phone</li>
+                                <li><span class="tag tag-default">Color</span> @order.Color</li>
                                 @if (!string.IsNullOrWhiteSpace(order.DeliveryInfo.Comment))
                                 {
                                     <li><span class="tag tag-default">Comment</span> @order.DeliveryInfo.Comment</li>
                                 }
+                                <li>
+                                    <a class="btn btn-sm btn-secondary copy-delivery-btn">Copy</a>
+                                    <textarea>@order.DeliveryInfo.FullName
+@order.DeliveryInfo.Courier?.Name
+@order.DeliveryInfo.City.Name (@order.DeliveryInfo.City.PostCode), @order.DeliveryInfo.Address
+@order.DeliveryInfo.Phone
+@order.Quantity бр. - цвят: @(order.Color != null && colorMapping.ContainsKey(order.Color) ? colorMapping[order.Color] : order.Color)
+---------------------------</textarea>
+                                </li>
                             </ul>
                         </td>
                         <td>
@@ -193,7 +208,13 @@
                         }
                     });
             }
-            
+
+            $('.copy-delivery-btn').on('click', function (e) {
+                var copyText = $(this).parent().find('textarea');
+                copyText.select();
+                document.execCommand("copy");
+            });
+
         });
     </script>
 }
