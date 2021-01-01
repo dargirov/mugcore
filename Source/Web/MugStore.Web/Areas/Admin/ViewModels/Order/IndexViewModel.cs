@@ -6,5 +6,7 @@ namespace MugStore.Web.Areas.Admin.ViewModels.Order
     {
         public IEnumerable<Data.Models.Order> Orders { get; set; }
         public bool All { get; set; }
+        public int Pages { get; set; }
+        public int CurrentPage { get; set; }
     }
 }

@@ -168,6 +168,22 @@
     </div>
 </div>
 
+@if (!Model.All)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.Pages; i++)
+                {
+                    var activePage = Model.CurrentPage == i ? " active" : string.Empty;
+                    var routeData = new Dictionary<string, string> { ["page"] = i.ToString() };
+                    <li class="page-item @activePage"><a class="page-link" asp-action="Index" asp-controller="Order" asp-all-route-data="routeData">@i</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
 @section scripts {
     <script>
         $(function () {

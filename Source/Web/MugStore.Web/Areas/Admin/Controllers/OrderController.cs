@@ -6,6 +6,7 @@ using MugStore.Web.Areas.Admin.ViewModels.Order;
 using MugStore.Web.Controllers;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace MugStore.Web.Areas.Admin.Controllers
 {
@@ -13,6 +14,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
     [Authorize(Policy = "LoggedIn")]
     public class OrderController : BaseController
     {
+        private int PageSize => 100;
         private readonly IOrdersService orders;
         private readonly IImagesService images;
 
@@ -25,20 +27,33 @@ namespace MugStore.Web.Areas.Admin.Controllers
         public IActionResult Index(IndexInputModel model)
         {
             var orders = this.orders.Get();
+            var page = model.Page > 0 ? model.Page : 1;
+            var ordersCount = 0;
 
-            if (!model.All)
+            if (model.All)
             {
-                orders = orders.Where(x =>
-                    (x.ConfirmationStatus == ConfirmationStatus.Confirmed || x.ConfirmationStatus == ConfirmationStatus.Pending)
-                    && (x.OrderStatus == OrderStatus.InProgress || x.OrderStatus == OrderStatus.Sent || x.OrderStatus == OrderStatus.Finalized));
+                orders = orders.OrderByDescending(o => o.Id);
+                ordersCount = this.orders.Get().Count();
             }
-
-            orders = orders.OrderByDescending(o => o.Id);
+            else
+            {
+                Expression<Func<Order, bool>> statusPredicate = x =>
+                    (x.ConfirmationStatus == ConfirmationStatus.Confirmed || x.ConfirmationStatus == ConfirmationStatus.Pending)
+                    && (x.OrderStatus == OrderStatus.InProgress || x.OrderStatus == OrderStatus.Sent || x.OrderStatus == OrderStatus.Finalized);
+                orders = orders
+                    .Where(statusPredicate)
+                    .OrderByDescending(o => o.Id)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize);
+                ordersCount = this.orders.Get().Where(statusPredicate).Count();
+            }
 
             var viewModel = new IndexViewModel()
             {
                 Orders = orders.ToList(),
-                All = model.All
+                All = model.All,
+                Pages = (int)Math.Ceiling((decimal)ordersCount / PageSize),
+                CurrentPage = page,
             };
 
             return this.View(viewModel);
@@ -84,21 +99,18 @@ namespace MugStore.Web.Areas.Admin.Controllers
 
         public IActionResult UploadedImages(int page = 1)
         {
-            const int pageSize = 100;
-
             var images = this.images
                 .Get()
                 .OrderByDescending(i => i.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
                 .ToList();
             var imagesCount = this.images.Get().Count();
 
             var viewModel = new UploadedImagesViewModel()
             {
                 Images = images,
-                ImagesCount = imagesCount,
-                Pages = (int)Math.Ceiling((decimal)imagesCount / pageSize),
+                Pages = (int)Math.Ceiling((decimal)imagesCount / PageSize),
                 CurrentPage = page
             };
 
