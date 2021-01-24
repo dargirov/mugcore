@@ -109,10 +109,9 @@
     </div>
 </section>
 
-@if (Model.BlogPosts.Count() > 0)
-{
-    <section id="blog-posts" class="blog-post-@Model.MugInfoType-inv">
-        <div class="site-section">
+<section id="blog-social-feed" class="blog-post-@Model.MugInfoType-inv">
+    <div class="site-section">
+        <div id="blog-posts">
             <h2>Блог</h2>
             <div>
                 <ul>
@@ -126,8 +125,11 @@
                 </ul>
             </div>
         </div>
-    </section>
-}
+        <div>
+            <div class="fb-page" data-href="https://www.facebook.com/chasha.snimki/" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/chasha.snimki/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/chasha.snimki/">Чаша със снимка</a></blockquote></div>
+        </div>
+    </div>
+</section>
 
 @section scripts {
     <script src="~/js/libs/jquery.colorbox-min.js"></script>
