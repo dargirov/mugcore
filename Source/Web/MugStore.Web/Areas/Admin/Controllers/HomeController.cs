@@ -7,6 +7,7 @@ using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.Areas.Admin.ViewModels.Home;
 using MugStore.Web.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,7 +34,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
         }
 
         [Authorize(Policy = "LoggedIn")]
-        public IActionResult Index()
+        public IActionResult Index(DateTime? from, DateTime? to)
         {
             var orders = this.orders.Get().Where(o => o.ConfirmationStatus != ConfirmationStatus.Denied).ToList();
             var bulletins = this.bulletins.Get().OrderByDescending(b => b.Id).ToList();
@@ -49,6 +50,8 @@ namespace MugStore.Web.Areas.Admin.Controllers
                 }
             }
 
+            var firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
             var viewModel = new IndexViewModel()
             {
                 Orders = orders,
@@ -58,6 +61,8 @@ namespace MugStore.Web.Areas.Admin.Controllers
                 Feedbacks = feedbacks,
                 LogErrorMessages = this.logger.GetLogMessages(x => x.Code == "500"),
                 LogNotFoundMessages = this.logger.GetLogMessages(x => x.Code == "400"),
+                StatsFrom = from ?? firstDayOfMonth,
+                StatsTo = to?.AddHours(23).AddMinutes(59).AddSeconds(59) ?? firstDayOfMonth.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59),
             };
 
             return this.View(viewModel);

@@ -1,4 +1,5 @@
 ﻿using MugStore.Data.Models;
+using System;
 using System.Collections.Generic;
 
 namespace MugStore.Web.Areas.Admin.ViewModels.Home
@@ -18,5 +19,9 @@ namespace MugStore.Web.Areas.Admin.ViewModels.Home
         public IEnumerable<Log> LogErrorMessages { get; set; }
 
         public IEnumerable<Log> LogNotFoundMessages { get; set; }
+
+        public DateTime StatsFrom { get; set; }
+
+        public DateTime StatsTo { get; set; }
     }
 }

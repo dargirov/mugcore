@@ -110,6 +110,61 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-5">
+        <h3>Orders' stats</h3>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <form action="@Url.Action("index", "home")" method="get">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <fieldset class="form-group">
+                                <input type="date" class="form-control" name="from" value="@Model.StatsFrom.ToString("yyyy-MM-dd")">
+                            </fieldset>
+                        </div>
+                        <div class="col-md-5">
+                            <fieldset class="form-group">
+                                <input type="date" class="form-control" name="to" value="@Model.StatsTo.ToString("yyyy-MM-dd")">
+                            </fieldset>
+                        </div>
+                        <div class="col-md-2">
+                            <fieldset class="form-group">
+                                <input type="submit" class="btn btn-secondary" value="Go">
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            @{
+                var filteredByDateOrders = Model.Orders.Where(x => x.CreatedOn >= Model.StatsFrom && x.CreatedOn <= Model.StatsTo && x.OrderStatus == OrderStatus.Finalized).ToList();
+            }
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@filteredByDateOrders.Count</span>
+                <h6 class="list-group-item-heading">Orders</h6>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@filteredByDateOrders.Sum(x => x.Quantity)</span>
+                <h6 class="list-group-item-heading">Mugs</h6>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@filteredByDateOrders.Where(x => x.Color == "std").Sum(x => x.Quantity)</span>
+                <h6 class="list-group-item-heading">Std</h6>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@filteredByDateOrders.Where(x => x.Color == "yellow").Sum(x => x.Quantity)</span>
+                <h6 class="list-group-item-heading">Yellow</h6>
+            </li>
+            <li class="list-group-item">
+                <span class="tag tag-default tag-pill pull-xs-right">@filteredByDateOrders.Where(x => x.Color == "red").Sum(x => x.Quantity)</span>
+                <h6 class="list-group-item-heading">Red</h6>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-6 offset-md-1">
+    </div>
+</div>
+
 @section scripts {
     <script src="~/admin/js/index.js"></script>
 }
