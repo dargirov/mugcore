@@ -50,14 +50,13 @@ var Cart = (function ($, Notification) {
 
             var images = MAX_IMAGE_COUNT - _mug.getImagesCount();
             if (images > 0) {
-                var uploadMoreNotificationPlacement = window.innerWidth > _breakWidth ? 'top' : 'bottom';
-                Notification.show({ selector: '#canvas-container-right input[type=file]', content: 'Може да качите още ' + images + ' ' + (images === 1 ? 'изображение' : 'изображения'), placement: uploadMoreNotificationPlacement, timeout: 4000, width: 270 });
+                Notification.show({ selector: '#canvas-container-right input[type=file]', content: 'Може да качите още ' + images + ' ' + (images === 1 ? 'изображение' : 'изображения'), placement: 'top', timeout: 5000, width: 270 });
             } else {
                 $('#canvas-container-right input[type=file]').prop('disabled', true);
             }
 
-            if (images === 2 && window.innerWidth > _breakWidth) {
-                Notification.show({ selector: '.move-controls', content: 'Използвайте стрелките за да преместите снимката върху чашата', placement: 'left', timeout: false, width: 190 });
+            if (images === 2) {
+                Notification.show({ selector: '.move-controls', content: 'Използвайте стрелките за да преместите снимката върху чашата', placement: window.innerWidth > _breakWidth ? 'left' : 'right', timeout: 6000, width: 190 });
             }
 
             if (data.width < 1500 && data.height < 700 && data.dpi < 120) {

@@ -237,7 +237,7 @@ canvas {
     text-transform: uppercase;
 }
 
-input[type=text], input[type=email], textarea, select {
+input[type=text], input[type=tel], input[type=email], textarea, select {
     width: 100%;
     background-color: white;
     border: 1px solid #D4D4D4;
@@ -418,8 +418,12 @@ textarea {
     /*height: 40px;*/
     display: inline-block;
     margin-bottom: 10px;
+    outline: none;
 }
 
+.move-controls img {
+    outline: none;
+}
 
 .hidden {
     display: none;
@@ -429,7 +433,7 @@ textarea {
 #step2 table {
     width: 100%;
     font-family: 'Comfortaa', cursive;
-    font-size: 13px;
+    font-size: 14px;
     color: black;
 }
 
@@ -452,6 +456,10 @@ textarea {
 #about-us-stats dt, #about-us-stats dd {
     display: inline-block;
     width: 100px;
+}
+
+#quantity-range {
+    height: 30px;
 }
 
 #about-us-stats ul {
@@ -950,6 +958,14 @@ input.invalid, textarea.invalid {
 
 #step4-fblink {
     margin-top: 12px;
+    font-family: Tahoma;
+    font-size: 15px;
+    color: #333;
+}
+
+#step4-fblink a {
+    font-size: 40px !important;
+    margin-right: 10px;
 }
 
 .how-to-create-dark {
@@ -1660,7 +1676,7 @@ input.invalid, textarea.invalid {
         font-size: 16px;
     }
 
-    input[type=text], input[type=email], select {
+    input[type=text], input[type=tel], input[type=email], select {
         height: 40px;
     }
 
