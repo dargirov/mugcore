@@ -255,6 +255,24 @@ var Cart = (function ($, Notification) {
                                 value: data.price.toFixed(2),
                                 currency: 'BGN',
                             });
+
+                            // Google tag manager purchase event
+                            gtag('event', 'purchase', {
+                                "transaction_id": data.acronym,
+                                "value": data.price.toFixed(2),
+                                "currency": "BGN",
+                                "shipping": 0,
+                                "items": [
+                                    {
+                                        "id": data.acronym,
+                                        "name": "Mug",
+                                        "variant": data.color,
+                                        "list_position": 1,
+                                        "quantity": data.quantity,
+                                        "price": data.price.toFixed(2)
+                                    }
+                                ]
+                            });
                         }
                     });
             }

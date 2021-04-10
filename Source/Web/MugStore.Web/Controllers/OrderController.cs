@@ -173,6 +173,7 @@ namespace MugStore.Web.Controllers
                 courier = courier?.Name,
                 quantity = order.Quantity,
                 price = CalculateTotalPrice(order),
+                color = order.Color,
             };
 
             return this.Json(result);
