@@ -109,3 +109,8 @@
     width: 0px;
     height: 0px;
 }
+
+.order-note-container textarea {
+    min-width: 70px;
+    min-height: 50px;
+}
