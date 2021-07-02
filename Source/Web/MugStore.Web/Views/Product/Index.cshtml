@@ -130,7 +130,7 @@
                 <input type="text" name="phone" id="phone-field" placeholder="Тел. за контакт">
                 <div id="email-address-container">
                     <input type="email" name="email" id="email-field" placeholder="Email адрес (незадължително)">
-                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; изпратим поръчката." data-placement="top-left" data-animation="pop"></i>
+                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; предадем поръчката на куриера." data-placement="top-left" data-animation="pop"></i>
                 </div>
                 <select name="city" id="city-dd">
                     @foreach (var city in ViewBag.Cities)
@@ -147,7 +147,7 @@
                         }
                     </select>
                 }
-                <textarea name="address" id="address-field" placeholder="Адрес за доставка"></textarea>
+                <textarea name="address" id="address-field" placeholder="Адрес за доставка или офис на куриер"></textarea>
                 <textarea name="comment" id="comment-field" placeholder="Коментар / забележка (незадължително)"></textarea>
                 <input type="hidden" id="quantity-range" value="1">
                 <input type="hidden" id="payment-method" value="1">
