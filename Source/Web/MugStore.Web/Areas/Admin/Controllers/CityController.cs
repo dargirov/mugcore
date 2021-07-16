@@ -15,9 +15,9 @@ namespace MugStore.Web.Areas.Admin.Controllers
     public class CityController : BaseController
     {
         private readonly ICitiesService cities;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public CityController(ICitiesService cities, IHostingEnvironment hostingEnvironment)
+        public CityController(ICitiesService cities, IWebHostEnvironment hostingEnvironment)
         {
             this.cities = cities;
             this.hostingEnvironment = hostingEnvironment;

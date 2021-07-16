@@ -1,21 +1,26 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MugStore.Data;
 using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.Attributes;
 using MugStore.Web.Infrastructure.Mapping;
+using MugStore.Web.Middlewares;
 
 namespace MugStore.Web
 {
@@ -40,7 +45,8 @@ namespace MugStore.Web
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddSession();
 
             services.AddAuthentication().AddCookie(options => options.LoginPath = "/Admin/Home/Login");
@@ -52,6 +58,18 @@ namespace MugStore.Web
                     policy.Requirements.Add(new LoggedInRequirement());
                     policy.AuthenticationSchemes = new List<string>() { CookieAuthenticationDefaults.AuthenticationScheme };
                 });
+            });
+
+            services.AddAntiforgery(options =>
+            {
+                options.SuppressXFrameOptionsHeader = true; // This header is not added automatically, so I add it in middleware.
+            });
+
+            services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(90);
+                options.IncludeSubDomains = true;
+                options.Preload = true;
             });
 
             services.AddTransient(typeof(IDbRepository<>), typeof(DbRepository<>));
@@ -78,7 +96,7 @@ namespace MugStore.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -91,6 +109,7 @@ namespace MugStore.Web
             }
 
             app.UseSession();
+            app.UseMiddleware<SecurityHeadersMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -102,6 +121,7 @@ namespace MugStore.Web
                 }
             });
 
+            // Fix redurect to 404 page and send response code 404
             app.Use(async (ctx, next) =>
             {
                 await next();
@@ -116,38 +136,43 @@ namespace MugStore.Web
                 }
             });
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
                     name: "Image",
-                    template: "Download/{name}",
+                    pattern: "Download/{name}",
                     defaults: new { controller = "Image", action = "Index" });
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "ProductImage",
-                    template: "DownloadProductImage/{name}",
+                    pattern: "DownloadProductImage/{name}",
                     defaults: new { controller = "Image", action = "ProductImage" });
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "GalleryCategory",
-                    template: "gallery/{acronym}",
+                    pattern: "gallery/{acronym}",
                     defaults: new { controller = "Gallery", action = "Category" });
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "Tag",
-                    template: "tag/{acronym}",
+                    pattern: "tag/{acronym}",
                     defaults: new { controller = "Gallery", action = "Tag" });
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "Product",
-                    template: "p/{acronym}",
+                    pattern: "p/{acronym}",
                     defaults: new { controller = "Product", action = "Index" });
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "BlogPost",
-                    template: "blog/{acronym}",
+                    pattern: "blog/{acronym}",
                     defaults: new { controller = "Blog", action = "Post" });
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

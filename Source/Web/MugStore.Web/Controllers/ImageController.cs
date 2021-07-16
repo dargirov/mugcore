@@ -14,10 +14,10 @@ namespace MugStore.Web.Controllers
     public class ImageController : BaseController
     {
         private readonly IImagesService images;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly ILoggerService loggerService;
 
-        public ImageController(IImagesService images, IHostingEnvironment hostingEnvironment, ILoggerService loggerService)
+        public ImageController(IImagesService images, IWebHostEnvironment hostingEnvironment, ILoggerService loggerService)
         {
             this.images = images;
             this.hostingEnvironment = hostingEnvironment;
@@ -43,8 +43,16 @@ namespace MugStore.Web.Controllers
                 return NotFound(name);
             }
 
-            this.HttpContext.Response.Headers.Add("Cache-Control", "public,max-age=31536000");
-            this.HttpContext.Response.Headers.Add("Expires", DateTime.UtcNow.AddYears(1).ToString("R", CultureInfo.InvariantCulture));
+            if (!this.HttpContext.Response.Headers.ContainsKey("Cache-Control"))
+            {
+                this.HttpContext.Response.Headers.Add("Cache-Control", "public,max-age=31536000");
+            }
+
+            if (!this.HttpContext.Response.Headers.ContainsKey("Expires"))
+            {
+                this.HttpContext.Response.Headers.Add("Expires", DateTime.UtcNow.AddYears(1).ToString("R", CultureInfo.InvariantCulture));
+            }
+
             return DownloadImage(image.ContentType, Path.Combine(GlobalConstants.PathToGalleryImages, image.Path), image.Name);
         }
 
@@ -73,7 +81,7 @@ namespace MugStore.Web.Controllers
                 {
                     width = sharpImage.Width;
                     height = sharpImage.Height;
-                    dpi = sharpImage.MetaData.HorizontalResolution; // This value is not always correct !!!
+                    dpi = sharpImage.Metadata.HorizontalResolution; // This value is not always correct !!!
                 }
 
                 if (width == default(int) || height == default(int))

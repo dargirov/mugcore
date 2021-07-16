@@ -15,7 +15,7 @@ using MugStore.Data.Models;
 using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.ViewModels.Home;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace MugStore.Web.Controllers
 {
@@ -115,7 +115,7 @@ namespace MugStore.Web.Controllers
 
                     var url = configuration["AppSettings:ReCaptchaUrl"];
                     var response = wb.UploadValues(url, "POST", data);
-                    dynamic googleResponse = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(response));
+                    dynamic googleResponse = JsonSerializer.Deserialize<dynamic>(Encoding.UTF8.GetString(response));
                     if (googleResponse.success == true)
                     {
                         this.feedbacks.Add(new Data.Models.Feedback()

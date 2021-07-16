@@ -8,7 +8,7 @@ using MugStore.Services.Common;
 using MugStore.Services.Data;
 using MugStore.Web.Areas.Admin.ViewModels.Product;
 using MugStore.Web.Controllers;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,9 +23,9 @@ namespace MugStore.Web.Areas.Admin.Controllers
         private readonly ICategoriesService categories;
         private readonly IProductsService products;
         private readonly ITagsService tags;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public ProductController(ICategoriesService categories, IProductsService products, ITagsService tags, IHostingEnvironment hostingEnvironment)
+        public ProductController(ICategoriesService categories, IProductsService products, ITagsService tags, IWebHostEnvironment hostingEnvironment)
         {
             this.categories = categories;
             this.products = products;
@@ -239,7 +239,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
 
                             if (product.PreviewData != null)
                             {
-                                var jsonData = JsonConvert.DeserializeObject<dynamic>(product.PreviewData);
+                                var jsonData = JsonSerializer.Deserialize<dynamic>(product.PreviewData);
                                 images = jsonData.images.ToObject<List<object>>();
                             }
 
@@ -251,7 +251,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
                                 images = images
                             };
 
-                            product.PreviewData = JsonConvert.SerializeObject(data);
+                            product.PreviewData = JsonSerializer.Serialize(data);
                             image.Preview3d = true;
                             break;
                         }
@@ -259,7 +259,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
                     case "remove":
                         {
                             var images = new List<object>();
-                            var jsonData = JsonConvert.DeserializeObject<dynamic>(product.PreviewData);
+                            var jsonData = JsonSerializer.Deserialize<dynamic>(product.PreviewData);
                             var imagesData = jsonData.images.ToObject<List<object>>();
                             foreach (var i in imagesData)
                             {
@@ -275,7 +275,7 @@ namespace MugStore.Web.Areas.Admin.Controllers
                                 images = images
                             };
 
-                            product.PreviewData = JsonConvert.SerializeObject(data);
+                            product.PreviewData = JsonSerializer.Serialize(data);
                             image.Preview3d = false;
                             break;
                         }

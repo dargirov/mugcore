@@ -166,7 +166,7 @@ var Cart = (function ($, Notification) {
 
             data.quantity = parseInt($('#quantity-range').val());
             //data.price = $('#single-price').data('price');
-            data.paymentMethod = $('#payment-method').val();
+            data.paymentMethod = parseInt($('#payment-method').val());
             if ($('#product-acronym') !== null) {
                 data.productAcronym = $('#product-acronym').val();
             }
