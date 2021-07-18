@@ -115,7 +115,11 @@ namespace MugStore.Web.Controllers
 
                     var url = configuration["AppSettings:ReCaptchaUrl"];
                     var response = wb.UploadValues(url, "POST", data);
-                    var googleResponse = JsonSerializer.Deserialize<ReCaptchaV2Dto>(Encoding.UTF8.GetString(response));
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
+                    var googleResponse = JsonSerializer.Deserialize<ReCaptchaV2Dto>(Encoding.UTF8.GetString(response), options);
                     if (googleResponse.Success == true)
                     {
                         this.feedbacks.Add(new Data.Models.Feedback()
