@@ -22,7 +22,7 @@
             Имате нужда от много еднакви <strong>чаши за фирма</strong>, парти или друго мероприятие? Направете поръчка и напишете като коментар вашите изисквания или се <a asp-controller="home" asp-action="contacts" class="link">свържете</a> с нас.
         </div>
         <div>
-            <img src="~/images/chashi.jpg" alt="фирмени чаши">
+            <img src="~/images/chashi.jpg" width="291" height="88" alt="Фирмени чаши">
         </div>
     </div>
 </section>
@@ -30,22 +30,22 @@
 <div id="features" class="site-section">
     <ul>
         <li>
-            <strong><img src="~/images/icon_truck.svg" alt="Доставка">Доставка</strong>
+            <strong><img src="~/images/icon_truck.svg" width="50" height="50" alt="Доставка">Доставка</strong>
             По ваш избор от куриерска фирма Еконт, Спиди или Лео Експрес като всяка пратка се изпраща със застраховка.
         </li>
         @if (ViewBag.FashShippingEnabled == true)
         {
             <li>
-                <strong><img src="~/images/icon_truck_fast.svg" alt="Бърза избработка">Бърза изработка</strong>
+                <strong><img src="~/images/icon_truck_fast.svg" width="50" height="50" alt="Бърза избработка">Бърза изработка</strong>
                 Поръчките се обработват и изпращат в рамките на същия или следващия работен ден.
             </li>
         }
         <li>
-            <strong><img src="~/images/icon_return.svg" alt="Връщане на продукт">Връщане на продукт</strong>
+            <strong><img src="~/images/icon_return.svg" width="50" height="50" alt="Връщане на продукт">Връщане на продукт</strong>
             Продукти от нашата галерия могат да бъдат върнати, заменени или да възстановим сумата.
         </li>
         <li>
-            <strong><img src="~/images/icon_quality.svg" alt="Високо качество">Високо качество</strong>
+            <strong><img src="~/images/icon_quality.svg" width="50" height="50" alt="Високо качество">Високо качество</strong>
             Отделяме внимание на всяка пoръчка за да сме сигурни, че крайният резултат ще бъде с необходимото качество.
         </li>
     </ul>
@@ -70,7 +70,7 @@
                     </li>
                 </ul>
             </div>
-            <div><img src="~/images/mug-@(Model.MugInfoType).jpg" alt="Примерна чаша със снимка"></div>
+            <div><img src="~/images/mug-@(Model.MugInfoType).jpg" width="474" height="518" alt="Примерна чаша със снимка"></div>
             <div>
                 <ul id="how-to-info-right">
                     <li>
@@ -97,7 +97,7 @@
                     {
                         <li class="touchcarousel-item">
                             <a asp-route="Product" asp-route-acronym="@product.Acronym">
-                                <img src="@Url.RouteUrl("ProductImage", new { name = product.Images.Where(i => i.Thumb).First().Name })" alt="@(product.PageTitle?.Replace("\"", ""))">
+                                <img src="@Url.RouteUrl("ProductImage", new { name = product.Images.Where(i => i.Thumb).First().Name })" width="200" height="200" alt="@(product.PageTitle?.Replace("\"", ""))">
                             </a>
                             <strong>@product.Title</strong>
                             <a asp-route="Product" asp-route-acronym="@product.Acronym" class="blue-btn">Виж повече</a>

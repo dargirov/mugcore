@@ -1365,6 +1365,7 @@ input.invalid, textarea.invalid {
 
 #features strong {
     display: flex;
+    align-items: center;
     flex-direction: column;
     color: #343434;
     font-size: 15px;
