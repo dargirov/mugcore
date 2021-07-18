@@ -4,7 +4,7 @@
             <div id="color-dropdown">
                 @if (this.ViewBag.ColorMugsEnabled)
                 {
-                    <a data-enabled="true" data-color="std"><span>Цвят: Бял</span><span><i class="fas fa-caret-down"></i></span></a>
+                    <a data-enabled="true" data-color="std"><span>Цвят: Бял</span><span><img src="~/images/icon_caret_down.svg" alt="Избери цвят за чаша"></span></a>
                     <ul>
                         <li><a data-color="std" data-price="@ViewBag.SingleMugPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" data-price-msrp="@ViewBag.SingleMugMsrpPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"><img src="~/images/mug_color_white.png" alt="Чаша цвят бял"> Бял</a></li>
                         @foreach (ColorMugModel colorMug in this.ViewBag.ColorMugs)
@@ -33,7 +33,7 @@
                     <div id="canvas-price-container-msrp"><s><span>@ViewBag.SingleMugMsrpPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) лв.</span></s> <i>-@ViewBag.Decrease%</i></div>
                 </div>
                 <label>
-                    <strong><span class="circle">1</span> Качи изображение <i class="far fa-question-circle" aria-hidden="true" id="image-help" data-url="@Url.Action("ImageHelp", "Home")"></i></strong>
+                    <strong><span class="circle">1</span> Качи изображение <img src="~/images/icon_question.svg" alt="Размери на изображението" id="image-help" data-url="@Url.Action("ImageHelp", "Home")"></strong>
                     <input type="file">
                 </label>
                 <div id="customization-controls-container" class="hidden">
@@ -88,7 +88,7 @@
                             @if (ViewBag.DeliveryPrice == 0)
                             {
                                 @:за ваша сметка
-                                <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя&lt;br&gt;от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop"></i>
+                                <img src="~/images/icon_question.svg" alt="Информация за доставка" class="popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя&lt;br&gt;от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop">
                             }
                             else
                             {
@@ -109,7 +109,7 @@
                 </select>
 
                 <a href="#" id="goto-step3" class="blue-btn">Напред</a>
-                <i class="fas fa-long-arrow-alt-left order-back" data-to-step="1"></i>
+                <img src="~/images/icon_back.svg" alt="Стъпка назад" class="order-back" data-to-step="1">
             </div>
 
             <div id="step3" class="hidden">
@@ -118,7 +118,7 @@
                 <input type="tel" name="phone" id="phone-field" placeholder="Тел. за контакт">
                 <div id="email-address-container">
                     <input type="email" name="email" id="email-field" placeholder="Email адрес (незадължително)">
-                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; предадем поръчката на куриера." data-placement="top-left" data-animation="pop"></i>
+                    <img src="~/images/icon_question.svg" alt="Email адрес" class="popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; предадем поръчката на куриера." data-placement="top-left" data-animation="pop">
                 </div>
                 <select name="city" id="city-dd">
                     @foreach (var city in ViewBag.Cities)
@@ -145,7 +145,7 @@
                 <textarea name="comment" id="comment-field" placeholder="Коментар / забележка (незадължително)"></textarea>
 
                 <a href="#" data-url="@Url.Action("Create", "Order")" data-send-email-url="@Url.Action("SendEmail", "Order")" class="blue-btn" id="create-order-btn">Поръчай</a>
-                <i class="fas fa-long-arrow-alt-left order-back" data-to-step="2"></i>
+                <img src="~/images/icon_back.svg" class="order-back" data-to-step="2">
             </div>
 
             <div id="step4" class="hidden">
@@ -160,7 +160,7 @@
                     <li>Количество: <b id="step4-quantity"></b></li>
                     <li>Крайна цена: <b id="step4-price"></b></li>
                 </ol>
-                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="250"></i></div>
+                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <img src="~/images/icon_question.svg" alt="Информация за доставка" class="popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="250"></div>
                 <div id="step4-feedback">
                     <label for="step4-feedback-textarea">От къде научихте за нас?</label>
                     <form id="step4-feedback-container" method="post" action="@Url.Action("Feedback", "Order")">
@@ -170,8 +170,8 @@
                 </div>
                 <div id="step4-fblink">
                     Последвайте ни<br>
-                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><i class="fab fa-facebook-square"></i></a>
-                    <a href="https://www.instagram.com/chasha.snimki/" target="_blank" rel="noreferrer"><i class="fab fa-instagram-square"></i></a>
+                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><img src="~/images/icon_facebook.svg" alt="Вижте нашата facebook страница"></a>
+                    <a href="https://www.instagram.com/chasha.snimki/" target="_blank" rel="noreferrer"><img src="~/images/icon_instagram.svg" alt="Последвайте ни в Instagram"></a>
                 </div>
             </div>
         </div>

@@ -115,8 +115,8 @@ namespace MugStore.Web.Controllers
 
                     var url = configuration["AppSettings:ReCaptchaUrl"];
                     var response = wb.UploadValues(url, "POST", data);
-                    dynamic googleResponse = JsonSerializer.Deserialize<dynamic>(Encoding.UTF8.GetString(response));
-                    if (googleResponse.success == true)
+                    var googleResponse = JsonSerializer.Deserialize<ReCaptchaV2Dto>(Encoding.UTF8.GetString(response));
+                    if (googleResponse.Success == true)
                     {
                         this.feedbacks.Add(new Data.Models.Feedback()
                         {
@@ -255,6 +255,12 @@ namespace MugStore.Web.Controllers
 
             XDocument document = new XDocument(root);
             return document.ToString();
+        }
+
+        private class ReCaptchaV2Dto
+        {
+            public bool Success { get; set; }
+            public string Hostname { get; set; }
         }
     }
 }

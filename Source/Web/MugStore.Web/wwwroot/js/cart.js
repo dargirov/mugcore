@@ -5,12 +5,13 @@ var Cart = (function ($, Notification) {
     var MAX_IMAGE_COUNT = 3;
 
     function addLoader() {
-        var html = '<div id="upload-loader"><div class="fa-5x"><i class="fas fa-sync fa-spin"></i></div></div>';
+        var html = '<div id="overlay"></div><div id="upload-loader"><img src="/images/icon_loading.svg"></div>';
         $('body').append(html);
     }
 
     function removeLoader() {
         $('#upload-loader').remove();
+        $('#overlay').remove();
     }
 
     function bindUpload() {
@@ -216,7 +217,7 @@ var Cart = (function ($, Notification) {
 
             if (!invalidInput) {
                 orderCreateStarted = true;
-                $(this).prepend('<i class="fas fa-sync fa-spin"></i>');
+                $(this).prepend('<img src="/images/icon_loading2.svg">');
                 $.ajax({ method: "POST", url: url, data: JSON.stringify(data), contentType: "application/json; charset=utf-8" })
                     .done(function (data) {
                         orderCreateStarted = false;

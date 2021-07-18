@@ -445,7 +445,8 @@ textarea {
 }
 
 .order-back {
-    font-size: 36px !important;
+    width: 36px;
+    height: 36px;
     cursor: pointer;
 }
 
@@ -762,6 +763,8 @@ input.invalid, textarea.invalid {
 
 #image-help {
     cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
 
 .image-help-colorbox h1 {
@@ -811,6 +814,11 @@ input.invalid, textarea.invalid {
     margin-bottom: 10px;
 }
 
+#product-price-info img {
+    width: 15px;
+    height: 15px;
+}
+
 #footer div div > h5:nth-of-type(2) {
     margin-top: 20px;
 }
@@ -826,10 +834,10 @@ input.invalid, textarea.invalid {
     text-decoration: none;
 }
 
-#product-details-full-info i {
-    color: #0fcabf;
-    font-size: 30px;
-    padding-right: 15px;
+#product-details-full-info img {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
 }
 
 #product-details-full-info div:nth-child(2n) {
@@ -926,6 +934,11 @@ input.invalid, textarea.invalid {
     margin-top: 12px;
 }
 
+#step4-delivery-fee img {
+    width: 14px;
+    height: 14px;
+}
+
 #step4-feedback {
     font-family: Tahoma;
     font-size: 14px;
@@ -964,8 +977,13 @@ input.invalid, textarea.invalid {
 }
 
 #step4-fblink a {
-    font-size: 40px !important;
     margin-right: 10px;
+}
+
+#step4-fblink img {
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
 }
 
 .how-to-create-dark {
@@ -1203,14 +1221,10 @@ input.invalid, textarea.invalid {
     font-family: 'Comfortaa', sans-serif;
 }
 
-#shipping > div:first-of-type, #vacation > div:first-of-type {
-    font-size: 42px;
-    padding: 0 20px;
-    color: #03bf2b;
-}
-
-#vacation > div:first-of-type {
-    color: #ca1414;
+#shipping > div:first-of-type img, #vacation > div:first-of-type img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
 }
 
 #shipping p:first-of-type, #vacation p:first-of-type {
@@ -1229,17 +1243,26 @@ input.invalid, textarea.invalid {
     transform: translate(-40px);
 }
 
+#upload-loader img {
+    width: 150px;
+    height: 150px;
+}
+
 #social-media-links {
     display: block;
-    color: white;
-    font-size: 32px;
     margin-top: 10px;
 }
 
 #social-media-links a {
-    display: block;
-    color: inherit;
+    display: flex;
+    align-items: center;
     text-decoration: none;
+    color: #fff;
+    margin-top: 10px;
+}
+
+#social-media-links a img {
+    height: 30px;
 }
 
 #social-media-links a span {
@@ -1259,6 +1282,11 @@ input.invalid, textarea.invalid {
 #email-address-container {
     display: flex;
     align-items: center;
+}
+
+#email-address-container img {
+    width: 16px;
+    height: 16px;
 }
 
 #email-field {
@@ -1303,12 +1331,21 @@ input.invalid, textarea.invalid {
     max-width: 600px;
 }
 
-#order-page .fas {
-    color: #0fcabf;
+#order-page td img {
+    width: 15px;
+    height: 15px;
 }
 
-#create-order-btn i {
+#create-order-btn {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    justify-content: center;
+}
+
+#create-order-btn img {
     margin-right: 10px;
+    height: 30px;
 }
 
 #features ul {
@@ -1327,17 +1364,16 @@ input.invalid, textarea.invalid {
 }
 
 #features strong {
-    display: block;
+    display: flex;
+    flex-direction: column;
     color: #343434;
     font-size: 15px;
     text-transform: uppercase;
     margin-bottom: 15px;
 }
 
-#features i {
-    display: block;
-    color: #217E79;
-    font-size: 40px;
+#features img {
+    height: 50px;
     margin-bottom: 15px;
 }
 
@@ -1397,6 +1433,11 @@ input.invalid, textarea.invalid {
     margin-right: 10px;
 }
 
+#color-dropdown > a img {
+    width: 10px;
+    height: 10px;
+}
+
 #faq {
     background-color: #333;
 }
@@ -1427,6 +1468,11 @@ input.invalid, textarea.invalid {
     margin: 10px 0;
 }
 
+#faq li > a > img {
+    width: 12px;
+    height: 12px;
+}
+
 #faq li > div {
     display: none;
     font-family: 'Comfortaa', cursive;
@@ -1440,8 +1486,21 @@ input.invalid, textarea.invalid {
     color: #fff;
 }
 
-@media all and (max-width: 1000px) {
+#overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(164, 164, 164, 0.5);
+}
 
+#delivery-fee img {
+    width: 14px;
+    height: 14px;
+}
+
+@media all and (max-width: 1000px) {
     body {
         overflow-x: hidden;
     }

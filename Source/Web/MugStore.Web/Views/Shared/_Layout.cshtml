@@ -6,7 +6,6 @@
     <meta name="description" content="@ViewBag.PageDescription">
     <title>@ViewBag.Title</title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
     <environment include="Development">
         <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/colorbox.css" asp-append-version="true" />
@@ -88,7 +87,7 @@
     @if (ViewBag.FashShippingEnabled == true)
     {
         <div id="shipping">
-            <div><i class="fas fa-shipping-fast"></i></div>
+            <div><img src="~/images/icon_delivery.svg" alt="Доставка на същия или следващия работен ден"></div>
             <div>
                 <p>Бърза изработка</p>
                 <p>Всяка поръчка се обработва и изпраща в рамките на същия или следващия работен ден.</p>
@@ -99,7 +98,7 @@
     @if (ViewBag.VacationEnabled == true)
     {
         <section id="vacation">
-            <div><i class="fas fa-umbrella-beach"></i></div>
+            <div><img src="~/images/icon_umbrella.svg" alt="На почивка сме"></div>
             <div>
                 <p>На почивка сме</p>
                 <p>@ViewBag.VacationMessage</p>
@@ -115,8 +114,8 @@
                 <h5>За нас</h5>
                 Фирмата се занимава с изработка на рекламни материали от 2004г. През това време успя да се наложи с качествена продукция и точността си към клиентите.
                 <span id="social-media-links">
-                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><i class="fab fa-facebook-square"></i><span>Вижте Facebook страницата ни</span></a>
-                    <a href="https://www.instagram.com/chasha.snimki/" target="_blank" rel="noreferrer"><i class="fab fa-instagram-square"></i><span>Последвайте ни в Instagram</span></a>
+                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><img src="~/images/icon_facebook.svg" alt="Вижте нашата facebook страница"><span>Вижте Facebook страницата ни</span></a>
+                    <a href="https://www.instagram.com/chasha.snimki/" target="_blank" rel="noreferrer"><img src="~/images/icon_instagram.svg" alt="Последвайте ни в Instagram"><span>Последвайте ни в Instagram</span></a>
                 </span>
             </div>
             <div>

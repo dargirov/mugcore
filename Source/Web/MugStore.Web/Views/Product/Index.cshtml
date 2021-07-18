@@ -58,13 +58,11 @@
         <div id="product-details-full-info">
             <ul>
                 <li>
-                    <div class="product-details-full-info-icon"><i class="fas fa-info-circle"></i></div>
+                    <div class="product-details-full-info-icon"><img src="~/images/icon_info.svg" alt="Информация"></div>
                     <div><strong>Информация</strong>Предлагаме ви керамичнa чаша със специално покритие предназначено за печат. Подходяща за използване в микровълнова печка или миялна машина.</div>
                 </li>
                 <li>
-                    <div class="product-details-full-info-icon">
-                        <i class="fas fa-beer"></i>
-                    </div>
+                    <div class="product-details-full-info-icon"><img src="~/images/icon_mug.svg" alt="Информация за чаша"></div>
                     <div>
                         <strong>Размери на продукт</strong>
                         <ol>
@@ -75,7 +73,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="product-details-full-info-icon"><i class="fas fa-comments"></i></div>
+                    <div class="product-details-full-info-icon"><img src="~/images/icon_chat.svg" alt="За контакти с нас"></div>
                     <div>
                         <strong>За консултация</strong>
                         Може да се свържете с нас чрез:
@@ -87,7 +85,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="product-details-full-info-icon"><i class="fas fa-truck"></i></div>
+                    <div class="product-details-full-info-icon"><img src="~/images/icon_truck.svg" alt="Информация за доставка"></div>
                     <div>
                         <strong>Доставка</strong>
                         Доставката
@@ -121,7 +119,7 @@
                 }
                 else
                 {
-                    @:в цената <b>не</b> е включена доставка <i class="far fa-question-circle popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="300"></i>
+                    @:в цената <b>не</b> е включена доставка <img src="/images/icon_question.svg" alt="Информация за доставка" class="popover" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="300">
                 }
             </h3>
             <div id="step3" class="hidden">
@@ -130,7 +128,7 @@
                 <input type="text" name="phone" id="phone-field" placeholder="Тел. за контакт">
                 <div id="email-address-container">
                     <input type="email" name="email" id="email-field" placeholder="Email адрес (незадължително)">
-                    <i class="far fa-question-circle popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; предадем поръчката на куриера." data-placement="top-left" data-animation="pop"></i>
+                    <img src="~/images/icon_question.svg" class="popover" data-title="Email адрес" data-content="Ще ви изпратим съобщение когато &lt;br&gt; предадем поръчката на куриера." data-placement="top-left" data-animation="pop">
                 </div>
                 <select name="city" id="city-dd">
                     @foreach (var city in ViewBag.Cities)
@@ -166,7 +164,7 @@
                     <li>Количество: <b id="step4-quantity"></b></li>
                     <li>Крайна цена: <b id="step4-price"></b></li>
                 </ol>
-                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <i class="far fa-question-circle popover" aria-hidden="true" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="250"></i></div>
+                <div id="step4-delivery-fee" class="hidden">* в цената не е включена доставка <img src="~/images/icon_question.svg" alt="Доставка" class="popover" aria-hidden="true" data-title="Информация за доставка" data-content="Доставката е за ваша сметка и се определя от тарифата на избраната куриерска фирма." data-placement="top-left" data-animation="pop" data-width="250"></div>
                 <div id="step4-feedback">
                     <label for="step4-feedback-textarea">От къде научихте за нас?</label>
                     <form id="step4-feedback-container" method="post" action="@Url.Action("Feedback", "Order")">
@@ -175,7 +173,9 @@
                     </form>
                 </div>
                 <div id="step4-fblink">
-                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer">Харесайте ни във Facebook <i class="fab fa-facebook-square"></i></a>
+                    Последвайте ни<br />
+                    <a href="https://www.facebook.com/chasha.snimki" target="_blank" rel="noreferrer"><img src="~/images/icon_facebook.svg" alt="Вижте нашата facebook страница"></a>
+                    <a href="https://www.instagram.com/chasha.snimki/" target="_blank" rel="noreferrer"><img src="~/images/icon_instagram.svg" alt="Последвайте ни в Instagram"></a>
                 </div>
             </div>
             <a href="#disabled" class="blue-btn" id="show-form-btn">Поръчай</a>
